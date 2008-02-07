@@ -17,7 +17,7 @@ Mass=80
 Components=WOOD=8;METL=6
 SolidMask=16,57,36,3,16,57
 TopFace=16,47,36,13,16,47
-Picture=1700,0,64,64
+Picture=1717,63,200,150
 Collection=-26,-30,50,30
 ContactIncinerate=5
 BlastIncinerate=35
