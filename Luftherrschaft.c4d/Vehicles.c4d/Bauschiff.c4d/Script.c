@@ -249,19 +249,21 @@ protected func ControlLeft(object controller)        // links
 protected func ControlDigDouble(object controller)	// doppelgraben
 {
 	[$TxtSplit$]
-	//if(GetID(Contents(0, controller)) == CRY2) {
+	if(GetID(Contents(0, controller)) == CRY2) {
 		var iX, iY;
 		for(var i; i < 360; i += RandomX(1, 10))
 		{
-			iX = Cos(i,50);
-			iY = Sin(i,50);
+			iX = Cos(i, RandomX(40, 50));
+			iY = Sin(i, RandomX(40, 50));
    		CreateParticle("PSpark", iX, iY, -iX, -iY, 30, RGB(255,255,255));
    	}
+   	Schedule("CreateParticle(\"PSpark\", 0, 0, 0, 0, 1000, RGB(204,204,204))", 10, 0, this);
+   	Schedule("CastParticles(\"NoGravSpark\", RandomX(10, 20), RandomX(10, 20), 0, 0, 5, 10, RGB(255, 255, 100), RGB(255, 255, 200))", 20, 0, this);
 		Schedule("Split2Components()", 20, 0, this);
-		Schedule("CreateParticle(\"PSpark\", 0, 0, 0, 0, 1000, RGB(204,204,204))", 10, 0, this);
-	/*}
+		RemoveObject(Contents(0, controller));
+	}
 	else
-		Sound("Error");*/
+		Sound("Error");
 }
 
 protected func ControlCommand(string szCommand,object pTarget,int iX,int iY)
