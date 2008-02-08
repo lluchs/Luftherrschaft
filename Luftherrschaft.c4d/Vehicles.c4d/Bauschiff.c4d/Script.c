@@ -246,6 +246,24 @@ protected func ControlLeft(object controller)        // links
   }
 }
 
+protected func ControlDigDouble(object controller)	// doppelgraben
+{
+	[$TxtSplit$]
+	//if(GetID(Contents(0, controller)) == CRY2) {
+		var iX, iY;
+		for(var i; i < 360; i += RandomX(1, 10))
+		{
+			iX = Cos(i,50);
+			iY = Sin(i,50);
+   		CreateParticle("PSpark", iX, iY, -iX, -iY, 30, RGB(255,255,255));
+   	}
+		Schedule("Split2Components()", 20, 0, this);
+		Schedule("CreateParticle(\"PSpark\", 0, 0, 0, 0, 1000, RGB(204,204,204))", 10, 0, this);
+	/*}
+	else
+		Sound("Error");*/
+}
+
 protected func ControlCommand(string szCommand,object pTarget,int iX,int iY)
 {
   // Pilot läßt los
