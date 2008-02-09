@@ -1,0 +1,6 @@
+- Mühle implementieren
+- Luftschiff: ActMap weißt noch einige Anzeigefehler auf
+- Ballon: Flagge tiefer setzen, der Rest sollte nun iO. sein
+- Basis implementieren
+- Kristall implementieren
+- DescUS überall
