@@ -257,7 +257,8 @@ protected func ControlDigDouble(object controller)	// doppelgraben
 			iY = Sin(i, RandomX(40, 50));
    		CreateParticle("PSpark", iX, iY, -iX, -iY, 30, RGB(255,255,255));
    	}
-   	Schedule("CreateParticle(\"PSpark\", 0, 0, 0, 0, 1000, RGB(204,204,204))", 10, 0, this);
+   	var iRan = RandomX(100, 255);
+   	Schedule(Format("CreateParticle(\"PSpark\", 0, 0, 0, 0, 1000, RGB(%d, %d, %d))", iRan, iRan, iRan), 10, 0, this);
    	Schedule("CastParticles(\"NoGravSpark\", RandomX(10, 20), RandomX(10, 20), 0, 0, 5, 10, RGB(255, 255, 100), RGB(255, 255, 200))", 20, 0, this);
 		Schedule("Split2Components()", 20, 0, this);
 		RemoveObject(Contents(0, controller));
