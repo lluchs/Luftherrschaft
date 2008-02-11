@@ -3,3 +3,5 @@
 - Ballon: Flagge tiefer setzen, der Rest sollte nun iO. sein
 - Kristall implementieren
 - DescUS überall
+- Regenfänger implementieren
+- Burned Grafiken
