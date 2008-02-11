@@ -1,4 +1,4 @@
-- M¸hle implementieren
+- M¸hle implementieren (vor allem die Animationen richtig setzen --> Windm¸hle hat ein Tuch --> ActMap.txt Reverse und so)
 - Luftschiff: ActMap weiﬂt noch einige Anzeigefehler auf
 - Ballon: Flagge tiefer setzen, der Rest sollte nun iO. sein
 - Kristall implementieren
