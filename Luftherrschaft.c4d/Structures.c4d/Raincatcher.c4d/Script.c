@@ -2,9 +2,7 @@
 
 #strict
 
-#include CXEC
-#include BAS7
-#include DOOR
+#include L035
 
 /* Produktion */
 
