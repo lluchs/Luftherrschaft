@@ -1,0 +1,17 @@
+[DefCore]
+id=L035
+Version=4,9,8
+Name=Basement
+Category=C4D_Structure
+Width=35
+Height=8
+Offset=-17,-4
+Vertices=2
+VertexX=-16,16
+VertexY=-5,-5
+VertexFriction=100,100
+Value=1
+Mass=10
+Components=ROCK=2
+SolidMask=0,0,35,8,0,0
+Construction=1
