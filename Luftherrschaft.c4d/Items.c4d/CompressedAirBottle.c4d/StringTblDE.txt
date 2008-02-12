@@ -1,0 +1,1 @@
+TxtRestPression=Übrige Druckluft:|%d

@@ -2,7 +2,7 @@
 Name=Exist
 Procedure=NONE
 Directions=4
-Facet=0,0,13,13
+Facet=0,0,19,19
 NextAction=Exist
 StartCall=Existing
 Delay=700
