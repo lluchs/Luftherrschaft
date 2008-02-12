@@ -1,8 +1,8 @@
-/*-- Neues Objekt --*/
+/*-- Druckluftfabrik --*/
 
 #strict
 
-func Initialize() {
-   
-  return(1);
-}
+#include L120
+#include DOOR
+
+protected func Initialize(){SetEntrance(1);return(1);}
