@@ -1,1 +1,1 @@
-TxtRestPression:Rest pression:|%d
+TxtRestPression:remain pressure:|%d
