@@ -1,0 +1,19 @@
+[DefCore]
+id=_NEW
+Name=New Object
+Version=4,9,5
+Category=18960
+MaxUserSelect=10
+Width=120
+Height=75
+Offset=-60,-37
+Value=75
+Mass=2500
+Components=CRYS=1;ROCK=6;METL=3
+Picture=0,0,120,75
+Vertices=1
+VertexY=1
+VertexFriction=20
+Rebuy=1
+Collectible=1
+ 
