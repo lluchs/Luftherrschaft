@@ -138,7 +138,9 @@ private func Researching()
   // Kein Ziel
   if (!target) return(0);
   // Effekte
-  if (Random(3)) Smoke(5+8*Random(2),-23,3+Random(8));
+  if (Random(5))
+  	CreateParticle("Smoke",5+8*Random(2),-23,RandomX(5,8),0,RandomX(10,30),RGB(255,255,255))
+  //Smoke(5+8*Random(2),-23,3+Random(8));
   // Fortschritt
   var Process = Min(++progress*4 / restime, 3);
   Process = Format("Research%d", Process);
