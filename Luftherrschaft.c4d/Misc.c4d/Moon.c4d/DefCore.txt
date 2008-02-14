@@ -1,0 +1,16 @@
+[DefCore]
+id=MOON
+Name=Mond
+Version=4,9,5
+Category=1
+MaxUserSelect=1
+Width=64
+Height=64
+Offset=-32,-32
+Value=1
+Mass=10000000000
+Components=ROCK=1000000000000;
+Picture=576,0,64,64
+Vertices=1
+VertexY=1
+VertexFriction=20
