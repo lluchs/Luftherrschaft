@@ -1,2 +1,2 @@
 DE:Luftherrschaft
-US:New object folder
+US:Air Dominance
