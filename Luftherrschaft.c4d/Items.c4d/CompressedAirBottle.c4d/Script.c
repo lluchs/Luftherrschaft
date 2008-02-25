@@ -2,50 +2,36 @@
 
 #strict
 
-local iDruck, iMaxDruck;
+static const LCAB_MaxFill = 500;
+
+local iFillLevel;
 
 protected func Initialize() {
-  iDruck = 500;
-  iMaxDruck = 500;
   return 1;
 }
 
 /* Callbacks */
 public func IsFull() {
-	if(iDruck)
-		return 1;
-	return;
+	return iFillLevel == MaxFill();
 }
 
 public func IsCompressedAirBottle() {
 	return 1;
 }
 
-public func RemovePression(iPression) {
-	// Sound
-	Sound("pfft");
-	// wird versucht, mehr Druck abzuziehen, als beinhaltet wird?
-	if(iDruck < iPression) {
-		var Druck = iDruck; // Druck speichern
-		// leer :[
-		iDruck = 0;
-		// "abgezogener" Druck zurückgeben
-		return Druck;
-	}
-	// Druck abziehen
-	iDruck -= iPression;
-	// abgezogener Druck zurückgeben
-	return iPression;
-}
+// Maximale Füllung
+public func MaxFill() { return LCAB_MaxFill; }
 
-public func Fill(int iPression) {
-	if((iPression + iDruck) > iMaxDruck) {
-		var Druck = iDruck;
-		iDruck = iMaxDruck;
-		return iMaxDruck - Druck;
-	}
-	iDruck += iPression;
-	return iPression;
+// Füllung erhöhen/verringern
+public func DoFill(int iChange, bool fNoSound)
+{
+	if(!fNoSound)
+		Sound("pfft");
+  var iNewFill = BoundBy(iFillLevel + iChange, 0, MaxFill());
+  if (iNewFill == iFillLevel) return;
+  iNewFill -= iFillLevel; iFillLevel += iNewFill;
+  // Tatsächliche Änderung des Füllstandes zurückgeben
+  return iNewFill;
 }
 
 protected func Activate(pClonk) {

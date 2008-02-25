@@ -96,7 +96,7 @@ protected func StartResearch(clonk, def)
   {
     Message("$TxtAlreadyDeveloped$", this(), GetName(0, def));
     Sound("Error");
-    return(0); 
+    return; 
   }
   // Bisherige Forschung abbrechen
   CancelResearch();
@@ -111,7 +111,7 @@ protected func StartResearch(clonk, def)
 		var pFlasche = FindObject2(Find_Container(this), Find_ID(LCAB), Find_Func("IsFull"));
 		if(pFlasche) {
 			var iDiff = restime - iDruck;
-			iDruck += pFlasche -> RemovePression(iDiff);
+			iDruck += pFlasche -> DoFill(-iDiff);
 		}
 		else {
 			PlayerMessage(GetOwner(), "$TxtNoCompressedAirBottle$", this);

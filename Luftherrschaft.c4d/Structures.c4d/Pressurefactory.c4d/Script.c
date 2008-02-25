@@ -26,8 +26,7 @@ private func FillBottle(object pBottle) {
   if(pFass) { // Fass gefunden!
   	RemoveObject(pFass); // Entfernen...
   	CreateContents(EmptyBarrelID()); // ...und neues Fass erstellen
-  	pBottle -> Fill(500); // die Flasche wird gefüllt.
-  	Sound("pfft"); // das hört sich auch ganz toll an.
+  	pBottle -> DoFill(500); // die Flasche wird gefüllt.
   	return 1;	// fertig.
   }
   else { // kein Fass?
