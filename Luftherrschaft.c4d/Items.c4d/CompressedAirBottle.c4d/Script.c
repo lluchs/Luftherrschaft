@@ -10,10 +10,15 @@ protected func Initialize() {
   return 1;
 }
 
+/* Callbacks */
 public func IsFull() {
 	if(iDruck)
 		return 1;
 	return;
+}
+
+public func IsCompressedAirBottle() {
+	return 1;
 }
 
 public func RemovePression(iPression) {
@@ -30,6 +35,16 @@ public func RemovePression(iPression) {
 	// Druck abziehen
 	iDruck -= iPression;
 	// abgezogener Druck zurückgeben
+	return iPression;
+}
+
+public func Fill(int iPression) {
+	if((iPression + iDruck) > iMaxDruck) {
+		var Druck = iDruck;
+		iDruck = iMaxDruck;
+		return iMaxDruck - Druck;
+	}
+	iDruck += iPression;
 	return iPression;
 }
 

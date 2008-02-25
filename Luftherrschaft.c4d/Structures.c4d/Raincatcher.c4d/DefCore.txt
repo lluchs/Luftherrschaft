@@ -4,7 +4,8 @@ Version=4,9,8
 Name=SRegenfänger
 Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
 MaxUserSelect=2
-TimerCall=ContentsCheck
+Timer=5
+TimerCall=LiquidCheck
 Width=34
 Height=50
 Offset=-17,-25
@@ -22,7 +23,8 @@ BlastIncinerate=85
 BurnTo=SWMB
 Construction=1
 ContainBlast=1
-AutoContextMenu=1
+SolidMask=0,10,35,2,0,0
+Grab=2
 
 [Physical]
 Energy=100000
