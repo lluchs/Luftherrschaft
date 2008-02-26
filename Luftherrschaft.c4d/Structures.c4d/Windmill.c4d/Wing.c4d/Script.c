@@ -1,4 +1,4 @@
 #strict
 
-protected func Initialize(){SetAction("Turn");return 1;}
+protected func Initialize(){SetAction("Turn");return (1);}
 
