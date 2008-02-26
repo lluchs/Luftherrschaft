@@ -7,4 +7,5 @@
 private func Initialize()
 {
   ObjectSetAction(CreateObject(LWNG,0,0,GetOwner()),"Turn",this);
+  Log("Init Windrad");
 }

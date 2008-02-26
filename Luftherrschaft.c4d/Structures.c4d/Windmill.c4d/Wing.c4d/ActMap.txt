@@ -4,6 +4,6 @@ Procedure=ATTACH
 Facet=0,0,100,120
 Length=30
 Delay=3
-FacetBase=1
+FacetBase=0
 NextAction=Turn
 StartCall=Wind2Turn
