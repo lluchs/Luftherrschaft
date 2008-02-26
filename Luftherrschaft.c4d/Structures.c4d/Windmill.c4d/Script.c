@@ -2,9 +2,9 @@
 
 #strict
 
-#include BAS1
+#include L103
 
 private func Initialize()
 {
-  ObjectSetAction(CreateObject(LWNG,0,0,GetOwner()),"Turn",this());
+  ObjectSetAction(CreateObject(LWNG,0,0,GetOwner()),"Turn",this);
 }
