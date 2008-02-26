@@ -1,0 +1,4 @@
+/*-- Pilot --*/
+
+#strict
+#include CLNK
