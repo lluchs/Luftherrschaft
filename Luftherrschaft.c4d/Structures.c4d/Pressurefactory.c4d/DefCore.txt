@@ -7,7 +7,6 @@ MaxUserSelect=2
 Width=120
 Height=75
 Offset=-60,-37
-Value=75
 Vertices=4
 VertexX=-59,-45,43,59
 VertexY=36,-18,-8,36

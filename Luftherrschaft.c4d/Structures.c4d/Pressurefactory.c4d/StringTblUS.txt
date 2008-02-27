@@ -1,0 +1,3 @@
+TxtNoWater=Kein Wasserfass verfügbar!
+TxtFillBottle=Druckluftflasche auffüllen
+

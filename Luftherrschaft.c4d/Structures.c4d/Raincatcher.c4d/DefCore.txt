@@ -17,14 +17,13 @@ Value=100
 Mass=3000
 Components=WOOD=2;ROCK=1
 Picture=0,0,34,50
-SolidMask=34,0,0,12,0,0
 Exclusive=1
 BlastIncinerate=85
 BurnTo=SWMB
 Construction=1
 ContainBlast=1
-SolidMask=0,10,35,2,0,0
 Grab=2
+SolidMask=34,0,32,12,0,0
 
 [Physical]
 Energy=100000
