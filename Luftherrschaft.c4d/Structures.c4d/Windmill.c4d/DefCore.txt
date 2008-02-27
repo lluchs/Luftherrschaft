@@ -10,7 +10,7 @@ Height=107
 Offset=-38,-54
 Vertices=8
 VertexX=-6,23,37,20,-32,-34,-38,-34
-VertexY=-54,-49,-35,52,52,-6,-13,-22
+VertexY=-54,-49,-35,53,53,-6,-13,-22
 Value=45
 Mass=1250
 Components=WOOD=5;METL=3

@@ -15,6 +15,6 @@ VertexFriction=100,100,100
 Value=25
 Mass=10
 Components=METL=2;WOOD=1
-Picture=0,6,64,64
+Picture=24,0,64,64
 Rebuy=1
 Collectible=1
