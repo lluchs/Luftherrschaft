@@ -11,35 +11,17 @@ local iFillLevel;
 protected func Initialize() {
 	iFillLevel = 0;
 }
-// SolidMask=0,10,35,2,0,0
+
 protected func LiquidCheck() {
-	if(iFillLevel < MaxFill())
-		iFillLevel += 5;
-	/*var iX = 0, iY = -27;
-	CreateParticle("PSpark", iX, iY, 0, 0, 30, RGB(255, 255, 0));
-	if(GetMaterial(iX, iY) == Material("Water")) {
-		ExtractLiquid(iX, iY);
-		iWasser += 1;
-	}
-	/*var i = 1, iX2;
-	while(1) {
-		iX2 = iX + i;
-		if(GBackSolid(iX2, iY))
-			break;
-		if(GetMaterial(iX2, iY) == Material("Water")) {
-			ExtractLiquid(iX, iY);
-			iWasser += 1;
-		}
-	}
-	while(1) {
-		iX2 = iX - i;
-		if(GBackSolid(iX2, iY))
-			break;
-		if(GetMaterial(iX2, iY) == Material("Water")) {
-			ExtractLiquid(iX, iY);
-			iWasser += 1;
-		}
-	}*/
+	if(GetAmount() == MaxFill())
+		return;
+	var iX = 0, iY = -16;
+	var iAmount 	= ExtractMaterialAmount(iX, iY, Material("Water"), 10),
+			iChanged 	= DoFill(iAmount),
+			iBack 		= iAmount - iChanged;
+	Log("iAmount: %d iChanged: %d iBack: %d", iAmount, iChanged, iBack);
+	while(iBack--)
+		InsertMaterial(Material("Water"), iX, iY);
 	return 1;
 }
 
