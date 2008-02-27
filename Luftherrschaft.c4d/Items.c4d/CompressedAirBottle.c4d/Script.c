@@ -74,3 +74,12 @@ private func GetNumberID(i)
 {
   return(C4Id(Format("SNB%d", i)));
 }
+
+// einen zu harten Aufschlag überlebt die Flasche nicht
+protected func Hit2() {
+  // in Bestandteile zerlegen
+  CastObjects(LHSP, 4, 20);
+  // mit kleiner Explosion von der Welt scheiden
+  Explode(2);
+ return 1;
+}
