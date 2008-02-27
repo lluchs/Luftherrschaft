@@ -1,0 +1,2 @@
+DE:Luftgewehr
+US:Airgun
