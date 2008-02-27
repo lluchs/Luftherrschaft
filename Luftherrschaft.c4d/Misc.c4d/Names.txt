@@ -1,2 +1,2 @@
-DE:Sonstiges
-US:Misc
+DE:Umwelt
+US:Enviroment
