@@ -1,18 +1,18 @@
 [Action]
 Name=Flag
-Procedure=ATTACH
-Facet=0,0,75,107
-Length=30
+Procedure=NONE
+Facet=0,0,100,107
+Length=29
 Delay=2
-FacetBase=1
+FacetBase=0
 NextAction=Flag2
 
 [Action]
 Name=Flag2
-Procedure=ATTACH
-Facet=0,0,75,107
-Length=30
+Procedure=NONE
+Facet=0,0,100,107
+Length=31
 Delay=2
-FacetBase=1
-NextAction=Flag2
+FacetBase=0
+NextAction=Flag
 Reverse=1

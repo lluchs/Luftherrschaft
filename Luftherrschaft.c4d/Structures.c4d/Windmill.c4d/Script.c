@@ -6,6 +6,7 @@
 
 private func Initialize()
 {
+  SetAction("Flag");
   ObjectSetAction(CreateObject(LWNG,0,0,GetOwner()),"Turn",this);
   //Log("Init Windrad");
   return 1;

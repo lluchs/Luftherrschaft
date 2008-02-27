@@ -7,14 +7,15 @@ MaxUserSelect=3
 TimerCall=CheckWindwing
 Width=75
 Height=107
-Offset=-38,-54
+Offset=-64,-53
 Vertices=8
 VertexX=-6,23,37,20,-32,-34,-38,-34
-VertexY=-54,-49,-35,53,53,-6,-13,-22
+VertexY=-54,-49,-35,52,52,-6,-13,-22
 Value=45
 Mass=1250
 Components=WOOD=5;METL=3
 Picture=0,120,64,64
+Entrance=10,10,10,24
 Exclusive=1
 ContactIncinerate=4
 BlastIncinerate=60
@@ -24,6 +25,7 @@ Construction=1
 Rotate=1
 Float=1
 DragImagePicture=1
+ColorByOwner=1
 
 [Physical]
 Energy=100000
