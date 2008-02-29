@@ -72,11 +72,14 @@ private func GetNumberID(i)
   return(C4Id(Format("SNB%d", i)));
 }
 
-// einen zu harten Aufschlag überlebt die Flasche nicht
+/* Einen harten Aufschlag überlebt die Flasche nicht! So; Be careful! */
 protected func Hit2() {
   // in Bestandteile zerlegen
   CastObjects(LHSP, 4, 20);
   // mit kleiner Explosion von der Welt scheiden
-  Explode(2);
+  if (!GetAmount() <= 40)
+   Schedule("Explode(GetAmount() / 40 + 20)", 108, 1);
+  else 
+   Schedule("Explode((GetAmount() ** 2 / (40 - GetAmount())) + 15)", 108, 1);
  return 1;
 }
