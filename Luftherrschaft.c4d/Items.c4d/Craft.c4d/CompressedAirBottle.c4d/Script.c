@@ -79,7 +79,8 @@ protected func Hit2() {
   // mit kleiner Explosion von der Welt scheiden
   if (!GetAmount() <= 40)
    Schedule("Explode(GetAmount() / 40 + 20)", 108, 1);
-  else 
+  if (!GetAmount() => 40) 
    Schedule("Explode((GetAmount() ** 2 / (40 - GetAmount())) + 15)", 108, 1);
- return 1;
+  if (GetAmount() == 0)
+   return 0;
 }
