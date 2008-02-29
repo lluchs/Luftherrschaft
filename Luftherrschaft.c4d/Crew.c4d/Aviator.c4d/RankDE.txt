@@ -1,6 +1,16 @@
-Passagier
+Zivilist
+Wissenschaftler
+Wetterbeobachter
+Gärtner
+Lagerarbeiter
+Geologe
+Mechaniker
 Techniker
-Fluglotse
 Stewardess
+Fluglotse
 Co Pilot
 Pilot
+Astrologe
+Geschwaderkommandant
+Flottenoffizier
+Peter
