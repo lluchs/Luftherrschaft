@@ -1,16 +1,16 @@
 [DefCore]
-id=1C1E
+id=LWCH
 Name=Seilwinde
 Version=4,9,1,3
 Category=1154
 MaxUserSelect=2
-Width=28
-Height=32
-Offset=-14,-16
+Width=30
+Height=31
+Offset=-15,-16
 Value=40
 Mass=600
-Components=WOOD=3;METL=2;
-Picture=0,0,28,32
+Components=WOOD=2;METL=1;
+Picture=0,31,64,64
 Vertices=5
 VertexX= -1,-1,-14, 8,-1
 VertexY=-16,-3, 15,15,18
@@ -22,6 +22,6 @@ LineConnect=35
 Construction=1
 Basement=0
 Grab=2
+
 [Physical]
 Energy=100000
- 

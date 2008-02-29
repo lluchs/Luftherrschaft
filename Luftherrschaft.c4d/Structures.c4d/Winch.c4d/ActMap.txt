@@ -1,8 +1,8 @@
 [Action]
 Name=Winding
 Procedure=NONE
-xLength=24
-Length=6
+Length=10
+Length=3
 Delay=0
-Facet=0,0,28,32
+Facet=0,0,30,31
 NextAction=Winding

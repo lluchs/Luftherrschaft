@@ -10,7 +10,7 @@ Offset=0,0
 Value=0
 Mass=0
 Components=_SEN=1;
-Picture=0,0,35,35
+Picture=0,0,64,64
 Collectible=1
 Vertices=1
 VertexY=2

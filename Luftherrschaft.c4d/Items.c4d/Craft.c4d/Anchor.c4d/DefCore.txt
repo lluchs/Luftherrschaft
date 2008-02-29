@@ -1,5 +1,5 @@
 [DefCore]
-id=1H1E
+id=LANH
 Name=Anchor
 Category=3588
 MaxUserSelect=6
@@ -9,7 +9,7 @@ Offset=-4,-5
 Value=10
 Mass=20
 Components=METL=1;
-Picture=9,0,33,28
+Picture=10,0,64,64
 Vertices=4
 VertexX=0,0,-4,4
 VertexY=-4,4,1,1
