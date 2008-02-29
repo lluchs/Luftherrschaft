@@ -1,0 +1,1 @@
+Open a menu with <digdouble>. To detach the rope, go in front of the connected object with empty hands and press <digdouble>.

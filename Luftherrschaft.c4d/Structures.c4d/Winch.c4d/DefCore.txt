@@ -1,0 +1,27 @@
+[DefCore]
+id=1C1E
+Name=Seilwinde
+Version=4,9,1,3
+Category=1154
+MaxUserSelect=2
+Width=28
+Height=32
+Offset=-14,-16
+Value=40
+Mass=600
+Components=WOOD=3;METL=2;
+Picture=0,0,28,32
+Vertices=5
+VertexX= -1,-1,-14, 8,-1
+VertexY=-16,-3, 15,15,18
+VertexFriction=50,100,100
+Exclusive=1
+BlastIncinerate=50
+BurnTo=1D1E
+LineConnect=35
+Construction=1
+Basement=0
+Grab=2
+[Physical]
+Energy=100000
+ 

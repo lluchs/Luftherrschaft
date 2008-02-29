@@ -1,0 +1,12 @@
+[DefCore]
+id=171E
+Name=Rope
+Category=1
+Width=1
+Height=1
+Value=0
+Mass=1
+Picture=0,0,35,35
+Vertices=2
+Line=8
+LineIntersect=0

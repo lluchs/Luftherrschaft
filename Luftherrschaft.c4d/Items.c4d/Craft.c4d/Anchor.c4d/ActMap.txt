@@ -1,0 +1,15 @@
+[Action]
+Name=Idling
+Procedure=NONE
+Delay=0
+FacetBase=1
+Attach=
+NextAction=Idling
+
+[Action]
+Name=Attachground
+Procedure=NONE
+Delay=0
+FacetBase=1
+Attach=8
+NextAction=Attachground

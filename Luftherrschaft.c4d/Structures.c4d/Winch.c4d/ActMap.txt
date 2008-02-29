@@ -1,0 +1,8 @@
+[Action]
+Name=Winding
+Procedure=NONE
+xLength=24
+Length=6
+Delay=0
+Facet=0,0,28,32
+NextAction=Winding

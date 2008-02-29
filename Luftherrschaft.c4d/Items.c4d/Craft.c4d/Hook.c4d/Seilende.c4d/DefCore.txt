@@ -1,0 +1,17 @@
+[DefCore]
+id=1A1E
+Version=4,6,5
+Name=Ropeend
+Category=16
+MaxUserSelect=0
+Width=0
+Height=0
+Offset=0,0
+Value=0
+Mass=0
+Components=_SEN=1;
+Picture=0,0,35,35
+Collectible=1
+Vertices=1
+VertexY=2
+VertexFriction=100

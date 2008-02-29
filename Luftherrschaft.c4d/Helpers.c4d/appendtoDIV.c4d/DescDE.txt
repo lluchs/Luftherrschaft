@@ -1,0 +1,1 @@
+Hier drin ist für einige Objekte gespeichert, an welchem Vertex das Seil anknüpfen soll.

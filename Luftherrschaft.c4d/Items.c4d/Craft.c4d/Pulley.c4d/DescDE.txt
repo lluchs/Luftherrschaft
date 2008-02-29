@@ -1,0 +1,2 @@
+Ein aufgewickeltes Seil. Mit Doppelgraben wird ein Menu geöffnet, mit dem man unter anderem das Seil an einem Objekt festknoten kann. Der Clonk muss dafür nicht stehen oder schwimmen. Um ein Seil wieder abzunehmen betätigt man <graben> doppelt vor dem angeknoteten Objekt.
+Im Menu des Seils kann man auch bestimmen, ob der Clonk am Seil ziehen soll, das Seil abwickeln oder die Länge halten. Außerdem kann man das Seil ganz abnehmen, wenn man vor dem anderen angebundenen Objekt steht.

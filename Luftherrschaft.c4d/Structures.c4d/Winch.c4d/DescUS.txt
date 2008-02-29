@@ -1,0 +1,3 @@
+<Up> to make the rope shorter,
+<down> to make it longer,
+<left> and <right> to stop.

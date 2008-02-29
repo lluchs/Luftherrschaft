@@ -1,0 +1,2 @@
+Kann ein Seil mit elektrischer Kraft schneller und stärker als ein Clonk auf- und abwickeln.
+Steuerung: <Hoch> zum Aufwickeln, <Runter> zum Abwickeln, <Links>/<Rechts> zum Stoppen.

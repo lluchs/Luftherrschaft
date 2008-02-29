@@ -1,0 +1,3 @@
+Dieses Objekt überläd die Steuerung vom normalen Clonk (CLNK), vom Magier (MCLK) und vom Zauberclonk (SCLK) ,so dass diese ihre Steuerungsbefehle an ihren Inhalt weitergeben.
+Geklaut von Mario Rogen aus dem Modellflugpack.
+Für das Seilpaket um die Möglichkeit erweitert, Seile abzunehmen.
