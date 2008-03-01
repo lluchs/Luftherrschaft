@@ -1,6 +1,6 @@
 [FolderMap]
-MinResX=640
-MinResY=480
+MinResX=984
+MinResY=616
 ScenInfoArea=667,31,312,567
 	
 	[Scenario]
