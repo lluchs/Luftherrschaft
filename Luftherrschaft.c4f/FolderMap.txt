@@ -1,0 +1,32 @@
+[FolderMap]
+MinResX=640
+MinResY=480
+ScenInfoArea=667,31,312,567
+	
+	[Scenario]
+	File=Falterfalter.c4s
+	BaseImage=ScenPeterBase.png
+	OverlayImage=ScenPeter.png
+	Area=70,400,158,129
+	Title=TITLE
+	TitleFontSize=15
+	TitleColorInactive=2130706432
+	TitleColorActive=16764672
+	TitleOffX=75
+	TitleOffY=50
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=Test.c4s
+	BaseImage=ScenTestBase.png
+	OverlayImage=ScenTest.png
+	Area=400,70,158,129
+	Title=TITLE
+	TitleFontSize=15
+	TitleColorInactive=2130706432
+	TitleColorActive=16764672
+	TitleOffX=75
+	TitleOffY=50
+	TitleAlign=1
+	TitleUseBookFont=0
