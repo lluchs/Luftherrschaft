@@ -24,6 +24,7 @@ Construction=1
 ContainBlast=1
 Grab=2
 SolidMask=34,0,32,12,0,0
+ColorByOwner=1
 
 [Physical]
 Energy=100000
