@@ -1,5 +1,5 @@
 #strict
-#appendto CLNK
+#appendto LHAV
 
 private Control2Contents:
   // Getragenes Objekt hat spezielle Steuerungsauswertung

@@ -15,7 +15,7 @@ Value=45
 Mass=1250
 Components=WOOD=5;METL=3
 Picture=0,120,64,64
-Entrance=10,10,10,24
+Entrance=-25,28,20,25
 Exclusive=1
 ContactIncinerate=4
 BlastIncinerate=60
