@@ -1,0 +1,16 @@
+[Action]
+Name=Wind
+Procedure=NONE
+Facet=0,0,60,21
+Length=30
+Delay=2
+NextAction=WindReturnsback
+
+[Action]
+Name=WindReturnsback
+Procedure=NONE
+Facet=0,0,60,21
+Length=30
+Delay=2
+NextAction=Wind
+Reverse=1
