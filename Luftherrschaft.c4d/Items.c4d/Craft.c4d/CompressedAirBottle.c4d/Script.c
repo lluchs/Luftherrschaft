@@ -74,13 +74,19 @@ private func GetNumberID(i)
 
 /* Einen harten Aufschlag überlebt die Flasche nicht! So; Be careful! */
 protected func Hit2() {
-  // in Bestandteile zerlegen
-  CastObjects(LHSP, 4, 20);
-  // mit kleiner Explosion von der Welt scheiden
-  if (!GetAmount() <= 40)
-   Schedule("Explode(GetAmount() / 40 + 20)", 108, 1);
-  if (!GetAmount() => 40) 
-   Schedule("Explode((GetAmount() ** 2 / (40 - GetAmount())) + 15)", 108, 1);
+  var ExplodeSize;
   if (GetAmount() == 0)
    return 0;
+  else {
+    CastObjects(LHSP, 4, 20);
+	if (GetAmount() >= 40) {
+	  var ExplodeSize = GetAmount() * GetAmount() / (40 - GetAmount()) + 15;
+	  Schedule("Explode(ExplodeSize)", 108, 1, 0);
+	}
+	if (GetAmount() <= 40) {
+	  var ExplodeSize = GetAmount() / 40 + 20;
+	  Schedule("Explode(ExplodeSize)", 108, 1, 0);
+	}
+  }
 }
+	  
