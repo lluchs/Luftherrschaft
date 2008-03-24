@@ -25,6 +25,7 @@ Construction=1
 Float=0
 ContainBlast=1
 AutoContextMenu=1
+ColorByOwner=1
 
 [Physical]
 Energy=100000

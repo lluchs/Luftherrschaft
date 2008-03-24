@@ -14,7 +14,7 @@ VertexFriction=50,50,100,100
 Value=45
 Mass=1350
 Components=CRYS=1;ROCK=6;METL=3
-Picture=103,0,64,64
+Picture=0,0,120,75
 Entrance=-30,15,20,24
 Exclusive=1
 BlastIncinerate=150
