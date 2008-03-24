@@ -22,6 +22,6 @@ Edible=1
 Growth=10
 Grab=2
 Collectible=1
-ColorByOwner=1
+ColorByOwner=0
 StretchGrowth=1
 IncompleteActivity=1
