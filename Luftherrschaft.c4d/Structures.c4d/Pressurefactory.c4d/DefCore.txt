@@ -19,7 +19,6 @@ Entrance=-30,15,20,24
 Exclusive=1
 BlastIncinerate=150
 BurnTo=HTB2
-Base=1
 LineConnect=C4D_LiquidInput
 Construction=1
 Float=0

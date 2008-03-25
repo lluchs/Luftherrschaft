@@ -1,0 +1,5 @@
+Ein Generator wird per Dampf angetrieben und erzeugt Energie. 
+
+Sehr geeignet für Höhlen und Windlose Gegenden.
+
+Zum Betrieb werden zwei Kohlestücke und ein Wasserfass benötigt. An- und Abschalten via Kontextmenü.

@@ -1,0 +1,16 @@
+[Action]
+Name=NoEnergy
+Procedure=NONE
+Length=1
+Delay=2
+Facet=0,0,103,68
+NextAction=NoEnergy
+
+[Action]
+Name=ProduceEnergy
+Procedure=NONE
+Length=20
+Delay=2
+Facet=0,0,103,68
+NextAction=ProduceEnergy
+StartCall=ProduceEnergy

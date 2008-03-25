@@ -1,0 +1,10 @@
+Die Dampfmaschine hat Standardmässig die Action "NoEnergy" (s. ActMap.txt). 
+
+Sobald der Spieler ein zwei Kohlestücke und ein Wasserfass reingetan/reingeworfen (Collctible Schacht an der 
+linken Seite) kann man die Maschine anfassen und über ein Kontextmenü sie anfeuern. 
+
+Bis sie wieder auf selbigen Wege abgeschaltet wird, erzeugt sie konstant Energie und dabei sollten am Schornstein
+WEISSE Dampfschwaden entweichen. Auch am Kolben kann ein klein wenig Dampf ausströmen. 
+
+Um das ganze abzurunden, brauchen wir ein oder zwei passende Sounds wie die Maschine so richtig schön dampft, zischt
+und ächzt. Mal gucken, vllt. find ich was im TraninSimulator.
