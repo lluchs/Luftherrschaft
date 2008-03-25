@@ -1,9 +1,9 @@
 #strict
 #include TREE
 
-private func ReproductionAreaSize() { return(80); }
-private func ReproductionRate()     { return(23); }
-private func MaxTreeCount()         { return(4); }
+private func ReproductionAreaSize() { return 100; }
+private func ReproductionRate()     { return 23; }
+private func MaxTreeCount()         { return 6; }
 
 protected func Damage(iDamage) {
 	CastObjects(CRYS, RandomX(1,5), iDamage / 2);
@@ -13,10 +13,27 @@ protected func Damage(iDamage) {
 protected func Incineration() { Extinguish(); }
 
 public func Construction() {
-  SetAction("Exist");		// zufällige Animationsphase
+	if(GetAction() ne "Exist") {
+  	SetAction("Exist");		// zufällige Animationsphase
+  	// Zufällige Richtung
+  	if (Random(2)) SetDir(DIR_Right);
+  }
+  // Höhe anpassen
+  while (!GBackSolid(0, 12))
+    SetPosition(GetX(), GetY() + 1);
+  // Drehung nach Erdoberfläche
+  var x_off = 18 * GetCon() / 100;
+  var y_off = 15 * GetCon() / 100;
+  var slope = GetSolidOffset(-x_off, y_off) - GetSolidOffset(x_off, y_off);
+  SetR(slope);
+  return 1;
+}
 
-  SetDir(Random(4));
-  SetPosition(GetX(),GetY()-5);	// baum-syndrom
+private func GetSolidOffset(int x, int y)
+{
+  var i;
+  for (i = -15; GBackSolid(x, y - i) && (i < 15); i++);
+  return i;
 }
 
 public func Reproduction()
@@ -42,39 +59,14 @@ public func ContextChop(pClonk)		// per Kontextmenü pflücken
 }*/
 
 protected func RejectEntrance() {
-  if(GetCon()<100) return 1;
+  return GetCategory() & C4D_Object;
 }
 
-/*public func Entrance() {		// per Einsammeln pflücken
-  [$TxtPick$]
-  if(IsStanding()) Pick();
-  return 1;
+protected func ControlDigDouble() {
+	if(!GetCategory() & C4D_Object)
+		SetCategory(C4D_Object);
+	return;
 }
-
-public func Pick() {			// pflücken
-  Sound("Grab");
-  var iDir = GetDir();
-  SetAction("Idle");
-  SetAction("Exist");
-  SetDir(iDir);
-  SetCategory(16);
-}*/
-
-
-/*public func Activate(object pClonk)	// essen
-{
-  [$TxtEat$]
-  Eat(pClonk);
-  return(1);
-}
-
-protected func Eat(object pClonk)
-{
-    pClonk->~Feed(20);
-    DoMagicEnergy(4,pClonk);
-    RemoveObject();
-    return(1);
-}*/
 
 protected func Existing() {
   if(IsStanding()) return;
@@ -85,7 +77,7 @@ protected func Existing() {
         SetCategory(C4D_StaticBack);
 }
 
-public func IsStanding() { return(GetCategory() & C4D_StaticBack); }	// steht noch
+public func IsStanding() { return GetCategory() & C4D_StaticBack; }	// steht noch
 
 /*func IsAlchemContainer() { return(true); }
 func AlchemProcessTime() { return(80); }*/
