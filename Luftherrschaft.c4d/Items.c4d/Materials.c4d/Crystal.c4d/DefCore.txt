@@ -15,7 +15,7 @@ VertexFriction=50
 Value=3
 Mass=10
 Components=IMUS=4
-Picture=19,0,72,62
+Picture=0,19,64,64
 ContactIncinerate=1
 BlastIncinerate=15
 Edible=1
