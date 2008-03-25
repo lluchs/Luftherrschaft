@@ -1,6 +1,8 @@
 #strict
 #include TREE
 
+local iPhase;
+
 private func ReproductionAreaSize() { return 100; }
 private func ReproductionRate()     { return 23; }
 private func MaxTreeCount()         { return 6; }
@@ -13,8 +15,9 @@ protected func Damage(iDamage) {
 protected func Incineration() { Extinguish(); }
 
 public func Construction() {
-	if(GetAction() ne "Exist") {
-  	SetAction("Exist");		// zufällige Animationsphase
+	if(GetAction() eq "Idle") {
+  	SetAction("Hang");		// zufällige Animationsphase
+  	iPhase = Random(4);
   	// Zufällige Richtung
   	if (Random(2)) SetDir(DIR_Right);
   }
@@ -26,6 +29,7 @@ public func Construction() {
   var y_off = 15 * GetCon() / 100;
   var slope = GetSolidOffset(-x_off, y_off) - GetSolidOffset(x_off, y_off);
   SetR(slope);
+  SetPhase(iPhase);
   return 1;
 }
 
@@ -59,22 +63,21 @@ public func ContextChop(pClonk)		// per Kontextmenü pflücken
 }*/
 
 protected func RejectEntrance() {
-  return GetCategory() & C4D_Object;
+  return GetAction() eq "Hang";
 }
 
 protected func ControlDigDouble() {
-	if(!GetCategory() & C4D_Object)
-		SetCategory(C4D_Object);
+	if(GetAction() eq "Hang")
+		Set(1);
 	return;
 }
 
-protected func Existing() {
+protected func Seed() {
   if(IsStanding()) return;
   // re-seed
-  if(!Contained())
-    if(!GetYDir())
-      if(!GetXDir())
-        SetCategory(C4D_StaticBack);
+  if(!Contained() && !GetYDir() && !GetXDir())
+  	Set(0);
+  return _inherited(...);
 }
 
 public func IsStanding() { return GetCategory() & C4D_StaticBack; }	// steht noch
@@ -83,3 +86,17 @@ public func IsStanding() { return GetCategory() & C4D_StaticBack; }	// steht noc
 func AlchemProcessTime() { return(80); }*/
 
 protected func Hit() { Sound("CrystalHit*"); }
+
+public func Set(int iPar) {
+	if(!iPar) {
+		SetAction("Hang");
+		SetPhase(iPhase);
+		return 1;
+	}
+	if(iPar == 1) {
+		SetAction("Object");
+		SetPhase(iPhase);
+		return 1;
+	}
+	return;
+}
