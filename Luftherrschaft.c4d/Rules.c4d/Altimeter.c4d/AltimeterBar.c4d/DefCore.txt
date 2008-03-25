@@ -1,0 +1,11 @@
+[DefCore]
+id=AM4Z
+Name=Altimeter
+Version=4,9,5
+Category=C4D_StaticBack|C4D_MouseIgnore|C4D_Parallax|C4D_Foreground|C4D_IgnoreFoW
+MaxUserSelect=10
+Width=20
+Height=600
+Offset=-10,-300
+Timer=3
+TimerCall=Adjust
