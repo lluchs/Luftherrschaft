@@ -16,5 +16,3 @@ VertexY=1
 VertexFriction=20
 ColorByOwner=1
 Float=1
-TimerCall=SetPos
-Timer=1
