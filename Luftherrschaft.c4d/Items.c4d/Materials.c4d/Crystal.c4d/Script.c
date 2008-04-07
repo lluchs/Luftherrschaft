@@ -19,7 +19,7 @@ public func Construction() {
   	SetAction("Hang");		// zufällige Animationsphase
   	iPhase = Random(4);
   	// Zufällige Richtung
-  	if (Random(2)) SetDir(DIR_Right);
+  	if (Random(1)) SetDir(DIR_Right);
   }
   // Höhe anpassen
   while (!GBackSolid(0, 12))
