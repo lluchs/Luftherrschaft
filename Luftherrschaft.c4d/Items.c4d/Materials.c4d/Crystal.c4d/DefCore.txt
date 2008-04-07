@@ -13,7 +13,7 @@ Vertices=1
 VertexY=6
 VertexFriction=50
 Value=3
-Mass=10
+Mass=20
 Components=IMUS=4
 Picture=0,19,64,64
 ContactIncinerate=1
@@ -26,3 +26,5 @@ ColorByOwner=0
 StretchGrowth=1
 IncompleteActivity=1
 Rotate=1
+Timer=1000
+TimerCall=Check
