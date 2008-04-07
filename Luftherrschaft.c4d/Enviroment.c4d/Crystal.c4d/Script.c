@@ -7,7 +7,7 @@ protected func Initialize()
   // Eigene Position auf 0,0
   SetPosition();
   // Kristalle platzieren
-  for (var x = 0; x < LandscapeWidth(); x += RandomX(15, 100))
+  for (var x = 0; x < LandscapeWidth(); x += RandomX(15, 50))
   {
     var y = GetHorizonHeight(x);
     var iMat = GetMaterial(x, y + 1);
