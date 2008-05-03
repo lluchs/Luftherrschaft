@@ -7,59 +7,67 @@ protected func Initialize() {
 		DebugLog("ERROR: Dieses Objekt darf nicht erstellt werden");
 		RemoveObject();
 	}
+	aFillLevel = CreateArray();
 	UpdatePicture();
 }
 
 // Füllstand
-local iFillLevel;
+local aFillLevel;
 
 /* Füllung */
 
 // Aktuelle Füllung
-public func GetAmount() { return iFillLevel; }
+public func & GetAmount(int iCount) { return aFillLevel[iCount]; }
 
 // Maximale Füllung
-public func MaxFill() { return eval(Format("%i_MaxFill", GetID())); }
+public func MaxFill(int iCount) {
+	var szVar = Format("%i_MaxFill", GetID());;
+	if(iCount)
+		szVar = Format("%s%d", szVar, iCount);
+	return eval(szVar);
+}
 
 // Füllung erhöhen/verringern
-public func DoFill(int iChange, bool fNoSound)
+public func DoFill(int iChange, int iCount, bool fNoSound)
 {
-  var iNewFill = BoundBy(iFillLevel + iChange, 0, MaxFill());
-  if (iNewFill == iFillLevel) return;
+  var iNewFill = BoundBy(GetAmount(iCount) + iChange, 0, MaxFill());
+  if (iNewFill == GetAmount(iCount)) return;
   if(!fNoSound)
-  	this -> ~FillSound();
-  iNewFill -= iFillLevel; iFillLevel += iNewFill;
+  	this -> ~FillSound(iCount);
+  iNewFill -= GetAmount(iCount); GetAmount(iCount) += iNewFill;
   UpdatePicture();
   // Tatsächliche Änderung des Füllstandes zurückgeben
   return iNewFill;
 }
 
 // Voll?
-public func IsFull() 
+public func IsFull(int iCount) 
 { 
-  return iFillLevel == MaxFill();
+  return GetAmount(iCount) == MaxFill();
 }
 
 /* Grafik anpassen */
 public func UpdatePicture()
 {
-	if(!this -> ~FillPicture())
+	var iCount = this -> ~FillPicture();
+	if(!iCount)
 		return;
-	if(GetAmount()>99)
+	iCount--;
+	if(GetAmount(iCount)>99)
   {
-    SetGraphics(0,0,GetNumberID(GetAmount() / 100),1,GFXOV_MODE_Picture);    
+    SetGraphics(0,0,GetNumberID(GetAmount(iCount) / 100),1,GFXOV_MODE_Picture);    
     SetObjDrawTransform(400,0,-14000,0,400,+10000, this, 1);
   }
   else SetGraphics(0,0,0,1,0);
   
-  if(GetAmount()>9)
+  if(GetAmount(iCount)>9)
   {
-    SetGraphics(0,0,GetNumberID(GetAmount() / 10 - GetAmount() / 100 * 10),2,GFXOV_MODE_Picture);    
+    SetGraphics(0,0,GetNumberID(GetAmount(iCount) / 10 - GetAmount(iCount) / 100 * 10),2,GFXOV_MODE_Picture);    
     SetObjDrawTransform(400,0,-7000,0,400,+10000, this, 2);
   }
   else SetGraphics(0,0,0,2,0);  
 
-  SetGraphics(0,0,GetNumberID(GetAmount() % 10),3,GFXOV_MODE_Picture);   
+  SetGraphics(0,0,GetNumberID(GetAmount(iCount) % 10),3,GFXOV_MODE_Picture);   
   SetObjDrawTransform(400,0,0,0,400,+10000, this, 3);
   return 1;
 }
