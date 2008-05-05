@@ -20,7 +20,9 @@ BlastIncinerate=85
 BurnTo=BSMN
 Construction=1
 ContainBlast=1
-Grab=3
+Grab=2
+GrabPutGet=C4D_GrabPut
+LineConnect=C4D_PowerOutput|C4D_PowerGenerator|C4D_EnergyHolder
 
 [Physical]
 Energy=100000
