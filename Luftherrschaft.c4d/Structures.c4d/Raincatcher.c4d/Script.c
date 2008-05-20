@@ -1,16 +1,11 @@
 /*-- Sägewerk --*/
 
-#strict
+#strict 2
 #include L035
+#include SAVS
 
 // Anzahl Materialpixel, die in einen Fänger passen
 static const LRCR_MaxFill = 1000;
-
-local iFillLevel;
-
-protected func Initialize() {
-	iFillLevel = 0;
-}
 
 protected func LiquidCheck() {
 	if(GetAmount() == MaxFill())
@@ -19,45 +14,28 @@ protected func LiquidCheck() {
 	var iAmount 	= ExtractMaterialAmount(iX, iY, Material("Water"), 10),
 			iChanged 	= DoFill(iAmount),
 			iBack 		= iAmount - iChanged;
-	Log("iAmount: %d iChanged: %d iBack: %d", iAmount, iChanged, iBack);
+	//Log("iAmount: %d iChanged: %d iBack: %d", iAmount, iChanged, iBack);
 	while(iBack--)
 		InsertMaterial(Material("Water"), iX, iY);
 	return 1;
 }
 
-// Aktuelle Füllung
-public func GetAmount() { return(iFillLevel); }
-
-// Maximale Füllung
-public func MaxFill() { return(LRCR_MaxFill); }
-
-// Füllung erhöhen/verringern
-public func DoFill(int iChange)
-{
-  var iNewFill = BoundBy(iFillLevel + iChange, 0, MaxFill());
-  if (iNewFill == iFillLevel) return;
-  iNewFill -= iFillLevel; iFillLevel += iNewFill;
-  // Tatsächliche Änderung des Füllstandes zurückgeben
-  return iNewFill;
-}
-
-private func FindEmptyBarrel() {
-	return FindObject2(Find_Container(this), Find_ID(EmptyBarrelID()), Find_Not(Find_Func("BarrelIsFull")));
-}
-
 private func FillBarrel(object pFass) {
-	var iChangeLevel = pFass -> BarrelDoFill(pFass -> BarrelMaxFill(), Material("Water"));
-	var iChange = DoFill(-iChangeLevel);
-	if(iChange < iChangeLevel)
-		pFass -> BarrelDoFill(iChangeLevel - iChange, Material("Water"));
+	var iBarrelChange = pFass -> BarrelDoFill(pFass -> BarrelMaxFill(), Material("Water"));
+	pFass -> ChangeDef(WBRL);
+	var iChange = DoFill(-iBarrelChange);
+	var iChange2 = iChange + iBarrelChange;
+	//Log("iBarrelChange: %d iChange: %d iChange2: %d", iBarrelChange, iChange, iChange2);
+	pFass -> BarrelDoFill(-iChange2, Material("Water"));
+	return 1;
 }
 
 /* Steuerung */
 
-protected func ControlDig() {
+protected func ControlDig(object pClonk) {
 	[$TxtFillBarrel$, Image=WBRL]
-	var pFass = FindEmptyBarrel();
-	if(pFass)
+	var pFass = FindObject2(Find_Container(pClonk), Find_Or(Find_ID(EmptyBarrelID()), Find_ID(WBRL)), Find_Not(Find_Func("BarrelIsFull")));
+	if(pFass && GetAmount())
 		return FillBarrel(pFass);
 	Sound("Error");
 	return;
@@ -65,9 +43,5 @@ protected func ControlDig() {
 
 protected func ContextFillBarrel() {
 	[$TxtFillBarrel$, Image=WBRL]
-	var pFass = FindEmptyBarrel();
-	if(pFass)
-		return FillBarrel(pFass);
-	Sound("Error");
-	return;
+	return ControlDig(...);
 }

@@ -1,2 +1,2 @@
-DE:Sägewerk
-US:Sawmill
+DE:Regenfänger
+US:Raincatcher
