@@ -8,7 +8,7 @@ public func Departure(object pContainer,int iAlternateXDir,int iAlternateYDir) {
   SetAction("Idle");
   if(!GetXDir()) return 0;
   if(Rope) return 0;
-  RopeEnd = CreateObject(1A1E, 0, 0, GetOwner());
+  RopeEnd = CreateObject(LRPE, 0, 0, GetOwner());
   Enter(pContainer, RopeEnd);
   Rope = CreateObject(171E, 0, 0, GetOwner());
   Rope->Activate(RopeEnd, this);

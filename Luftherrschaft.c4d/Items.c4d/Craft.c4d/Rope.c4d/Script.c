@@ -23,7 +23,7 @@ func DingD() {
 func DingS() {
   var Target1 = GetRealContainer(GetActionTarget(0));
   var Target2 = GetRealContainer(GetActionTarget(1));
-  if(GetAction(Target1) == "Tumble") Target1->SetAction("Jump");
+  if(GetAction(Target1) == "Tumble") Target1->~SetAction("Jump");
   MoveRope(GetActionTarget(0), GetActionTarget(1));
   if(Target1 == Target2) return 0;
   CalcedLength = CalcLength(Target1, Target2);

@@ -6,6 +6,10 @@ static const C4D_SelectMaterial = 512;
 static const C4D_SelectKnowledge = 1024;
 static const C4D_SelectHomebase = 2048;
 
+static const Rope_Pull = -1;
+static const Rope_Push = 1;
+static const Rope_Hold = 0;
+
 global func GetRealContainer(object pOf) {
   var pCon = pOf;
   while(Contained(pCon)) pCon = Contained(pCon);
@@ -28,4 +32,20 @@ global func GetMiddlestVertex (obj) {
     }
   }
   return n;
+}
+
+// Liefert die Geschwindigkeit eines Objektes (X & Y)
+global func GetSpeed(object pObj, int iPrecision) {
+  if(!pObj) pObj = this;
+  var xdir = Abs(GetXDir(pObj, iPrecision)), ydir = Abs(GetYDir(pObj, iPrecision));
+  var speed = Sqrt(xdir ** 2 + ydir ** 2);
+  return speed;
+}
+
+// Gibt die Richtung eines bewegten Objektes als Gradzahl an
+global func GetMoveAngle(object pObj) {
+  if(!pObj) pObj = this;
+  var xdir=GetXDir(pObj), ydir=GetYDir(pObj);
+  var angle=Angle(0,0,xdir,ydir);
+  return angle;
 }

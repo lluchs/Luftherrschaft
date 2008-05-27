@@ -11,7 +11,7 @@ private func Control2Contents(string szControl) {
         szControl = "Activate";
   if(Contents(0))
     if(eval(Format("Contents(0)->~%s(this)",szControl)))
-    return 1;
+    return 0;
   return 0;
 }
 

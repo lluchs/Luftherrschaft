@@ -2,7 +2,6 @@
 Name=Winding
 Procedure=NONE
 Length=10
-Length=3
 Delay=0
 Facet=0,0,30,31
 NextAction=Winding

@@ -9,7 +9,6 @@ StartCall=Ding0
 
 [Action]
 Name=ConnectSingle
-xProcedure=CONNECT
 Procedure=NONE
 Delay=1
 Length=1
@@ -19,7 +18,6 @@ StartCall=DingS
 
 [Action]
 Name=ConnectDouble
-xProcedure=CONNECT
 Procedure=NONE
 Delay=1
 Length=1

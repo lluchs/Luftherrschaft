@@ -25,19 +25,27 @@ func RopeAskChangeLength(int iLength, object pObj) {
   return 0;
 }
 
-public func Activate() {
-  [$OpenMenu$]
-  return 0;
-}
-
 public func ControlDigDouble(object pClonk) {
+  [$OpenMenu$]
+  // "hängt am Haken"?
+  if(pHook) {
+    // einsammeln
+    if(GetProcedure(pClonk) == "WALK")
+      CollectHook();
+    // loslassen
+    if(GetProcedure(pClonk) == "FLIGHT") {
+      Exit(this,0,0,0,GetXDir(pClonk) * 7 / 100,GetYDir(pClonk) / 10);
+      SetPushOrPull(Rope_Hold);
+    }
+    return 1;
+  }
   // Clonk anhalten
   SetComDir(COMD_Stop,pClonk);
   CreateMenu(GetID(this), pClonk, 0, 0, "$NotAvailable$");
   if(Rope) {
-    if(PushPull != -1) AddMenuItem("$PullRope$","Set(PushPull,-1)", GetID(this), pClonk);
-    if(PushPull != 1) AddMenuItem("$ExtendRope$","Set(PushPull,1)", GetID(this), pClonk);
-    if(PushPull != 0) AddMenuItem("$HoldRope$","Set(PushPull,0)", GetID(this), pClonk);
+    if(PushPull != -1) AddMenuItem("$PullRope$","SetPushOrPull(-1)", GetID(this), pClonk);
+    if(PushPull != 1) AddMenuItem("$ExtendRope$","SetPushOrPull(1)", GetID(this), pClonk);
+    if(PushPull != 0) AddMenuItem("$HoldRope$","SetPushOrPull(0)", GetID(this), pClonk);
     if(ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) AddMenuItem("$Disconnect$", "Disconnect", 171E, pClonk);
   }        
   var obj, OCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
@@ -54,6 +62,72 @@ func Attach2Rope(crope) {
   PushPull=0;
   Rope=crope;
 }
+
+func SetPushOrPull(int iMode) {
+  PushPull = iMode;
+  return 1;
+}
+
+/* Enterhaken spezial Behandlung */
+
+local pRope, pHook, iSwing, iSpeed;
+
+public func SetRope(object _Rope, object _Hook) {
+  pRope = _Rope;
+  pHook = _Hook;
+  return 1;
+}
+
+public func CheckForSwing() {
+  if(!pHook) return 0;
+  if(!Contained()) return iSwing = 0;
+  if(Abs(GetXDir(Contained())) > 0)
+    if(Inside(GetX(), GetX(pHook) + 3, GetX(pHook) - 3))
+      iSwing++;
+}
+
+public func CollectHook() {
+  Enter(Contained(), pHook);
+  RemoveObject();
+  return 1;
+}
+
+/* Enterhaken Steuerung */
+
+public func ControlUp(object pClonk) {
+  var strProcedure = GetProcedure(pClonk);
+  if(strProcedure == "FLIGHT")
+    SetPushOrPull(-1);
+  return 1;
+}
+
+public func ControlDown(object pClonk) {
+  SetPushOrPull(1);
+  return 1;
+}
+
+public func ControlLeft(object pClonk) {
+  if(GetProcedure(pClonk) != "FLIGHT") return 0;
+  SetPushOrPull(Rope_Hold);
+  var speed = GetSpeed(pClonk), angle = GetMoveAngle(pClonk);
+  speed = speed - 5;
+  if(speed > iSpeed) speed = iSpeed;
+  if(speed == 0) speed = -GetSpeed(pClonk) * 105 / 100;
+  SetSpeed(Sin(angle,speed),-Cos(angle,speed),pClonk);
+  return 1;
+}
+
+public func ControlRight(object pClonk) {
+  if(GetProcedure(pClonk) != "FLIGHT") return 0;
+  SetPushOrPull(Rope_Hold);
+  var speed = GetSpeed(pClonk), angle = GetMoveAngle(pClonk);
+  speed = speed + 5;
+  if(speed > iSpeed) speed = iSpeed;
+  if(speed == 0) speed = +GetSpeed(pClonk) * 105 / 100;
+  SetSpeed(Sin(angle,speed),-Cos(angle,speed),pClonk);
+  return 1;
+}
+
 
 /* Enginecalls */
 
