@@ -12,7 +12,7 @@ protected func Initialize() {
 
 func RopeAskChangeLength( len, by) {
   if(!Rope)
-    if(!(Rope=FindObject(1E1E,0,0,0,0,0,"Connect",this()))) return 0;
+    if(!(Rope=FindObject(1E1E,0,0,0,0,0,"Connect",this))) return 0;
   if( by != Rope) return 0;
   var w;
   if(GetActionTarget(0,Rope) == this)
