@@ -26,5 +26,3 @@ ColorByOwner=0
 StretchGrowth=1
 IncompleteActivity=1
 Rotate=1
-Timer=1000
-TimerCall=Check
