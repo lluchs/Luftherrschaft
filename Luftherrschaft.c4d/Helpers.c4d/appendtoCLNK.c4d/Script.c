@@ -1,120 +1,126 @@
-#strict
-#appendto LHAV
+/*-- Clonk Append --*/
 
-private Control2Contents:
+#strict 2
+#appendto CLNK
+
+private func Control2Contents(string szControl) {
   // Getragenes Objekt hat spezielle Steuerungsauswertung
-  if ( ObjectCall(Contents(),Par(0),this()) )
-    return(1);
- return(0);
+  if(Contents(0))
+    if(Contents(0)->~ActivateSupported())
+      if(szControl == "ControlDigDouble")
+        szControl = "Activate";
+  if(Contents(0))
+    if(eval(Format("Contents(0)->~%s(this)",szControl)))
+    return 1;
+  return 0;
+}
 
-/* Steuerung Werfen */
-protected ControlThrow:
+/* Steuerung überladen, damit Inhalt zuerst ausführt */
+
+protected func ControlUp(object pClonk) {
+  if(Control2Contents("ControlUp")) return 1;
+  return _inherited(...);
+}
+
+protected func ControlDown(object pClonk) {
+  if(Control2Contents("ControlDown")) return 1; 
+  return _inherited(...);
+}
+
+protected func ControlLeft(object pClonk) {
+  if(Control2Contents("ControlLeft")) return 1;
+  return _inherited(...);
+}
+
+protected func ControlRight(object pClonk) {
+  if(Control2Contents("ControlRight")) return 1; 
+  return _inherited(...);
+}
+
+protected func ControlLeftDouble(object pClonk) {
+  if(Control2Contents("ControlLeftDouble")) return 1; 
+  return _inherited(...);
+}
+
+protected func ControlRightDouble(object pClonk) {
+  if(Control2Contents("ControlRightDouble")) return 1; 
+  return _inherited(...);
+}
+
+protected func ControlDig(object pClonk) {
+  if ( Control2Contents("ControlDig") ) return 1; 
+  return _inherited(...);
+}
+protected func ControlUpDouble(object pClonk) {
+  if ( Control2Contents("ControlUp") ) return 1; 
+  return _inherited(...);
+}
+protected func ControlDownDouble(object pClonk) {
+  if ( Control2Contents("ControlDown") ) return 1; 
+  return _inherited(...);
+}
+
+protected func ControlThrow(object pClonk) {
   // Bei vorherigem Doppel-Stop nur Ablegen  
-  if ( GetPlrDownDouble(GetOwner()) ) return(_inherited(Par()));
-  if ( Control2Contents("ControlThrow") ) return(1); 
- return(_inherited(Par()));
+  if(GetPlrDownDouble(GetOwner())) return _inherited(...);
+  if(Control2Contents("ControlThrow")) return 1; 
+  return _inherited(...);
+}
 
-/* Steuerung Richtung (an Inhalt weitergeben, sonst internen Befehl ausführen) */
-protected ControlUp:
-  if ( Control2Contents("ControlUp") ) return(1);
- return(_inherited(Par()));
-protected ControlDown:
-  if ( Control2Contents("ControlDown") ) return(1); 
- return(_inherited(Par()));
-protected ControlLeft:
-  if ( Control2Contents("ControlLeft") ) return(1);
- return(_inherited(Par()));
-protected ControlRight:
-  if ( Control2Contents("ControlRight") ) return(1); 
- return(_inherited(Par()));
-protected ControlLeftDouble:
-  if ( Control2Contents("ControlLeftDouble") ) return(1); 
- return(_inherited(Par()));
-protected ControlRightDouble:
-  if ( Control2Contents("ControlRightDouble") ) return(1); 
- return(_inherited(Par()));
-protected func ControlDigDouble( ) {
-  if ( Control2Contents("ControlDigDouble") ) return(1);
-  if( _inherited( )) return( 1);
+protected func ControlDigDouble(object pClonk) {
+  if(Control2Contents("ControlDigDouble")) return 1;
+  if(_inherited(...)) return 1;
   
   var pulley, tstruct, crope;
-  SetComDir(COMD_Stop());
+  SetComDir(COMD_Stop);
   // Check for collection limit    
-  if( GetDefCoreVal( "CollectionLimit", "DefCore", GetID( )))
-    if( ContentsCount( ) >= GetDefCoreVal( "CollectionLimit", "DefCore", GetID( )))
-      return( );
+  if(GetDefCoreVal("CollectionLimit", "DefCore", GetID(this)))
+    if(ContentsCount(0,this) >= GetDefCoreVal( "CollectionLimit", "DefCore", GetID(this)))
+      return 0;
     // Check line pickup
-    if( LinePickUp( this())) return( 1);
-    while( tstruct = FindObject( 0, 0, -1, 0, 0, 0, 0, 0, 0, tstruct))
-      if( LinePickUp( tstruct)) return( 1);
-    while( tstruct = FindObject( 0, 0, 9, 0, 0, 0, 0, 0, 0, tstruct))
-      if( LinePickUp( tstruct)) return( 1);
-    return();
-  }
+    if(LinePickUp( this)) return 1;
+    while(tstruct = FindObject( 0, 0, -1, 0, 0, 0, 0, 0, 0, tstruct))
+      if(LinePickUp( tstruct)) return 1;
+    while(tstruct = FindObject( 0, 0, 9, 0, 0, 0, 0, 0, 0, tstruct))
+      if(LinePickUp( tstruct)) return 1;
+    return 0;
+}
+
 private func LinePickUp( obj) {
   var crope, pulley;
   if( crope = FindObject( 1E1E, 0, 0, 0, 0, 0, "Connect", obj)) {
     // Check line connected to linekit at other end
     if ( (GetID( GetActionTarget( 0, crope)) == 161E) || (GetID( GetActionTarget( 1, crope)) == 161E)) {
       Sound("Error");
-      Message( GetLangString( 1), this( ), GetName( crope));
-      return( );
+      Message("$NotFixed$", this, GetName( crope));
+      return 0;
     }
     // Pick up line and new linekit
-    if( !( pulley = CreateObject( 161E, 0, 0, GetOwner( crope)))) return( );
-    Enter( this( ), pulley);
-    Sound( "Connect");
+    if( !( pulley = CreateObject( 161E, 0, 0, GetOwner( crope)))) return 0;
+    Enter(this, pulley);
+    Sound("Connect");
     if (GetActionTarget( 0, crope)==obj) ObjectSetAction( crope, "Connect", pulley);
     if (GetActionTarget( 1, crope)==obj) ObjectSetAction( crope, "Connect", 0, pulley);
     ObjectCall( pulley, "Attach2Rope", crope);
-    Message( GetLangString( 2), obj, GetName( crope), GetName(obj));
-    return( 1);
+    Message("$Disconnect$", obj, GetName( crope), GetName(obj));
+    return 1;
   }
-  return( );
+  return 0;
 }
 
-
-
+/* Kontext Menü Einträge Für Seil */
 /*
-  var linekit, tstruct, cline;
-  var ocf;
-  SetComDir(COMD_Stop());
-  // Check physical
-  if (!GetPhysical("CanConstruct")) return(0,Message( GetLangString( 1),this(),GetName()));
-// - - - - - - - - - - - - - - - - - - Line pickup - - - - - - - - - - - - - - - - -
-  // Check for linekit
-  if (!(linekit=FindContents(LNKT))) {
-    // Check for collection limit    
-    if( GetDefCoreVal( "CollectionLimit", "DefCore", GetID( )))
-      if( ContentsCount( ) >= GetDefCoreVal( "CollectionLimit", "DefCore", GetID( )))
-        return( );
-    // Check line pickup
-    ocf=OCF_LineConstruct();
-    if( !( tstruct = FindObject( 0, 0, -1, 0, 0, ocf)));
-    if( !( cline = FindObject( 0, 0, 0, 0, 0, 0, "Connect", tstruct))) return( );
-    // Check line connected to linekit at other end
-    if ( (GetID( GetActionTarget( 0, cline)) == LNKT) || (GetID( GetActionTarget( 1, cline)) == LNKT)) {
-      Sound("Error");
-      Message( GetLangString( 2), this( ), GetName( cline));
-      return( );
-    }
-    // Pick up line and new linekit
-    if( !( linekit = CreateObject( LNKT, 0, 0, GetOwner( cline)))) return( );
-    Enter( this( ), linekit);
-    Sound( "Connect");
-    if (GetActionTarget( 0, cline)==tstruct) ObjectSetAction( cline, "Connect", linekit);
-    if (GetActionTarget( 1, cline)==tstruct) ObjectSetAction( cline, "Connect", 0, linekit);
-    Message( GetLangString( 3), tstruct, GetName( cline), GetName(tstruct));
-    return( 1);
-  }
-*/  
- //return(_inherited(Par()));
-protected ControlDig:
-  if ( Control2Contents("ControlDig") ) return(1); 
- return(_inherited(Par()));
-protected ControlUpDouble:
-  if ( Control2Contents("ControlUp") ) return(1); 
- return(_inherited(Par()));
-protected ControlDownDouble:
-  if ( Control2Contents("ControlDown") ) return(1); 
- return(_inherited(Par()));
+public func ContextPullRope() {
+  [$PullRope$|Image=LRPE|Condition=RopeAttached]
+  
+}*/
+
+/* Bedingungen */
+
+public func RopeAttached() {
+  // hat kein Seil in der Hand?
+  if(!Contents()->~IsRope()) return 0;
+  // fest gemacht?
+  if(!Contents()->~RopeAttached()) return 0;
+  return 1;
+}

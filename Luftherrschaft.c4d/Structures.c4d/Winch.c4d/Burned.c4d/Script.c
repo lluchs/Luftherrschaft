@@ -3,15 +3,17 @@
 #strict
 
 local Rope,Pull,Seilende,OldLength;
+local basement;
 
-/* Fundament (Local 9) */
+/* Fundament */
 
-protected Destruction:
-  if (Local(9)) RemoveObject(Local(9));
-  return(1);
+protected func Destruction() {
+  if(basement) RemoveObject(basement);
+  return 1;
+}
 
-protected Incineration:
+protected func Incineration() {
   // Seil entfernen
   if(Rope) RemoveObject(Rope);
-  return(1);
-
+  return 1;
+}

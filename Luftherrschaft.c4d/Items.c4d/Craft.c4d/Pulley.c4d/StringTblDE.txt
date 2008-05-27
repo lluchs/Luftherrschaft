@@ -1,0 +1,8 @@
+OpenMenu=Menü öffnen
+NotAvailable=Zurzeit nicht möglich. Wenden sie sich an den Administrator.
+
+PullRope=Am Seil ziehen
+ExtendRope=Seil geben
+HoldRope=Seil festhalten
+Disconnect=Seil losmachen
+Connect=Seil mit %s verbinden

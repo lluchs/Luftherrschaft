@@ -1,0 +1,2 @@
+NotFixed=%s is not fixed at the other end.
+Disconnect=%s disconnected|from %s.

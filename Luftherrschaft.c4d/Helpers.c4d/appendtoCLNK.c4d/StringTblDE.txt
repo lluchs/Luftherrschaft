@@ -1,0 +1,2 @@
+NotFixed=%s wird schon am anderen Ende verlegt.
+Disconnect=%s von %s getrennt.

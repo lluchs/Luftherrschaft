@@ -1,104 +1,119 @@
 /*- Das Seil als aufnehmbares Objekt-*/
-#strict
+
+#strict 2
+
 local Rope,PushPull,Objekt,Mode;
 
-func RopeAskChangeLength (len, obj) {
-  if (obj != Rope) return ();
-  if (!(GetOCF(Contained ()) & OCF_CrewMember())) {
-    if (Rope -> GetLength () >= 1000) {
-      Exit ();
-      return ();
+func RopeAskChangeLength(int iLength, object pObj) {
+  if(pObj != Rope) return 0;
+  if(!(GetOCF(Contained()) & OCF_CrewMember)) {
+    if(Rope->~GetLength() >= 1000) {
+      Exit();
+      return 0;
     }
-    if (len >= 0) return (1 + Random (2));
-    return ();
+    if(iLength >= 0) return 1 + Random(2);
+    return 0;
   }
   // Bei zu starkem Zug nachgeben  
-  if (PushPull <= 0) if (len >= 25) return (1);
+  if (PushPull <= 0) if(iLength >= 25) return 1;
   // Am Seil ziehen
-  if (PushPull == -1) if (len <= 20) return (-1);
+  if (PushPull == -1) if(iLength <= 20) return -1;
   // Nicht zu viel Seil lassen
-  if (PushPull >= 0) if (len <= -10) return (-1);
+  if (PushPull >= 0) if (iLength <= -10) return -1;
   // Seil geben
-  if (PushPull == 1) if (len >= 0) if (ObjectCall (Rope, "GetLength") < 1000) return (1 + Random (2));
-  return ();
+  if (PushPull == 1) if (iLength >= 0) if (Rope->~GetLength() < 1000) return (1 + Random (2));
+  return 0;
 }
 
-Activate: [Menu öffnen] return();
+public func Activate() {
+  [$OpenMenu$]
+  return 0;
+}
 
-ControlDigDouble:
+public func ControlDigDouble(object pClonk) {
   // Clonk anhalten
-  SetComDir(COMD_Stop(),Par(0));
-  CreateMenu( GetID( this( )), Par( ), 0, 0, "Zurzeit nicht möglich. Wenden sie sich an den Administrator.");
-  if( Rope)
-  {                                                                                                                                    
-    if(PushPull!=-1) AddMenuItem( GetLangString( 1), "Set(PushPull,-1)", GetID( this( )), Par( ));
-    if(PushPull!=1) AddMenuItem( GetLangString( 2), "Set(PushPull,1)", GetID( this( )), Par( ));
-    if(PushPull!=0) AddMenuItem( GetLangString( 3), "Set(PushPull,0)", GetID( this( )), Par( ));
-    if(ObjectDistance(GetActionTarget(!Mode,Rope))<30) AddMenuItem( GetLangString( 4), "Trenne", 171E, Par( ), 0, 0, "Nimmt das Seil ab.");
+  SetComDir(COMD_Stop,pClonk);
+  CreateMenu(GetID(this), pClonk, 0, 0, "$NotAvailable$");
+  if(Rope) {
+    if(PushPull != -1) AddMenuItem("$PullRope$","Set(PushPull,-1)", GetID(this), pClonk);
+    if(PushPull != 1) AddMenuItem("$ExtendRope$","Set(PushPull,1)", GetID(this), pClonk);
+    if(PushPull != 0) AddMenuItem("$HoldRope$","Set(PushPull,0)", GetID(this), pClonk);
+    if(ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) AddMenuItem("$Disconnect$", "Disconnect", 171E, pClonk);
   }        
-  var obj,OCF=OCF_Living()|OCF_Grab()|OCF_Chop()|OCF_Collectible();
-  while( obj= FindObject(0,-10,-25,20,50, OCF, 0, 0, NoContainer(), obj))
-    if((GetActionTarget(0,Rope)!=obj)&&(GetActionTarget(1,Rope)!=obj))
-    AddMenuItem( Format( GetLangString( 5), GetName( obj)), "Verbinde", GetID( obj), Par( ), 0, obj, "Knotet das Seil fest.");
-return(1);
+  var obj, OCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
+  for(obj in FindObjects(Find_Distance(15),Find_OCF(OCF),Find_NoContainer()))
+    // hängt schon dran?
+    if((GetActionTarget(0,Rope) != obj) && (GetActionTarget(1,Rope) != obj))
+    AddMenuItem(Format("$Connect$", GetName(obj)), Format("Connect(Object(%d))",ObjectNumber(obj)), GetID(obj), pClonk);
+  return(1);
+}
 
 func Attach2Rope(crope) {
-  if( GetActionTarget( 0, crope) == this( )) Mode=0;
-  if( GetActionTarget( 1, crope) == this( )) Mode=1;
+  if(GetActionTarget( 0, crope) == this) Mode=0;
+  if(GetActionTarget( 1, crope) == this) Mode=1;
   PushPull=0;
   Rope=crope;
 }
 
-Departure:
-  if( Rope) SetCategory(3588);
+/* Enginecalls */
+
+func Departure() {
+  if( Rope) SetCategory(C4D_Vehicle | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
   PushPull=1;
-return( );
+  return 0;
+}
 
-RejectEntrance:
-//  if(Rope) return(!(GetOCF(Par())&OCF_CrewMember()));
-return();
+func RejectEntrance() {
+  return 0;
+}
 
-Entrance:
-  SetCategory(3600);
-return( );
+func Entrance() {
+  SetCategory(C4D_Object | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
+  return 0;
+}
 
-Verbinde://ID, Objekt
-  SetCategory(3588);
+protected func Connect(object pConnectWith) {
+  SetCategory(C4D_Vehicle | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
   PushPull=1;
-  if( Rope)
-  {
-    if( Mode) ObjectSetAction( Rope, "Connect", 0, Par( 1));
-    if( !Mode) ObjectSetAction( Rope, "Connect", Par( 1));
-    ObjectCall(Rope,"CheckConVertices");
+  if(Rope) {
+    if(Mode) Rope->SetAction("Connect", 0, pConnectWith);
+    if(!Mode) Rope->SetAction("Connect", pConnectWith);
+    Rope->~CheckConVertices();
     RemoveObject();
     return( 1);
   }
-  if( !Rope)
-  {
-    if( !Par( 1)) return( );
+  if(!Rope) {
+    if(!pConnectWith) return 0;
     Mode=0;
-    //Objekt= Contained( );
-    ObjectCall( Rope= CreateObject(1E1E,0,0,GetOwner()), "Activate", this(), Par(1));
-    return( 1);
+    Rope = CreateObject(1E1E,0,0,GetOwner());
+    Rope->Activate(this, pConnectWith);    
+    return 1;
   }
-return( 1);
+  return 1;
+}
 
-private func CreateLine(idType, iOwner, pFrom, pTo) {
+private func CreateLine(idType,int iOwner,object pFrom,object pTo) {
   var pLine;
-  if( !pFrom || !pTo) return( );
-  if( !( pLine = CreateObject(idType,0,0,iOwner))) return( );
-  if( GetVertexNum( pLine) < 2) AddVertex(0,0,pLine);
-  if( GetVertexNum( pLine) < 2) AddVertex(0,0,pLine);
+  if(!pFrom || !pTo) return 0;
+  if(!(pLine = CreateObject(idType,0,0,iOwner))) return 0;
+  if(GetVertexNum(pLine) < 2) AddVertex(0,0,pLine);
+  if(GetVertexNum(pLine) < 2) AddVertex(0,0,pLine);
   SetVertex( 0, 0, GetX( pFrom), pLine);
   SetVertex( 0, 1, GetY( pFrom)+GetObjHeight(pFrom)/4, pLine);
   SetVertex( 1, 0, GetX( pTo), pLine);
   SetVertex( 1, 1, GetY( pTo)+GetObjHeight(pTo)/4, pLine);
-  ObjectSetAction( pLine, GetAction( pLine), pFrom, pTo);
-  return( pLine);
+  SetActionTargets(pFrom,pTo,pLine);
+  return pLine;
 }
 
-Trenne:
-  SetCategory(3600);
-  if( Rope) RemoveObject( Rope);
-return( 1);
-  
+protected func Disconnect() {
+  SetCategory(C4D_Object | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
+  if(Rope) RemoveObject(Rope);
+  return 1;
+}
+
+public func GetRope() { return Rope; }
+
+/* Eigenschaften */
+
+public func IsRope() { return 1; }

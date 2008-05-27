@@ -1,0 +1,1 @@
+RopeBroken=Das Seil ist gerissen!

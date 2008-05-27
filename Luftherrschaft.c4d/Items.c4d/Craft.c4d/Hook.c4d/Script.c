@@ -1,59 +1,72 @@
 /*-- Der Enterhaken --*/
 
-#strict
+#strict 2
 
-local Rope, Seilende;
-    
-protected func Departure(object pContainer) {               
-  SetAction ("Idle");
-  if(!GetXDir())
-  	return;
-  if(Rope)
-  	return;
-  Seilende = CreateObject(1A1E, 0, 0, GetOwner());
-  Rope = CreateObject(171E, 0, 0, GetOwner());
-  Rope -> Activate(Seilende, this);
-  //ObjectSetAction (Rope,"Connect",Seilende,this());
-  //ObjectCall(Seilende, "SetRope", Rope, this());
-  Seilende -> SetRope(Rope, this);
-  Enter(pContainer, Seilende);
-  SetXDir(GetXDir()* 2);
-  SetYDir(GetYDir()* 3);
-  Sound("Catapult");
-	return;
-}
-            
-protected func Entrance() {               
+local Rope, RopeEnd;
+
+public func Departure(object pContainer,int iAlternateXDir,int iAlternateYDir) {
   SetAction("Idle");
-	return;
+  if(!GetXDir()) return 0;
+  if(Rope) return 0;
+  RopeEnd = CreateObject(1A1E, 0, 0, GetOwner());
+  Enter(pContainer, RopeEnd);
+  Rope = CreateObject(171E, 0, 0, GetOwner());
+  Rope->Activate(RopeEnd, this);
+  RopeEnd->~SetRope(Rope, this);
+  var iXDir,iYDir;
+  iXDir = GetXDir() * 2;
+  iYDir = GetYDir() * 3;
+  if(iAlternateXDir || iAlternateYDir) {
+    Exit(this, 0, -12);
+    SetSpeed(iAlternateXDir,iAlternateYDir);
+  }
+  else
+    SetSpeed(iXDir, iYDir);
+  Sound("Catapult");
+  return 0;
 }
 
-public func RopeBreak() {                                           
-  Rope = 0;                                          
-  if(Seilende)
-  	RemoveObject(Seilende);
-  SetAction("Idle");                               
-	return;
+public func Entrance() {
+  SetAction("Idle");
+  return 0;
 }
 
-protected func Hit() {
+public func ControlThrow(object pClonk) {
+  var iXDir;
+  var iYDir;
+  if(GetProcedure(pClonk) == "FLIGHT") {
+    iXDir = GetXDir(pClonk) * 2;
+    iYDir = Abs(GetYDir(pClonk) * 3) * -1;
+    if(iYDir < -30) iYDir = -30;
+    return Departure(pClonk, iXDir, iYDir);
+  }
+  return 0;
+}
+
+/* Aufschlag */
+
+public func Hit() {
   Sound("Woodhit*");
-  if(!Rope)
-  	return;
-  SetXDir();
-  SetYDir();
-  Rope -> SetAction("ConnectSingle", Seilende, this);
-  Rope -> SetLength(Rope -> CalcLength());
-  //ObjectCall( Rope, "SetLength", ObjectCall( Rope, "CalcLength"));
-	return 1;
+  if(!Rope) return 0;
+  // Anhalten
+  SetSpeed();
+  Rope->SetAction("ConnectSingle",RopeEnd,this);
+  Rope->~SetLength(Rope->~CalcLength());
+  return 0;
 }
 
-private func Contacting(string szAction) {
-  SetAction(szAction);
-	return 1;
-}
+/* ContactCalls */
 
-protected func ContactLeft()		{ return Contacting("Hookleft");	}
-protected func ContactRight()		{ return Contacting("Hookright");	}
-protected func ContactBottom()	{ return Contacting("Hookdown");	}
-protected func ContactTop()			{ return Contacting("Hookup");		}
+public func ContactLeft() { return SetAction("Hookleft"); }
+public func ContactRight() { return SetAction("Hookright"); }
+public func ContactBottom() { return SetAction("Hookdown"); }
+public func ContactTop() { return SetAction("Hookup"); }
+
+/* Seil gerissen */
+
+func RopeBreak() {
+  Rope=0;                                       
+  if(RopeEnd) RemoveObject(RopeEnd);
+  SetAction("Idle");                               
+  return 0;
+}

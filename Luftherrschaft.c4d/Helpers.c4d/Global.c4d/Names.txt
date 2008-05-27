@@ -1,0 +1,2 @@
+DE:Globales Script
+US:Global Script

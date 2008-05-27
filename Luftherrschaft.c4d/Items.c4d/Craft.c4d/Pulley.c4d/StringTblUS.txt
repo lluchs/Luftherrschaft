@@ -1,0 +1,8 @@
+OpenMenu=Open Menu
+NotAvailable=Currently not available. Ask an administrator for help.
+
+PullRope=Pull rope
+ExtendRope=Extend rope
+HoldRope=Hold rope
+Disconnect=Disconnect rope
+Connect=Connect rope with %s

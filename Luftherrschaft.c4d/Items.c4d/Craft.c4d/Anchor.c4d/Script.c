@@ -1,25 +1,29 @@
 /*- Anker -*/
-#strict
+
+#strict 2
+
 local Boat;
 
-public Launch:
-  Boat=Par();
-  //SetAction("Attachground");  
-return(1);
-                 
-public Raise:
-  if(GetAction()eq"Attachground") SetAction("Idle");
-return();
+public func Launch(object pBoat) {
+  Boat = pBoat;
+  return 1;
+}
 
-Hit:
-  if(Boat){                             
+public func Raise() {
+  if(GetAction() == "Attachground") SetAction("Idle");
+  return 0;
+}
+
+public func Hit() {
+  if(Boat) {                             
     SetAction("Attachground");
-    ObjectCall(Boat,"AnchorHit",this());
+    ObjectCall(Boat,"AnchorHit",this);
   }
-return();
+  return 0;
+}
 
-GetVertexToConnect: return(1);
+public func GetVertexToConnect() { return 1; }
 
 public func Entrance (obj) {
-  Raise ();
+  Raise();
 }
