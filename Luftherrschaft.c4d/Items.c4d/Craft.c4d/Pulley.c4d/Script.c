@@ -86,6 +86,9 @@ public func CheckForSwing() {
 
 public func CollectHook() {
   Enter(Contained(), pHook);
+  // Zuerst das Seil
+  if(Rope) RemoveObject(Rope);
+  // dann mich
   RemoveObject();
   return 1;
 }
