@@ -3112,7 +3112,7 @@ Component=METL=2;WOOD=1
 LocalNamed=2;Rope=O209,Seilende=O208
 
 [Object]
-id=1A1E
+id=LRPE
 Number=208
 Timer=22
 Controller=0

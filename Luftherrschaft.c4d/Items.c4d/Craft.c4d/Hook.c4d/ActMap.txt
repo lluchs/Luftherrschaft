@@ -25,3 +25,12 @@ Attach=1
 NextAction=Hookleft
 Delay=1
 FacetBase=1
+
+[Action]
+Name=Fly
+Procedure=NONE
+Length=1
+Delay=2
+FacetBase=1
+NextAction=Fly
+StartCall=NewAngle

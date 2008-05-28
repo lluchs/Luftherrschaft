@@ -183,7 +183,7 @@ public func CheckConVertices () {
 
 /* Mit SetObject kann man die angeknüpften Objekte ändern. num=0 für Actiontarget0 und num=1 für Actiontarget1 */
 
-public func SetObject (obj, num) {
+public func SetObject(object obj,int num) {
   // keine Gebäude
   if (GetCategory(obj) & C4D_Structure) return 0;
   // 1.Actiontarget

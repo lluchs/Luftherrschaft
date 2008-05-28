@@ -2,7 +2,7 @@
 
 #strict 2
 
-local Rope,PushPull,Objekt,Mode;
+local Rope,PushPull/*,Objekt*/,Mode;
 
 func RopeAskChangeLength(int iLength, object pObj) {
   if(pObj != Rope) return 0;
@@ -32,11 +32,6 @@ public func ControlDigDouble(object pClonk) {
     // einsammeln
     if(GetProcedure(pClonk) == "WALK")
       CollectHook();
-    // loslassen
-    if(GetProcedure(pClonk) == "FLIGHT") {
-      Exit(this,0,0,0,GetXDir(pClonk) * 7 / 100,GetYDir(pClonk) / 10);
-      SetPushOrPull(Rope_Hold);
-    }
     return 1;
   }
   // Clonk anhalten
@@ -70,15 +65,18 @@ func SetPushOrPull(int iMode) {
 
 /* Enterhaken spezial Behandlung */
 
-local pRope, pHook, iSwing, iSpeed;
+local pHook, iSwing, iSpeed;
 
 public func SetRope(object _Rope, object _Hook) {
-  pRope = _Rope;
+  Rope = _Rope;
   pHook = _Hook;
   return 1;
 }
-
+// funktioniert noch nicht
 public func CheckForSwing() {
+  // bestimmte Aktionen unterbinden
+  if(GetAction(Contained()) == "Tumble" || GetAction(Contained()) == "Dive")
+    Contained()->~SetAction("Jump");
   if(!pHook) return 0;
   if(!Contained()) return iSwing = 0;
   if(Abs(GetXDir(Contained())) > 0)
@@ -95,39 +93,50 @@ public func CollectHook() {
 /* Enterhaken Steuerung */
 
 public func ControlUp(object pClonk) {
-  var strProcedure = GetProcedure(pClonk);
-  if(strProcedure == "FLIGHT")
-    SetPushOrPull(-1);
-  return 1;
+  if(GetProcedure(pClonk) == "FLIGHT")
+    PushPull=-1;
+  return 0;
 }
 
 public func ControlDown(object pClonk) {
-  SetPushOrPull(1);
-  return 1;
+  if(GetProcedure(pClonk) == "FLIGHT")
+    PushPull=1;
+  return 0;
 }
 
 public func ControlLeft(object pClonk) {
   if(GetProcedure(pClonk) != "FLIGHT") return 0;
   SetPushOrPull(Rope_Hold);
-  var speed = GetSpeed(pClonk), angle = GetMoveAngle(pClonk);
-  speed = speed - 5;
-  if(speed > iSpeed) speed = iSpeed;
-  if(speed == 0) speed = -GetSpeed(pClonk) * 105 / 100;
+  var speed = Abs(GetSpeed(pClonk)), angle = GetMoveAngle(pClonk);
+  var max_acc=SwingAcceleration(angle);
+  speed += Abs(GetSpeed(pClonk)) * max_acc / 100;
   SetSpeed(Sin(angle,speed),-Cos(angle,speed),pClonk);
-  return 1;
+  return 0;
 }
 
 public func ControlRight(object pClonk) {
   if(GetProcedure(pClonk) != "FLIGHT") return 0;
   SetPushOrPull(Rope_Hold);
-  var speed = GetSpeed(pClonk), angle = GetMoveAngle(pClonk);
-  speed = speed + 5;
-  if(speed > iSpeed) speed = iSpeed;
-  if(speed == 0) speed = +GetSpeed(pClonk) * 105 / 100;
+  var speed = Abs(GetSpeed(pClonk)), angle = GetMoveAngle(pClonk);
+  var max_acc=SwingAcceleration(angle);
+  speed += Abs(GetSpeed(pClonk)) * max_acc / 100;
   SetSpeed(Sin(angle,speed),-Cos(angle,speed),pClonk);
-  return 1;
+  return 0;
 }
 
+public func SwingAcceleration(int iMoveAngle) {
+  var new_angle;
+  if(iMoveAngle < 180) {
+    if(iMoveAngle > 90)
+      return 10;
+    return (iMoveAngle-45)*10/45;
+  }
+  if(iMoveAngle > 180) {
+    if(iMoveAngle < 270)
+      return 10;
+    return (360-(iMoveAngle+45))*10/45;
+  }
+}
 
 /* Enginecalls */
 
@@ -145,6 +154,8 @@ func Entrance() {
   SetCategory(C4D_Object | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
   return 0;
 }
+
+/* Seilfunktionen */
 
 protected func Connect(object pConnectWith) {
   SetCategory(C4D_Vehicle | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);

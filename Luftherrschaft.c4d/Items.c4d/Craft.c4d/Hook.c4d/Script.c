@@ -23,6 +23,7 @@ public func Departure(object pContainer,int iAlternateXDir,int iAlternateYDir) {
   else
     SetSpeed(iXDir, iYDir);
   Sound("Catapult");
+  SetAction("Fly");
   return 0;
 }
 
@@ -41,6 +42,13 @@ public func ControlThrow(object pClonk) {
     return Departure(pClonk, iXDir, iYDir);
   }
   return 0;
+}
+
+/* Neuer Winkel */
+
+public func NewAngle() {
+  SetR(GetMoveAngle(this));
+  return 1;
 }
 
 /* Aufschlag */
