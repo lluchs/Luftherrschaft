@@ -4,12 +4,29 @@
 
 #include L103
 #include DOOR
+#include SAVS
+
+static const LBSE_MaxFill = 500;
+
+private func FillSound() { return Sound("pfft"); }
 
 protected func Initialize(){
 	SetEntrance(1);
-	return 1;
+	return inherited(...);
 }
-local fSound, iDruck;
+
+/*
+protected func Collection(object pObj) {
+	if(GetID(pObj) != LCAB)
+		return;
+	var iBottleChange = pObj -> DoFill(pObj -> MaxFill());
+	var iChange = DoFill(-iBottleChange);
+	var iChange2 = iChange + iBottleChange;
+	pObj -> BarrelDoFill(-iChange2);
+}
+*/
+
+local fSound;
 local target;
 local progress;
 
@@ -81,10 +98,7 @@ private func CancelResearch()
   // Abbrechen ohne Erfolg?
   if(target) {
   	// Druckverlust
-  	iDruck -= Random(50);
-  	if(iDruck < 0)
-  		iDruck = 0;
-  	Sound("pfft");
+  	DoFill(-Random(50));
   }
   return 1;
 }
@@ -107,17 +121,19 @@ protected func StartResearch(clonk, def)
   if(!restime)
   	restime = 100;
   // Druckcheck
-	if(iDruck < restime) {
-		var pFlasche = FindObject2(Find_Container(this), Find_ID(LCAB), Find_Func("IsFull"));
-		if(pFlasche) {
-			var iDiff = restime - iDruck;
-			iDruck += pFlasche -> DoFill(-iDiff);
+	if(GetAmount() < restime) {
+		var aFlaschen = FindObjects(Find_Container(this), Find_ID(LCAB), Find_Func("GetAmount"));
+		for(var pFlasche in aFlaschen) {
+			var iDiff = restime - GetAmount();
+			DoFill(Abs(pFlasche -> DoFill(-iDiff)));
+			if(GetAmount() == restime)
+				break;
 		}
-		else {
-			PlayerMessage(GetOwner(), "$TxtNoCompressedAirBottle$", this);
-			Sound("Error");
-			return;
-		}
+	}
+	if(GetAmount() < restime) {
+		PlayerMessage(GetOwner(), "$TxtNoCompressedAirBottle$", this);
+		Sound("Error");
+		return;
 	}
   // Besitzer anpassen (der Besitzer des forschenden Clonks erhält den Bauplan)
   SetOwner(GetOwner(clonk));
@@ -139,7 +155,7 @@ private func Researching()
   if (!target) return(0);
   // Effekte
   if (Random(5))
-  	CreateParticle("Smoke",5+8*Random(2),-23,RandomX(5,8),0,RandomX(10,30),RGB(255,255,255));
+  	CreateParticle("Smoke",8*Random(2),-13,RandomX(5,8),0,RandomX(10,30),RGB(255,255,255));
   //Smoke(5+8*Random(2),-23,3+Random(8));
   // Fortschritt
   var Process = Min(++progress*4 / restime, 3);
@@ -176,7 +192,7 @@ private func Researching()
   // Nachricht ausgeben
   Message("$Txtsdeveloped$", this(), GetName(0, target));
   // der für die Forschung benötigte Druck entfernen
-  iDruck -= restime;
+  DoFill(-restime);
   // Forschung beenden
   target = 0;
   CancelResearch();
