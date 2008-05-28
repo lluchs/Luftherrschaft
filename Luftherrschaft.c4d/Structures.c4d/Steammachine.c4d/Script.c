@@ -97,12 +97,14 @@ protected func RejectCollect(id idObj, object pObj) {
 		return 1;
 	}
 	if(idObj == WBRL) {
-		DoFill(Abs(pObj -> BarrelDoFill(-pObj -> BarrelMaxFill())));
+		DoFill(Abs(pObj -> BarrelDoFill(-pObj -> BarrelMaxFill())), 1);
+		Sound("Splash1");
 		return 1;
 	}
 	if(idObj == COAL) {
 		if(DoFill(1, 2)) {
-			Schedule(Format("RemoveObject(Object(%d))", ObjectNumber(pObj)), 1);
+			RemoveObject(pObj);
+			Sound("Clonk");
 			return;
 		}
 	}
