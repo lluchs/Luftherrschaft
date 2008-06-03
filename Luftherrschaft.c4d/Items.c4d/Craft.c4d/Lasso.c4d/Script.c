@@ -5,6 +5,11 @@
 
 local strength; // Stärke mit der geworfen wird
 
+func Initialize() {
+  strength=100;
+  return _inherited(...);
+}
+
 func Departure(object pObj, int iAltXDir, int iAltYDir) {
   if(!iAltXDir && !iAltYDir) {
     iAltXDir=GetXDir()*2;
@@ -36,26 +41,14 @@ public func Hit() {
 /* ActionCall */
 
 func FindConnect() {
-  for(var obj in FindObjects(Find_AtPoint(), Find_Exclude(this), Find_Exclude(Rope), Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible))) {
-    Rope->~SetObject(obj, GetActNumber());
+  for(var obj in FindObjects(Find_AtPoint(),Find_Exclude(this),Find_Exclude(Rope),Find_NoContainer(),Find_Exclude(Contained(RopeEnd)),Find_OCF(OCF_Living | OCF_Grab),Find_Not(Find_Func("IsTree")))) {
+    Rope->SetAction("ConnectSingle",RopeEnd,obj);
+    Rope->~SetLength(Rope->~CalcLength());
     Sound("Connect");
-    Message("Gefangen!",obj);
+    Message("%s gefangen!",RopeEnd,GetName(obj));
     // Lasso verschwindet dann
     RemoveObject();
   }
-}
-
-public func CanConnect(object pObj) {
-  // soll trotzdem verbinden?
-  if(pObj->~LassoConnect()) return 1;
-  // keine Bäume (hat zu viele)
-  if(pObj->~IsTree()) return 0;
-  // keine Gebäude
-  if(GetCategory(pObj) & C4D_Structure) return 0;
-  // keine sammelbaren Objekte
-  if(GetOCF(pObj) & OCF_Collectible) return 0;
-  // sonst schon
-  return 1;
 }
 
 private func GetActNumber() {
