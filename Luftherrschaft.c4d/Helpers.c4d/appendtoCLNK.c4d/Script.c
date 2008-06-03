@@ -69,43 +69,16 @@ protected func ControlThrow(object pClonk) {
 
 protected func ControlDigDouble(object pClonk) {
   if(Control2Contents("ControlDigDouble")) return 1;
-  if(_inherited(...)) return 1;
-  
-  var pulley, tstruct, crope;
-  SetComDir(COMD_Stop);
-  // Check for collection limit    
-  if(GetDefCoreVal("CollectionLimit", "DefCore", GetID(this)))
-    if(ContentsCount(0,this) >= GetDefCoreVal( "CollectionLimit", "DefCore", GetID(this)))
-      return 0;
-    // Check line pickup
-    if(LinePickUp( this)) return 1;
-    while(tstruct = FindObject( 0, 0, -1, 0, 0, 0, 0, 0, 0, tstruct))
-      if(LinePickUp( tstruct)) return 1;
-    while(tstruct = FindObject( 0, 0, 9, 0, 0, 0, 0, 0, 0, tstruct))
-      if(LinePickUp( tstruct)) return 1;
-    return 0;
-}
-
-private func LinePickUp( obj) {
-  var crope, pulley;
-  if( crope = FindObject( 1E1E, 0, 0, 0, 0, 0, "Connect", obj)) {
-    // Check line connected to linekit at other end
-    if ( (GetID( GetActionTarget( 0, crope)) == 161E) || (GetID( GetActionTarget( 1, crope)) == 161E)) {
-      Sound("Error");
-      Message("$NotFixed$", this, GetName( crope));
-      return 0;
+  var rope,obj,pulley;
+  for(obj in FindObjects(Find_AtPoint(),Find_Distance(30),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible))) {
+    if(rope=FindObject2(Find_ID(1E1E),Find_ActionTarget(obj))) {
+      pulley=CreateContents(LRPE,pClonk);
+      rope->~SetObject(pulley,GetActionTargetNum(obj,rope));
+      Sound("Connect");
+      return 1;
     }
-    // Pick up line and new linekit
-    if( !( pulley = CreateObject( 161E, 0, 0, GetOwner( crope)))) return 0;
-    Enter(this, pulley);
-    Sound("Connect");
-    if (GetActionTarget( 0, crope)==obj) ObjectSetAction( crope, "Connect", pulley);
-    if (GetActionTarget( 1, crope)==obj) ObjectSetAction( crope, "Connect", 0, pulley);
-    ObjectCall( pulley, "Attach2Rope", crope);
-    Message("$Disconnect$", obj, GetName( crope), GetName(obj));
-    return 1;
   }
-  return 0;
+  if(_inherited(...)) return 1;
 }
 
 /* Kontext Menü Einträge Für Seil */

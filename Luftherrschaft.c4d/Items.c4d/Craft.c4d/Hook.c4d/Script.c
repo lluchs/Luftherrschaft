@@ -23,11 +23,19 @@ public func Departure(object pContainer,int iAlternateXDir,int iAlternateYDir) {
   else
     SetSpeed(iXDir, iYDir);
   Sound("Catapult");
+  if(GetProcedure(pContainer) != "FLIGHT")
+    SetPlrView(GetOwner(pContainer),this);
   SetAction("Fly");
   return 0;
 }
 
-public func Entrance() {
+public func Entrance(object pContainer) {
+  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(LRPE))) {
+    if(obj == RopeEnd) {
+      if(Rope) RemoveObject(Rope);
+      if(RopeEnd) RemoveObject(RopeEnd);
+    }
+  }
   SetAction("Idle");
   return 0;
 }
@@ -36,9 +44,8 @@ public func ControlThrow(object pClonk) {
   var iXDir;
   var iYDir;
   if(GetProcedure(pClonk) == "FLIGHT") {
-    iXDir = GetXDir(pClonk) * 2;
-    iYDir = Abs(GetYDir(pClonk) * 3) * -1;
-    if(iYDir < -30) iYDir = -30;
+    iXDir = GetXDir(pClonk) * 5 / 2;
+    iYDir = -Abs(GetYDir(pClonk))-10;
     return Departure(pClonk, iXDir, iYDir);
   }
   return 0;

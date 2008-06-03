@@ -49,3 +49,8 @@ global func GetMoveAngle(object pObj) {
   var angle=Angle(0,0,xdir,ydir);
   return angle;
 }
+
+global func GetActionTargetNum(object pObj,object pOfObject) {
+  if(GetActionTarget(0,pOfObject) == pObj) return 0;
+  return 1;
+}

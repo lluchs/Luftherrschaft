@@ -2,7 +2,7 @@
 
 #strict 2
 
-local Rope,PushPull/*,Objekt*/,Mode;
+local Rope,PushPull,Mode;
 
 func RopeAskChangeLength(int iLength, object pObj) {
   if(pObj != Rope) return 0;
@@ -18,10 +18,12 @@ func RopeAskChangeLength(int iLength, object pObj) {
   if (PushPull <= 0) if(iLength >= 25) return 1;
   // Am Seil ziehen
   if (PushPull == -1) if(iLength <= 20) return -1;
+  if (PushPull == -2) if(iLength <= 20) return -2;
   // Nicht zu viel Seil lassen
   if (PushPull >= 0) if (iLength <= -10) return -1;
   // Seil geben
   if (PushPull == 1) if (iLength >= 0) if (Rope->~GetLength() < 1000) return (1 + Random (2));
+  if (PushPull == 2) if (iLength >= 0) if (Rope->~GetLength() < 1000) return (2 + Random (2));
   return 0;
 }
 
@@ -34,7 +36,22 @@ public func ControlDigDouble(object pClonk) {
       CollectHook();
     return 1;
   }
-  // Clonk anhalten
+  var pObjs,pObj;
+  if(GetProcedure(pClonk) == "FLIGHT") {
+    pObjs=FindObjects(Find_AtPoint(),Find_Exclude(Contained()),Find_NoContainer(),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible));
+    for(pObj in pObjs) {
+      if(!pObj)
+        continue;
+      if(pObj == this)
+        continue;
+      // keine Befestigungsmöglichkeit?
+      if(!CanAttach(pObj))
+        continue;
+      // Verbinden
+      if(Connect(pObj))
+        break;
+    }
+  }
   SetComDir(COMD_Stop,pClonk);
   CreateMenu(GetID(this), pClonk, 0, 0, "$NotAvailable$");
   if(Rope) {
@@ -48,6 +65,12 @@ public func ControlDigDouble(object pClonk) {
     // hängt schon dran?
     if((GetActionTarget(0,Rope) != obj) && (GetActionTarget(1,Rope) != obj))
     AddMenuItem(Format("$Connect$", GetName(obj)), Format("Connect(Object(%d))",ObjectNumber(obj)), GetID(obj), pClonk);
+  
+  // Seil abnhemen
+  if(GetActionTarget(!Mode,Rope) && ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) {
+    Disconnect();
+    return;
+  }
   return(1);
 }
 
@@ -127,6 +150,18 @@ public func ControlRight(object pClonk) {
   return 0;
 }
 
+public func ControlUpDouble(object pClonk) {
+  if(GetProcedure(pClonk) == "FLIGHT")
+    PushPull=-2;
+  return 0;
+}
+
+public func ControlDownDouble(object pClonk) {
+  if(GetProcedure(pClonk) == "FLIGHT")
+    PushPull=+2;
+  return 0;
+}
+
 public func SwingAcceleration(int iMoveAngle) {
   var new_angle;
   if(iMoveAngle < 180) {
@@ -144,7 +179,7 @@ public func SwingAcceleration(int iMoveAngle) {
 /* Enginecalls */
 
 func Departure() {
-  if( Rope) SetCategory(C4D_Vehicle | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
+  if(Rope) SetCategory(C4D_Vehicle | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
   PushPull=1;
   return 0;
 }
@@ -163,6 +198,7 @@ func Entrance() {
 protected func Connect(object pConnectWith) {
   SetCategory(C4D_Vehicle | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
   PushPull=1;
+  Sound("Connect");
   if(Rope) {
     if(Mode) Rope->SetAction("Connect", 0, pConnectWith);
     if(!Mode) Rope->SetAction("Connect", pConnectWith);
@@ -196,11 +232,26 @@ private func CreateLine(idType,int iOwner,object pFrom,object pTo) {
 
 protected func Disconnect() {
   SetCategory(C4D_Object | C4D_SelectMaterial | C4D_SelectKnowledge | C4D_SelectHomebase);
+  Sound("Connect");
   if(Rope) RemoveObject(Rope);
   return 1;
 }
 
 public func GetRope() { return Rope; }
+
+private func CanAttach(object pObj) {
+  if(!pObj) return 0;
+  // Bäume möglich
+  if(pObj->~IsTree()) return 1;
+  // Sonderfunktion?
+  if(pObj->~IsRopeAttachable()) return 1;
+  // keine Gebäude
+  if(GetCategory(pObj) & C4D_Structure) return 0;
+  // keine sammelbaren Dinge (Stein, Flint etc)
+  if(GetOCF(pObj) & OCF_Collectible) return 0;
+  // sonst möglich
+  return 1;
+}
 
 /* Eigenschaften */
 
