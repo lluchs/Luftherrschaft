@@ -1,1 +1,1 @@
-A new object definition.
+To catch objects. Dig Double for the throw-strength.

@@ -1,0 +1,16 @@
+[DefCore]
+id=LBSP
+Name=Bombing Ship
+Version=4,9,5
+Category=C4D_Vehicle|C4D_SelectVehicle|C4D_SelectKnowledge|C4D_SelectHomebase
+MaxUserSelect=1
+Width=260	
+Height=150
+Offset=-130,-75
+Value=300
+Mass=700
+Components=METL=4;WOOD=8;
+Picture=5230,125,200,150
+Vertices=1
+VertexY=1
+VertexFriction=20
