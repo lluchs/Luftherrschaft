@@ -21,7 +21,7 @@ func DingD() {
 }
 
 func DingS() {
-  if(!GetActionTarget(0) || !GetActionTarget(1))
+  if(!GetActionTarget(0) && !GetActionTarget(1))
     return 0;
   var Target1 = GetRealContainer(GetActionTarget(0));
   var Target2 = GetRealContainer(GetActionTarget(1));
