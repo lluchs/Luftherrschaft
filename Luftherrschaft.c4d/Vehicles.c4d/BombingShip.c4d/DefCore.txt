@@ -1,5 +1,5 @@
 [DefCore]
-id=LBSP
+id=LBOS
 Name=Bombing Ship
 Version=4,9,5
 Category=C4D_Vehicle|C4D_SelectVehicle|C4D_SelectKnowledge|C4D_SelectHomebase
@@ -7,10 +7,26 @@ MaxUserSelect=1
 Width=260	
 Height=150
 Offset=-130,-75
+Vertices=5
+VertexX=108,-17,-65,-130, 113
+VertexY= 34, 46, 46,-  3,-46
+VertexCNAT=10,8,8,5,3
+VertexFriction=80,80,80,80,80
 Value=300
 Mass=700
 Components=METL=4;WOOD=8;
 Picture=5230,125,200,150
-Vertices=1
-VertexY=1
-VertexFriction=20
+Entrance=77,67,20,25
+ContactIncinerate=15
+BlastIncinerate=80
+BurnTo=BLMB
+Rebuy=1
+Grab=2
+Float=27
+BorderBound=7
+UprightAttach=5
+NoPushEnter=1
+VehicleControl=2
+
+[Physical]
+Float=100
