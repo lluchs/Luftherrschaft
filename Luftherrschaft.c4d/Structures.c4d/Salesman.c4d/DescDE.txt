@@ -1,0 +1,7 @@
+Funktionsweise: Aller paar Frames (ca. 5min. oder so) wird die Funktion aufgerufen, dass der Händler erscheint (s. ActMap). 
+
+Ist er da, kann man über Entrance (oben auf der Platform) eine Art Kaufmenü öffnen und kaufen.
+
+Möglichkeiten: Ähnlich dem SL ein KI System machen, oder eben mehr oder weniger undynamisches Kaufsystem machen
+Varianten: Entweder als normales Spielerobjekt, oder bei einem Melee zB gibts den in der Mitte der Karte und jeder 
+muss hinfliegen. Der bessere Spieler kann dann zB auch Luftblockaden machen usw.
