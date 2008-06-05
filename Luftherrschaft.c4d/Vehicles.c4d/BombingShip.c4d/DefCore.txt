@@ -16,7 +16,7 @@ Value=300
 Mass=700
 Components=METL=4;WOOD=8;
 Picture=5230,125,200,150
-Entrance=77,67,20,25
+Entrance=-54,20,21,25
 ContactIncinerate=15
 BlastIncinerate=80
 BurnTo=BLMB
