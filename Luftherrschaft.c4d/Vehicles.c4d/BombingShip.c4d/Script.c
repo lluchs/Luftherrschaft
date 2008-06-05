@@ -3,20 +3,22 @@
 #strict 2
 
 protected func ThrowBomb() {
-	var pBomb = FindObject2(Find_Container(this), Find_ID(FLNT));
+	var pBomb = FindObject2(Find_Container(this), Find_ID(LBMB));
 	var iX = -42;
 	if(GetDir() == DIR_Right)
 		iX = Abs(iX);
 	Exit(pBomb, iX, 56, 0, GetXDir() / 10, GetYDir() / 10);
 }
 
-protected func ContainedDig(object pClonk) {
-	if(FindObject2(Find_Container(this), Find_ID(FLNT))) {
+protected func ContainedThrow(object pClonk) {
+	["Bombe schmeiﬂen!"|Image=LBMB]
+	if(FindObject2(Find_Container(this), Find_ID(LBMB))) {
 		if(GetAction() == "FloatIdle")
 			SetAction("BombingOpen");
 		if(GetAction() == "FloatPropel")
 			SetAction("PropelBombingOpen");
 	}
+	return 1;
 }
 
 local turn_end_dir;
@@ -310,7 +312,7 @@ protected func RejectCollect(id idObject, object pObj)
     ProtectedCall(pObj, "Hit");
     return 1;
   }
-  if(idObject == FLNT)
+  if(idObject == LBMB)
   	return;
   return 1;
 }
