@@ -6,11 +6,14 @@
 
 static const LCAB_MaxFill = 400;
 
+protected func Initialize() {
+	DoFill(200);
+	return inherited();
+}
+
 /* Callbacks */
 
-public func IsCompressedAirBottle() {
-	return 1;
-}
+public func IsCompressedAirBottle() { return 1; }
 
 public func FillPicture() { return 1; }
 private func FillSound() { return Sound("pfft"); }
