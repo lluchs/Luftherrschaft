@@ -1,9 +1,7 @@
 /*-- Händler --*/
 
-#strict2
+#strict 2
 #include L156
 
-func Initialize() {
-   
-  return(1);
-}
+private func Trader_comes() {}
+private func Trader_visible() {}
