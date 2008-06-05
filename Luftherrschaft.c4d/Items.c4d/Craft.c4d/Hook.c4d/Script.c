@@ -41,6 +41,7 @@ public func Entrance(object pContainer) {
 }
 
 public func ControlThrow(object pClonk) {
+  [$TxtThrow$]
   var iXDir;
   var iYDir;
   if(GetProcedure(pClonk) == "FLIGHT") {

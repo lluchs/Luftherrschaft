@@ -211,6 +211,7 @@ private func ClearCommand() { SetCommand(this,"!=No"); }
 protected func Initialize()
 {
   turn_end_dir = -1;
+  SetEntrance(1);
   FloatIdleDown();
 }
 

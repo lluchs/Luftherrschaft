@@ -1,1 +1,3 @@
+TxtThrow=Lasso werfen
+TxtChangeStrength=Wurfstärke ändern
 Strength=Stärke: %d

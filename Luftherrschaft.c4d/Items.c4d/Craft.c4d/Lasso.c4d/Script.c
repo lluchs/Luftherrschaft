@@ -23,6 +23,7 @@ func Departure(object pObj, int iAltXDir, int iAltYDir) {
 /* Steuerung */
 
 func ControlDigDouble(object pClonk) {
+  [$TxtChangeStrength$]
   strength += 10;
   if(strength > 140) strength = 40;
   Message("$Strength$",pClonk,strength);

@@ -1,1 +1,3 @@
+TxtThrow=Throw
+TxtChangeStrength=Change throw-strength
 Strength=Strength: %d
