@@ -1,6 +1,7 @@
-/*-- Neues Objekt --*/
+/*-- Händler --*/
 
-#strict
+#strict2
+#include L156
 
 func Initialize() {
    

@@ -1,0 +1,17 @@
+[DefCore]
+id=L156
+Version=4,9,8
+Name=Basement
+Category=C4D_Structure
+Width=156
+Height=8
+Offset=-78,-4
+Vertices=2
+VertexX=-75,75
+VertexY=-5,-5
+VertexFriction=100,100
+Value=1
+Mass=10
+Components=ROCK=6;
+SolidMask=0,0,156,8,0,0
+Construction=1
