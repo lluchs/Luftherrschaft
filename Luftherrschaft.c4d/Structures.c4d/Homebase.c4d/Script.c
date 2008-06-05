@@ -11,7 +11,6 @@ static const LBSE_MaxFill = 500;
 private func FillSound() { return Sound("pfft"); }
 
 protected func Initialize(){
-	SetEntrance(1);
 	return inherited(...);
 }
 
