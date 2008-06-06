@@ -314,6 +314,7 @@ protected func RejectCollect(id idObject, object pObj)
   }
   if(idObject == LBMB)
   	return;
+  SetAction("OpenDoor");
   return 1;
 }
 

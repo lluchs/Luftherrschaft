@@ -1,0 +1,8 @@
+[Action]
+Name=Fall
+Procedure=FLIGHT
+Delay=1
+Length=1
+FacetBase=1
+NextAction=Fall
+EndCall=ChangeRotation

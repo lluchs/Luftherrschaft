@@ -36,6 +36,11 @@ public func ControlDigDouble(object pClonk) {
       CollectHook();
     return 1;
   }
+  // Seil abnhemen
+  if(GetActionTarget(!Mode,Rope) && ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) {
+    Disconnect();
+    return;
+  }
   var pObjs,pObj;
   if(GetProcedure(pClonk) == "FLIGHT") {
     pObjs=FindObjects(Find_AtPoint(),Find_Exclude(Contained()),Find_NoContainer(),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible));
@@ -66,11 +71,6 @@ public func ControlDigDouble(object pClonk) {
     if((GetActionTarget(0,Rope) != obj) && (GetActionTarget(1,Rope) != obj))
     AddMenuItem(Format("$Connect$", GetName(obj)), Format("Connect(Object(%d))",ObjectNumber(obj)), GetID(obj), pClonk);
   
-  // Seil abnhemen
-  if(GetActionTarget(!Mode,Rope) && ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) {
-    Disconnect();
-    return;
-  }
   return(1);
 }
 
@@ -251,6 +251,16 @@ private func CanAttach(object pObj) {
   if(GetOCF(pObj) & OCF_Collectible) return 0;
   // sonst möglich
   return 1;
+}
+
+func RopeAttached() {
+  if(!Rope) return 0;
+  return 1;
+}
+
+func Departure() {
+  // halten
+  PushPull=0;
 }
 
 /* Eigenschaften */

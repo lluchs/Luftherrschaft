@@ -2,3 +2,6 @@ NotFixed=%s wird schon am anderen Ende verlegt.
 Disconnect=%s von %s getrennt.
 
 PullRope=Am Seil ziehen
+PushRope=Seil geben
+ConnectRope=Seil verbinden...
+ConnectWith=Mit %s verbinden

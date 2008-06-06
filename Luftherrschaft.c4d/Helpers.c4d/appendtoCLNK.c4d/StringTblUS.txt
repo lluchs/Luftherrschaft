@@ -1,2 +1,7 @@
 NotFixed=%s is not fixed at the other end.
 Disconnect=%s disconnected|from %s.
+
+PullRope=Pull rope
+PushRope=Push rope
+ConnectRope=Connect rope...
+ConnectWith=Connect with %s
