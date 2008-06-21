@@ -27,6 +27,7 @@ func DingS() {
   var Target2 = GetRealContainer(GetActionTarget(1));
   // Clonk soll nicht "tumbeln"
   if(GetAction(Target1) == "Tumble") Target1->~SetAction("Jump");
+  if(!Target1 || !Target2) return 0;
   MoveRope(GetActionTarget(0), GetActionTarget(1));
   if(Target1 == Target2) return 0;
   CalcedLength = CalcLength(Target1, Target2);

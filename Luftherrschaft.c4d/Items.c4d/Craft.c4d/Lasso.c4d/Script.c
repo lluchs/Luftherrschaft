@@ -17,7 +17,10 @@ func Departure(object pObj, int iAltXDir, int iAltYDir) {
   }
   // verfolgen
   SetPlrView(GetOwner(pObj),this);
-  return _inherited(pObj,iAltXDir*strength/100,iAltYDir*strength/100);  
+  // ausführen
+  _inherited(pObj,iAltXDir*strength/100,iAltYDir*strength/100);  
+  Rope->SetLength(1000);
+  return 1;
 }
 
 /* Steuerung */
@@ -36,13 +39,15 @@ public func Hit() {
   if(!Rope) return 0;
   Rope->SetAction("ConnectSingle",RopeEnd,this);
   Rope->~SetLength(Rope->~CalcLength());
+  // verlangsamen
+  SetSpeed(GetXDir()/2,GetYDir()/2);
   return 0;
 }
 
 /* ActionCall */
 
 func FindConnect() {
-  for(var obj in FindObjects(Find_AtPoint(),Find_Exclude(this),Find_Exclude(Rope),Find_NoContainer(),Find_Exclude(Contained(RopeEnd)),Find_OCF(OCF_Living | OCF_Grab),Find_Not(Find_Func("IsTree")))) {
+  for(var obj in FindObjects(Find_Distance(10),Find_Exclude(this),Find_Exclude(Rope),Find_NoContainer(),Find_Exclude(Contained(RopeEnd)),Find_OCF(OCF_Living | OCF_Grab),Find_Not(Find_Func("IsTree")))) {
     Rope->SetAction("ConnectSingle",RopeEnd,obj);
     Rope->~SetLength(Rope->~CalcLength());
     Sound("Connect");

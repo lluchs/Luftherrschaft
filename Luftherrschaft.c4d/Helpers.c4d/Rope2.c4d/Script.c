@@ -119,6 +119,7 @@ func Connecting() {
   var Target2 = GetRealContainer(GetActionTarget(1));
   MoveRope(GetActionTarget(0), GetActionTarget(1));
   if(Target1 == Target2) return 0;
+  if(!Target1 || !Target2) return 0;
   CalcedLength = CalcLength(Target1, Target2);
   var Difference = CalcedLength - Length;
   Length = Max(Length + GetActionTarget(0)->~RopeAskChangeLength(Difference, this), 3);
@@ -221,4 +222,5 @@ protected func Destruction () {
   // Benachrichtigungen
   if(GetActionTarget(0)) GetActionTarget(0)->~RopeBreak(GetID(GetActionTarget(1)));
   if(GetActionTarget(1)) GetActionTarget(1)->~RopeBreak(GetID(GetActionTarget(0)));
+  RemoveObject(Rope);
 }
