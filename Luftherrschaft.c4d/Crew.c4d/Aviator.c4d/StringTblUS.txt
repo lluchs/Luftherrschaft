@@ -6,3 +6,4 @@ CtxChop=Chop
 CtrlMenuDesc=Menu
 TxtDescend=Jump off
 TxtEnergysupply=Energy supply
+CtrlInventoryDesc=Shift inventory

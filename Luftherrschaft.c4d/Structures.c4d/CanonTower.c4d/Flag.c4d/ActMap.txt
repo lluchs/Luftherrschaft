@@ -1,6 +1,6 @@
 [Action]
 Name=Wind
-Procedure=NONE
+Procedure=FLOAT
 Facet=0,0,60,21
 Length=30
 Delay=2
@@ -8,7 +8,7 @@ NextAction=WindReturnsback
 
 [Action]
 Name=WindReturnsback
-Procedure=NONE
+Procedure=FLOAT
 Facet=0,0,60,21
 Length=30
 Delay=2

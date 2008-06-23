@@ -2,8 +2,11 @@
 
 #strict
 
+#include BAS3
+#include DOOR
+
 func Initialize() {
   //Flagge erzeugen (für Spielerfarbe)
-  CreateObject(LFLG,0,-10);
+  CreateObject(LFLG,-5,-23);
   return(1);
 }

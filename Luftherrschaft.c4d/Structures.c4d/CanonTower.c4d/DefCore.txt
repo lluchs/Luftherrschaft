@@ -15,7 +15,7 @@ Value=45
 Mass=1350
 Components=ROCK=7;METL=1;WOOD=2
 Picture=0,0,60,70
-Entrance=-30,15,20,24
+Entrance=-30,49,46,69
 Exclusive=1
 BlastIncinerate=150
 BurnTo=HTB2
