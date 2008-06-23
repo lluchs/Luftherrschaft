@@ -3,14 +3,16 @@
 #strict 2
 #include L156
 
+local ObjsWeapon, ObjsMaterial;
+
 protected func Initialize()
 {
   SetAction("NoTrader");
 
   var aArray;
   var Count = RandomX(7,17);
-  var ObjsWeapon = [ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN,ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN];
-  var ObjsMaterial = [COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT,COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT];
+  ObjsWeapon = [ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN,ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN];
+  ObjsMaterial = [COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT,COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT];
 
   while(Count > 0)
   {
@@ -41,7 +43,7 @@ private func Trader_comes()
 
 private func Trader_visible()
 {
-
+  ScheduleCall(0,"SetAction(\"TradermakeVisible\")",6000);
 }
 
 public func ControlThrow()
@@ -53,6 +55,7 @@ public func ControlThrow()
 
 protected func ControlUp(object pClonk)
 {
+  if (GetAction() != "TaderIsVisible") return;
   CreateMenu(GetID(this()),pClonk,0,C4MN_Extra_None,GetName(),0,C4MN_Style_Dialog,0);
   AddMenuItem("","",GetID(this()),pClonk,0,0,0);
   AddMenuItem("Kann ich ihnen helfen?","",0,pClonk,0,0,0);
@@ -87,6 +90,17 @@ protected func Buy(id ID, object pClonk)
   else
    Sound("CommandFailure1");
   BuyMenu(0,pClonk);
+}
+
+public func AddItem()
+{
+  if (ContentsCount() > 20) return;
+  var AddObjsWeapon = [ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN];
+  var AddObjsMaterial = [COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT];
+  if (Random(2))
+   CreateContents(AddObjsWeapon[Random(GetLength(AddObjsWeapon))],this());
+  else
+   CreateContents(AddObjsMaterial[Random(GetLength(AddObjsMaterial))],this());
 }
 
 protected func EndTalk(id ID, object pClonk)
