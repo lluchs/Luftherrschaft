@@ -7,21 +7,28 @@ protected func Initialize()
 {
   SetAction("NoTrader");
 
+  var aArray;
   var Count = RandomX(7,17);
-  var ObjsWeapon = [ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN];
-  var ObjsMaterial = [COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT];
+  var ObjsWeapon = [ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN,ARWP,XARP,FARP,FLNT,FBMP,GUNP,SFLN,EFLN,STFN,TFLN];
+  var ObjsMaterial = [COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT,COAL,CNCR,CRYS,LOAD,GOLD,METL,ORE1,WOOD,SPHR,BARL,CNKT,FLAG,LNKT];
 
   while(Count > 0)
   {
    if(Random(2))
    {
-    CreateContents(ObjsWeapon[Random(GetLength(ObjsWeapon))],this());
+    aArray = ObjsWeapon[Random(GetLength(ObjsWeapon))];
+    CreateContents(aArray,this());
     Count--;
+    ObjsWeapon--;
+    DeleteArrayItem(GetArrayItemPosition(aArray, ObjsWeapon), ObjsWeapon);
    }
    else
    {
-    CreateContents(ObjsMaterial[Random(GetLength(ObjsMaterial))],this());
+    aArray = ObjsMaterial[Random(GetLength(ObjsMaterial))];
+    CreateContents(aArray,this());
     Count--;
+    ObjsMaterial--;
+    DeleteArrayItem(GetArrayItemPosition(aArray, ObjsMaterial), ObjsMaterial);
    }
   }
 }
@@ -68,12 +75,15 @@ protected func BuyMenu(id ID, object pClonk)
 
 protected func Buy(id ID, object pClonk)
 {
-  if (GetWealth(GetOwner(pClonk))>=GetValue(0,ID))
+  if (GetWealth(GetOwner(pClonk))>=GetValue(0,ID)) if (ContentsCount(,pClonk) <= 3)
   {
    CreateContents(ID, pClonk);
    DoWealth(GetOwner(pClonk),-GetValue(0,ID));
+   RemoveObject(FindContents(ID,this()));
    Sound("UnCash");
   }
+  else
+   Message("%s hat nicht genug|Platz im Inventar!", pClonk, GetName(pClonk));
   else
    Sound("CommandFailure1");
   BuyMenu(0,pClonk);
