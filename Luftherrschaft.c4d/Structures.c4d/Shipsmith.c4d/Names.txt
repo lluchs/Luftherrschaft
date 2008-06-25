@@ -1,2 +1,2 @@
-DE:Fliegender Händler
-US:Flying Salesman
+DE:Schiffsschmiede
+US:Shipsmith
