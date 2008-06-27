@@ -1,2 +1,2 @@
-DE:Neues Szenario
-US:New Scenario
+DE:Objekte Test
+US:Objects Test

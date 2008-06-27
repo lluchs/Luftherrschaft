@@ -1,8 +1,10 @@
-/*-- Neues Szenario --*/
+/*-- LH Test --*/
 
-#strict
+#strict2
 
-func Initialize() {
-   
-  return(1);
+/* Initialisierung */
+
+protected func Initialize()
+{
+  SetGamma(RGB(10,9,10), RGB(161,157,159), RGB(255,254,255) );
 }
