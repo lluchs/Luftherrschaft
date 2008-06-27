@@ -1,0 +1,10 @@
+- Wie eine normale Brücke wird diese an den Rand geschoben. Mit den Richtungstasten kann man 
+die Richtung in der die nächste Stufe geht bestimmen (vor oder zurück, außer es ist ganz zurück).
+
+- Mit Dir oder änhlichen Hack auch die Brücke drehbar machen.
+
+- Via ActMap werden die Stufen dann gemacht. Insgesamt gibt es Vier Stufen, wobei 4 die längste ist (s. Animation).
+
+(- Als möglichwerweise lustiges Feature: Nur wenn man die Druckluftfabrik gebaut hat (Check), kann
+die Brücke pneumatisch bedient werden. Wenn nicht, dann halt Meldung wie ("Keine Druckluftfabrik 
+vorhanden,|es kann nicht genügend Druck aufgebaut werden!"))
