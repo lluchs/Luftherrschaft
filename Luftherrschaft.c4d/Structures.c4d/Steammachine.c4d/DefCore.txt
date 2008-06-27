@@ -1,5 +1,5 @@
 [DefCore]
-id=LSMN
+id=LSMS
 Version=4,9,8
 Name=Dampschmaschine
 Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
