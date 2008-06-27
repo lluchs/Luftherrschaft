@@ -1,7 +1,7 @@
 /*-- Arrays --*/
- 
+
 #strict
- 
+
 //Löscht ein Item aus einem Array
 global func DeleteArrayItem(iNumber, &aArray)
 {
@@ -17,7 +17,7 @@ global func DeleteArrayItem(iNumber, &aArray)
  aArray=temp;
  return(aArray);
 }
- 
+
 //Löscht ein Item aus einem Array, kann möglicherweise umsortieren
 global func DeleteArrayItem2(iNumber,&aArray)
 {
@@ -34,7 +34,7 @@ global func DeleteArrayItem2(iNumber,&aArray)
  aArray[iNumber]=last;
  return(aArray);
 }
- 
+
 //Sucht ein Item im array
 global func GetArrayItemPosition(value,aArray)
 {
@@ -51,13 +51,13 @@ global func GetArrayItemPosition(value,aArray)
  
  return(number);
 }
- 
+
 //Fügt ein Item am Ende eines Array ein
 global func PushBack(value,&aArray)
 {
  return(aArray[GetLength(aArray)]=value);
 }
- 
+
 //Fügt ein Item am Anfang ein
 global func PushFront(value,&aArray)
 {
@@ -69,7 +69,7 @@ global func PushFront(value,&aArray)
  aArray=aNew;
  return(1);
 }
- 
+
 //Führt mit jedem Item im Array einen beliebigen Vergleich vor, der als String vorliegen sollte und gibt ein Array mit Ergebnissen zurück
 // zB ForEach("<0",myArray);
 //    ForEach("->~IsClonk()",myArray);
@@ -89,7 +89,7 @@ global func PushFront(value,&aArray)
  
  return(aResults);
 }
- 
+
 global func Test()
 {
  var arr=[];
@@ -107,3 +107,11 @@ global func Test()
  for(var integer in res)
  Log("%d",integer);
 }*/
+
+
+
+
+
+
+
+

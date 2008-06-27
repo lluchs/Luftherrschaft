@@ -1,8 +1,8 @@
 /*-- Damit man nicht das System beim Fliegenden Händler austricksen kann --*/
- 
+
 #strict
 #appendto CLNK
- 
+
 protected func ControlSpecial2()
 {
   [$CtrlMenuDesc$|Image=CXTX]
