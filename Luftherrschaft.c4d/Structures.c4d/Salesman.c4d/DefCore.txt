@@ -16,7 +16,7 @@ Mass=3000
 Components=WOOD=6;METL=2;
 Picture=1560,0,156,89
 SolidMask=0,89,156,89
-TopFace=312,89,156,89
+TopFace=156,89,156,89
 Exclusive=1
 BlastIncinerate=85
 BurnTo=BSMN

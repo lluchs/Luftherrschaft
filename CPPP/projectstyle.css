@@ -1,0 +1,220 @@
+body {
+  background: url('Theme/LH_-_Background.jpg') fixed;
+  color:#000000;
+}
+
+h1.title, h2 {
+  /*the logo of CPPP*/
+  color: #8C918E;
+  position: static;
+}
+
+tr.prhighlight {
+  background: transparent;
+}
+
+
+table.top {
+  position: static;
+  background: url('Theme/LH_-_TransTop.png');
+  color: #000000;
+  border: 2px solid #CBCBCB;
+  width: 100%;
+  font-size: 7pt;
+  height: 20px;
+  padding: 0px;
+}
+
+h1.title {
+  position: static;
+  font-size: 10pt;
+  height: 20px;
+}
+
+table.navi {
+  border-width: 0px;
+  position: static;
+  background: transparent;
+  font-weight: bold;
+  border: none;
+}
+
+table.project {
+  border-width: 0px;
+  border: none;
+  width: 900px;
+  background: transparent;
+}
+
+table.Crew {
+  border-width: 0px;
+  border: none;
+  background: transparent;
+}
+
+table.Crew td {
+   border: none;
+   background-color: #D5CEB0;
+}
+
+*.invis {
+  background: transparent;
+  border-width: 0px;
+  height: 20px;
+  position: absolute;
+}
+
+/* #D5CEB0 */
+
+
+/* Schreibe Kommentar Zeile */
+table.comment {
+  border: none;
+  border-spacing: 0px;
+  background: transparent;
+  width: 90%;
+}
+
+td.comment {
+  background: transparent;
+}
+
+table.usercomment {
+  border: 1px solid #CBCBCB;
+  border-spacing: 0px;
+  background: url('Theme/LH_-_TransTop.png');
+  width: 80%;
+}
+
+td.usercomment {
+  background: url('Theme/LH_-_BackgroundMath.gif');
+}
+
+a:link {
+  color: #9F0000;
+  text-decoration: underline;
+  border-width: 0px;
+}
+
+a:visited {
+  color: #3F0000;
+  text-decoration: underline;
+  border-width: 0px;
+}
+
+a:active {
+  color: #9F0000;
+  text-decoration: underline;
+  border-width: 0px;
+}
+
+a:hover {
+  color: #9F0000;
+  border-width: 0px;
+}
+
+p, ul, ol, li, div, td, th, address, blockquote, nobr, b, i {
+  font-family: Verdana;
+  color:#666666;
+  font-size:10pt;
+}
+
+h2 {
+  font-weight: bold;
+  font-family: Verdana;
+  color: #666666;
+  font-size: 12pt;
+}
+
+table.descB {
+  font-family: Verdana;
+  color:#666666;
+  font-size:10pt;
+  background: url('Theme/LH_-_TransTop.png');
+  border-width: 1px;
+  border-color: #BFBFBF;
+  border-style: solid;
+  /*width: 60%;*/
+}
+
+tr.descB {
+  border-width: 1px;
+  border-color: #BFBFBF;
+  border-style: solid;
+  font-family: Verdana;
+  color:#666666;
+  font-size:10pt;
+  background: transparent;
+  
+  /*width: 60%;*/
+}
+
+td.descB {
+  border-width: 1px;
+  border-color: #BFBFBF;
+  border-style: solid;
+  font-family: Verdana;
+  color:#666666;
+  font-size:10pt;
+  background: transparent;
+  /*width: 60%;*/
+}
+
+th.descB {
+  border-width: 1px;
+  border-color: #BFBFBF;
+  border-style: solid;
+  font-family: Verdana;
+  color:#666666;
+  font-size:10pt;
+  background: transparent;
+  /*width: 60%;*/
+}
+
+th, td, th {
+  border: none;
+  font-family: Verdana;
+  color:#666666;
+  font-size:10pt;
+  background: transparent;
+  /*width: 50%;*/
+}
+
+td.vote {
+  background: url('Theme/LH_-_BackgroundMath.gif');
+}
+
+tr.vote {
+  background: url('Theme/LH_-_BackgroundMath.gif');
+}
+
+table.vote {
+  background: url('Theme/LH_-_BackgroundMath.gif');
+}
+
+div.Desc {
+  border-width: 1px;
+  border-color: #000000;
+  border-style: solid;
+  background: url('Theme/LH_-_BackgroundMath.gif');
+  padding: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 10pt;
+}
+
+div.imgDesc {
+  background: url('Theme/LH_-_BackgroundMath.gif');
+  font-size: 10pt;
+  padding: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+div.quote {
+  font-size: 10pt;
+  background: transparent;
+  color: #709498;
+}
+ 
+
