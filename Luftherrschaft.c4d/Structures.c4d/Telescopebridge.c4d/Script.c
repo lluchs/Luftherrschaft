@@ -19,7 +19,7 @@ protected func ControlDigDouble()
 protected func CheckNextStep()
 {
   if (GBackSemiSolid(2+(12*iStep),10)) if (iStep) { SetAction(Format("FreezedStep%d",iStep)); return 1; }
-  CreateObject(ROCK,2+(12*iStep),10)->SetCategory(1);
+  //CreateObject(ROCK,2+(12*iStep),10)->SetCategory(1);
   SetAction(Format("Step%d",iStep));
   iStep++;
   fUsed=true;
