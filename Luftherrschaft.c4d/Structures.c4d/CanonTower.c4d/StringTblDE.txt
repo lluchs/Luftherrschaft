@@ -1,0 +1,9 @@
+AttachSingleCannon=Montiere einfache Kanone (%d {{GOLD}})
+AttachDoubleCannon=Montiere doppelte Kanone (%d {{GOLD}})
+UnattachCannon=Kanone abmontieren
+TurnLeft=Kanone nach links drehen
+TurnRight=Kanone nach rechts drehen
+Stop=Kanone anhalten
+CannonMenu=Kanonenmenü
+FireMenu=Feuern
+Fire=%s abfeuern
