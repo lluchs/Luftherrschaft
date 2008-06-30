@@ -14,10 +14,14 @@ protected func Construction() {
 // Füllstand
 local aFillLevel;
 
+private func TypeCheck() {
+	if(GetType(aFillLevel) != C4V_Array)
+		aFillLevel = CreateArray();
+}
 /* Füllung */
 
 // Aktuelle Füllung
-public func & GetAmount(int iCount) { return aFillLevel[iCount]; }
+public func & GetAmount(int iCount) { TypeCheck(); return aFillLevel[iCount]; }
 
 // Maximale Füllung
 public func MaxFill(int iCount) {
