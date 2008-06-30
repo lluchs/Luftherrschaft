@@ -19,6 +19,6 @@ protected func ChangeRotation() {
 }
 
 protected func Hit() {
-  Explode(60);
+  Explode(200);
   return(1);
 }
