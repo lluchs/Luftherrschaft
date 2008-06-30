@@ -7,12 +7,12 @@ MaxUserSelect=0
 Width=100
 Height=19
 Offset=-50,-8
-Vertices=6
-VertexX=-50,-50,0,0,50,50
-VertexY=3,9,3,9,3,9
+Vertices=4
+VertexX=-50,-50,-11,-11
+VertexY=3,9,6,9
 VertexFriction=50,50,100,100
 Value=20
-Mass=70
+Mass=20
 Components=WOOD=2;METL=1
 Picture=0,0,64,64
 Exclusive=1
@@ -20,10 +20,10 @@ BlastIncinerate=85
 BurnTo=BSMN
 Construction=1
 ContainBlast=1
-Grab=2
+Grab=1
 GrabPutGet=C4D_GrabPut
 LineConnect=C4D_PowerOutput|C4D_PowerGenerator|C4D_EnergyHolder
-TimerCall=ChangeSolidMask
+TimerCall=Timer
 Timer=8
 
 [Physical]

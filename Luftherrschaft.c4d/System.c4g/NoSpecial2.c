@@ -13,7 +13,7 @@ protected func ControlSpecial2()
       return(SetCommand(this(),"Context",0,0,0,Contained()), ExecuteCommand());
   // Fasst ein Objekt an: Kontextmenü des angefassten Objekts öffnen
   if (GetAction() eq "Push")
-   if (GetActionTarget()->GetID() != LSMN)
+   if (GetActionTarget()->GetID() != LSMN && GetActionTarget()->GetID() != LTBD)
     return(SetCommand(this(),"Context",0,0,0,GetActionTarget()), ExecuteCommand());
   // Trägt ein Objekt: Kontextmenü des ersten getragenen Objekts öffnen
   if (Contents(0))
