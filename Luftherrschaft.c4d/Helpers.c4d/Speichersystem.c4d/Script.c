@@ -2,7 +2,7 @@
 
 #strict 2
 
-protected func Initialize() {
+protected func Construction() {
 	if(GetID() == SAVS) {
 		DebugLog("ERROR: Dieses Objekt darf nicht erstellt werden");
 		RemoveObject();
