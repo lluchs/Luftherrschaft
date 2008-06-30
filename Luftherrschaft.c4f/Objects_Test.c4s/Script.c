@@ -1,6 +1,6 @@
 /*-- LH Test --*/
 
-#strict2
+#strict 2
 
 /* Initialisierung */
 

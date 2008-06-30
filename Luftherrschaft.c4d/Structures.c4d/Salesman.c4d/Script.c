@@ -48,8 +48,8 @@ private func Trader_visible()
 
 public func ControlThrow()
 {
-  var a = ["Dieb!","Verschwinde, das sind meine Waren!","Du hast hier nichts verloren!","Finger weg!"];
-  Message(a[Random(GetLength(a))], this());
+  //var a = ["Dieb!","Verschwinde, das sind meine Waren!","Du hast hier nichts verloren!","Finger weg!"];
+  //Message(a[Random(GetLength(a))], this());
   return(1);
 }
 
@@ -65,6 +65,7 @@ protected func ControlUp(object pClonk)
 
 protected func BuyMenu(id ID, object pClonk)
 {
+  // Variation!
   CreateMenu(GetID(this()),pClonk,0,C4MN_Extra_None,GetName(),0,C4MN_Style_Dialog,0);
   AddMenuItem("","",GetID(this()),pClonk,0,0,0);
   var i;

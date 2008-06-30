@@ -1,8 +1,8 @@
 [Action]
-Name=Blub
+Name=Fly
 Procedure=FLOAT
 Length=300
 Delay=50
 Facet=0,0,64,64
 FacetBase=1
-NextAction=Blub
+NextAction=Fly

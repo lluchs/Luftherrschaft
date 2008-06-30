@@ -39,8 +39,11 @@ protected func Timer()
 {
   var iPhase = GetPhase(); // Phase speichern...
   if (GetAction() == "Reverse") CreateSolidMaskReverse();
+  if (!fUsed && GetAction() != "BridgeOut" && GetAction() != "Freez" && GetAction() != "Reverse")
+   if (GBackSemiSolid(-9+iPhase*2,9))
+    Message("{{ROCK}}",this);
   if (GetAction() != "BridgeOut") return 0; // Ist nicht die Aktion "BridgeOut" an? Abbrechen!
-  if (GBackSemiSolid(-9+iPhase*2,9) || GetPhase() >= 32) // Material am nästen Positionspunkt?
+  if (GBackSemiSolid(-9+iPhase*2,9) || GetPhase() >= 32) // Material am nästen Positionspunkt oder Aktion zu ende?
   {
     SetAction("Freez"); // ...Action einfrieren...
     SetPhase(iPhase); // ... auf die richtige Phase bringen...

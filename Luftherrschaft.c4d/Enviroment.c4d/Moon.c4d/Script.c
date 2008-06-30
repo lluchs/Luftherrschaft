@@ -3,6 +3,8 @@
 #strict
 
 func Initialize() {
-  SetAction("Blub");
+  //SetCategory(C4D_Vehicle() | C4D_Parallax());
+  SetAction("Fly");
+  //SetVisibility(VIS_Owner());
   return(1);
 }
