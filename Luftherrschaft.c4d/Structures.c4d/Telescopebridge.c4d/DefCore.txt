@@ -14,7 +14,7 @@ VertexFriction=50,50,100,100
 Value=20
 Mass=20
 Components=WOOD=2;METL=1
-Picture=0,0,64,64
+Picture=0,0,38,19
 Exclusive=1
 BlastIncinerate=85
 BurnTo=BSMN
