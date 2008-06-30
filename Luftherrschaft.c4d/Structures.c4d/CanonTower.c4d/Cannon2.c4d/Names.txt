@@ -1,0 +1,2 @@
+DE:Doppelkanone
+US:Double Cannon

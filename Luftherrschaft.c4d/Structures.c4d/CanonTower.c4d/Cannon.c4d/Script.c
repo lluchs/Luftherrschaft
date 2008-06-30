@@ -1,46 +1,41 @@
 /*-- Kanone --*/
 
-#strict
+#strict 2
+
+local rdy2fire;
 
 public func TurnLeft(object pCaller) {
-  SetAction("TurnLeft");
+  SetPhase(GetPhase() - 1);
 }
 
 public func TurnRight(object pCaller) {
-  SetAction("TurnRight");
-}
-
-public func StopTurning() {
-  var strAction = GetAction();
-  var iPhase = GetPhase();
-  // Warteaktion
-  SetAction("Wait");
-  // richtige Phase setzen
-  SetPhase(iPhase);
-}
-
-protected func Waiting() {
-  var iPhase = GetPhase() - 1;
-  SetPhase(iPhase);
-  Message("@Action: Wait | Phase jetzt: %d | Phase davor: %d",this, GetPhase(), iPhase);
+  SetPhase(GetPhase() + 1);
 }
 
 public func CannonFire(object pFire) {
-  // anhalten
-  StopTurning();
-  var iAngle, iPhase;
-  iPhase = GetPhase();
-  iAngle = (10 - iPhase) * 19 + 78;
+  if(!rdy2fire)
+    return 0;
+  var iAngle;
+  iAngle = 286 + GetPhase() * 15;
   // Austrittspunkt und -geschwindigkeit
   var iX,iY,iXDir,iYDir;
   iX = Sin(iAngle,15);
-  iY = Cos(iAngle,15);
-  iXDir = +Sin(iAngle, 50);
-  iYDir = -Cos(iAngle, 50);
+  iY = Cos(iAngle,15) - 10;
+  iXDir = +Sin(iAngle, 120);
+  iYDir = -Cos(iAngle, 120);
   Enter(this,pFire);
-  Exit(pFire, iX, iY, Random(360), iXDir, iYDir, RandomX(-5,5));
-  Sound("Blast*");
+  Exit(pFire, iX, iY, Random(360));
+  SetXDir(iXDir,pFire,10);
+  SetYDir(iYDir,pFire,10);
+  Sound("Blast2");
+  rdy2fire = true;
+  ScheduleCall(this, "SetReadyState", 28, 0, false);
+  SetPlrView(GetOwner(), pFire);
   return true;
 }
 
-func MsgPhase() { Message("Action: %s | Phase: %d",this,GetAction(),GetPhase()); }
+public func ReadyToFire() { return !rdy2fire; }
+
+protected func SetReadyState(bool newstate) {
+  rdy2fire = newstate;
+}

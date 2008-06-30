@@ -222,5 +222,5 @@ protected func Destruction () {
   // Benachrichtigungen
   if(GetActionTarget(0)) GetActionTarget(0)->~RopeBreak(GetID(GetActionTarget(1)));
   if(GetActionTarget(1)) GetActionTarget(1)->~RopeBreak(GetID(GetActionTarget(0)));
-  RemoveObject(Rope);
+  RemoveObject();
 }
