@@ -8,7 +8,7 @@ static const LCAB_MaxFill = 400;
 
 protected func Initialize() {
 	DoFill(200);
-	return inherited();
+	return _inherited();
 }
 
 /* Callbacks */

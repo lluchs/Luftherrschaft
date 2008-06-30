@@ -4,16 +4,16 @@
 #include L103
 #include SAVS
 
-static const LSMN_MaxFill = 2000;
-static const LSMN_MaxFill1 = 600;
-static const LSMN_MaxFill2 = 6;
+static const LSMS_MaxFill = 2000;
+static const LSMS_MaxFill1 = 600;
+static const LSMS_MaxFill2 = 6;
 
 local fWait, fOff;
 
 protected func Initialize() {
 	SetAction("NoEnergy");
 	fWait = 0;
-	return inherited(...);
+	return _inherited(...);
 }
 
 protected func Collection(object pObj)

@@ -10,10 +10,6 @@ static const LBSE_MaxFill = 500;
 
 private func FillSound() { return Sound("pfft"); }
 
-protected func Initialize(){
-	return inherited(...);
-}
-
 /*
 protected func Collection(object pObj) {
 	if(GetID(pObj) != LCAB)
