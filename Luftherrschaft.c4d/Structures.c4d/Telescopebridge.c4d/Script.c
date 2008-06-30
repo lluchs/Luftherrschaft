@@ -22,7 +22,8 @@ protected func ControlDigDouble()
   if (fUsed && GetAction() != "Reverse" && GetAction() != "BridgeOut") // Benutzt und hat nicht die Aktion "Reverse" oder "BridgeOut"?
    {
    SetAction("Reverse"); // Brücke einfahren
-   if (iPhase != 32 && iPhase != 0) SetPhase(32-iPhase); // Phase setzen
+   //if (iPhase != 32 && iPhase != 0)
+    SetPhase(32-iPhase); // Phase setzen
    }
   return 1;
 }
