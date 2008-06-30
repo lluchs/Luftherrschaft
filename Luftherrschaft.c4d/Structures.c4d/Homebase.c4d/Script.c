@@ -93,7 +93,7 @@ private func CancelResearch()
 {
   if (GetChar(GetAction()) == GetChar("R"))
   	SetAction("Idle");
-  SetEntrance(1);
+  //SetEntrance(1);
   // Abbrechen ohne Erfolg?
   if(target) {
   	// Druckverlust
