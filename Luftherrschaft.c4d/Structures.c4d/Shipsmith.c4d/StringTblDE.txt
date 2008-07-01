@@ -1,0 +1,2 @@
+Construct=%s bauen
+TxtConstruct=Schiff bauen

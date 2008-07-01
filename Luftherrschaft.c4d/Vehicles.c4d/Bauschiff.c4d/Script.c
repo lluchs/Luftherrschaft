@@ -285,6 +285,8 @@ private func ClearCommand() { SetCommand(this(),"None"); }
 protected func Initialize()
 {
   turn_end_dir = -1;
+  // SolidMask neu setzen (wegen Shipsmith)
+  SetSolidMask(25,67,46,3,25,55);
   FloatIdleDown();
 }
 
@@ -397,3 +399,19 @@ public func Poke()
 /* Forschung */
 
 public func GetResearchBase() { return(BALN); }
+
+/* Bau */
+
+public func IsShipsmithProduct() { return true; }
+
+// Bauverhalten
+// iPromille gibt an, wieviel Promille (1/1000) der Baumaterialien vorhanden sind
+// true, wenn die Grafik aktualisiert werden soll, false wenn gewartet wird
+// wie die Zahl ausgerechnet wird: (1000 / Gesamtzahl_aller_Components)*verbaute_components
+public func NextBuildStep(int iPromille) {
+  if(iPromille < 380)
+    return true;
+  if(iPromille == 1000)
+    return true;
+  return false;
+}

@@ -97,7 +97,7 @@ public func ContextConnectRope() {
   [$ConnectRope$|Image=LRPE|Condition=RopeCanAttach]
   CreateMenu(LRPE,this,this);
   for(var obj in FindObjects(Find_NoContainer(),Find_AtPoint(),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible))) {
-    AddMenuItem(Format("$ConnnectWith$",GetName(obj)),Format("Contents()->~Connect(Object(%d))",ObjectNumber(obj)),GetID(obj),this);
+    AddMenuItem(Format("$ConnectWith$",GetName(obj)),Format("Contents()->~Connect(Object(%d))",ObjectNumber(obj)),GetID(obj),this);
   }
 }
 

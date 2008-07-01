@@ -1,0 +1,15 @@
+[DefCore]
+id=LGRU
+Name=Geruest
+Version=4,9,5
+Category=C4D_StaticBack|C4D_Foreground
+Width=243
+Height=95
+Offset=-122,-47
+Value=0
+Components=WOOD=5;
+Picture=987,0,228,95
+Vertices=4
+VertexX=-106,+122,-106,+122
+VertexY=+49 ,+ 49,- 49,- 49
+VertexFriction=10,10,10,10

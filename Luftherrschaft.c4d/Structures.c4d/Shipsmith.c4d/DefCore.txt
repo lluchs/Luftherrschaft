@@ -23,6 +23,8 @@ BlastIncinerate=155
 BurnTo=BSMN
 Construction=1
 ContainBlast=1
+Timer=1
+TimerCall=CheckContent
 
 [Physical]
 Energy=100000
