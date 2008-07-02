@@ -1,0 +1,2 @@
+Select=%s auswählen
+SelectArrowType=Bitte wählen Sie eine Pfeilart|mit [Graben]!

@@ -187,3 +187,16 @@ public func Poke()
   Sound("Rip");
   SetAction("DropOff");
 }
+
+/* Bau */
+
+public func IsShipsmithProduct() { return true; }
+
+// Beschreibung siehe Bauschiff
+public func NextBuildStep(int iPromille) {
+  if(iPromille < 435)
+    return true;
+  if(iPromille == 1000)
+    return true;
+  return false;
+}

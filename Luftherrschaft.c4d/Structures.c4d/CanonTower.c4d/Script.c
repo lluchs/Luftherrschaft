@@ -39,6 +39,10 @@ public func ContainedUp(object pCaller) {
 
 public func ContainedDig(object pCaller) {
   [$CannonMenu$]
+  if(pCannon && pCannon->~HardcodedMenu()) {
+    CreateMenu(GetID(pCannon), pCaller, pCannon);
+    pCannon->~HardcodedMenu(pCaller);
+  }
   CreateMenu( , pCaller, this);
   AddMenuItem(Format("$AttachSingleCannon$", GetValue( , CTC1)),"AttachCannon(CTC1)", CTC1, pCaller);
   AddMenuItem(Format("$AttachDoubleCannon$", GetValue( , CTC2)),"AttachCannon(CTC2)", CTC2, pCaller);

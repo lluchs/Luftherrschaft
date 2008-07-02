@@ -330,3 +330,16 @@ public func Poke()
 /* Forschung */
 
 public func GetResearchBase() { return(BALN); }
+
+/* Bau */
+
+public func IsShipsmithProduct() { return true; }
+
+// siehe Bauschiff für Beschreibung
+public func NextBuildStep(int iPromille) {
+  if(iPromille < 251)
+    return true;
+  if(iPromille > 838)
+    return true;
+  return false;
+}
