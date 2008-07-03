@@ -7,3 +7,5 @@ Stop=Kanone anhalten
 CannonMenu=Kanonenmenü
 FireMenu=Feuern
 Fire=%s abfeuern
+
+MoreMoney=Für %d bekommst du aber keine %s.

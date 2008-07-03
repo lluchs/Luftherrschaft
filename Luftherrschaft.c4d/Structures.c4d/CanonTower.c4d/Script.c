@@ -20,6 +20,7 @@ public func ContainedLeft(object pCaller) {
   [$TurnLeft$]
   if(!pCannon) return 0;
   pCannon->~TurnLeft(pCaller);
+  pCannon->~ProjectilePreview();
   return 1;
 }
 
@@ -27,19 +28,14 @@ public func ContainedRight(object pCaller) {
   [$TurnRight$]
   if(!pCannon) return 0;
   pCannon->~TurnRight(pCaller);
+  pCannon->~ProjectilePreview();
   return 1;
 }
-/*
-public func ContainedUp(object pCaller) {
-  [$Stop$]
-  if(!pCannon) return 0;
-  pCannon->~StopTurning();
-  return 1;
-}*/
 
 public func ContainedDig(object pCaller) {
   [$CannonMenu$]
-  if(pCannon && pCannon->~HardcodedMenu()) {
+  if(pCannon)
+    if(pCannon->~HardcodedMenu()) {
     CreateMenu(GetID(pCannon), pCaller, pCannon);
     pCannon->~HardcodedMenu(pCaller);
   }
@@ -79,14 +75,19 @@ public func ContainedThrow(object pCaller) {
 /* MenuCalls */
 
 protected func AttachCannon(id idCannon) {
-  if(GetWealth(GetOwner()) < GetValue( , idCannon))
+  if(GetWealth(GetOwner()) < GetValue( , idCannon)) {
+    Message("$MoreMoney$", this, GetWealth(GetOwner()), GetName( , idCannon));
+    Sound("Error");
     return 0;
+  }
   else
     SetWealth(GetOwner(), GetWealth(GetOwner()) - GetValue( , idCannon));
   if(pCannon) UnattachCannon();
   pCannon = CreateObject(idCannon, 0, -20, GetOwner());
   pCannon->~SetAction("Wait");
   pCannon->~SetPhase(Random(10) + 1);
+  pCannon->~ProjectilePreview();
+  Sound("Connect");
 }
 
 protected func UnattachCannon() {
@@ -105,10 +106,12 @@ protected func CannonFire(object pFire, object pCaller) {
     ContainedThrow(pCaller);
     return 0;
   }
-  if(GetID(pCannon) == CTC1)
-    pCannon->~CannonFire(pFire);
   if(GetID(pCannon) == CTC2)
     pCannon->~CannonFire(pFireFirst,pFire);
+  if(GetID(pCannon) == CTBW)
+    pCannon->~CannonFire();
+  else
+    pCannon->~CannonFire(pFire);
   pFireFirst = 0;
   return 1;
 }

@@ -17,12 +17,13 @@ public func CannonFire(object pFire1, object pFire2) {
   // schießt nicht so stark
   iXDir = Sin(iAngle, 105);
   iYDir = -Cos(iAngle, 105);
-  Exit(pFire1, iX - 5, iY, Random(360));
+  Exit(pFire1, iX - 5, -iY, Random(360));
   SetXDir(iXDir,pFire1,10);
   SetYDir(iYDir,pFire1,10);
   Sound("Blast2", pFire1);
   // zweiter Schuss leicht zeitverzögert
-  ScheduleCall(this,"FireObject", 6, 0, pFire2, [iX + 5, iY, Random(360), iXDir + RandomX(-2,2), iYDir + RandomX(-2,2), RandomX(-4,4)]);
+  ScheduleCall(this,"FireObject", 6, 0, pFire2, [iX + 5, -iY, Random(360), iXDir + RandomX(-2,2), iYDir + RandomX(-2,2), RandomX(-4,4)]);
+  ScheduleCall(this,"FireObject", 6, 0, pFire2, [iX + 5, -iY, Random(360), iXDir + RandomX(-2,2), iYDir + RandomX(-2,2), RandomX(-4,4)]);
   rdy2fire = true;
   // braucht länger
   ScheduleCall(this, "SetReadyState", 40, 0, false);
