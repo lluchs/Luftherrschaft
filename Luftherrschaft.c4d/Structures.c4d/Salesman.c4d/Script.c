@@ -7,6 +7,8 @@ local ObjsWeapon, ObjsMaterial;
 
 protected func Initialize()
 {
+  CheckClonks();
+  
   SetAction("NoTrader");
 
   var aArray;
@@ -33,6 +35,12 @@ protected func Initialize()
     DeleteArrayItem(GetArrayItemPosition(aArray, ObjsMaterial), ObjsMaterial);
    }
   }
+}
+
+private func CheckClonks() {
+  var pClonks = FindObjects(Find_OCF(OCF_Alive), Find_InRect(-78, +23, 156, 89));
+  for(var pClonk in pClonks)
+    pClonk->~SetPosition(GetX(pClonk), GetY(pClonk) - 23);
 }
 
 private func Trader_comes()
