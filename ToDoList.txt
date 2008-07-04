@@ -1,0 +1,26 @@
+ToDo List für Luftherrschaft
+
+Aktuell zu tun (nicht zugeordnet)
+·	Ballon - Flagge muss tiefer sitzen
+·	Mond - Komplett
+·	DaVinci Maschine - komplett
+·	Gilde - komplett
+·	Barometer (+ Altimeter killen, ersetzen, was auch immer)
+
+
+Ideen
+·	Seilpack (butterbrot)
+·	Waffen (in Arbeit)
+·	Flugvehikel (in Arbeit)
+·	Maps (komplett)
+·	Missionen (komplett)
+·	Baugerüste - Realistischeres aufbauen von Gebäuden per SetGraphics(); -> macht butterbrot
+
+Wer tut was?
+·	Luchs: Bombing Ship
+·	Letto -> Pilot, Dünneluftsystem, Mühlebasement, Höhlen, Kuhlen Fallschaden und nicht so 	einen Mist wie im EkE-Pack,
+·	Nachtfalter: C4D Dateien zerschrotten, neue Gebäude!, alle Gebäude/Fahrzeuge Burned 	Grafiken, Türen für Gebäude, Baugerüste für Schiffswerft, 
+·	butterbrot: Seilpack, Bauschiff ActMap, Geschützturm, Schiffsschmiede, Gerüste allgemein
+[·	Randrian: Armbrust Aktion für Luftfahrer, Luftfahrergrafik updaten, Portraits, Title]
+·	Konsti: irgendwas
+

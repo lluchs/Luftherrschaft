@@ -7,6 +7,8 @@ local target_y;
 func Initialize()
 {
   target_y = -1;
+  // SolidMask neu setzen
+  SetSolidMask(35,157,36,4,0,62);
 }
 
 /* Steuerung */

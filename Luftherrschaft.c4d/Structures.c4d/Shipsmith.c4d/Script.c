@@ -34,12 +34,12 @@ public func CreateConstruction(id idConstruct) {
     iNum = 1;
   var i;
   while(iNum--) {
-    aGerust[i] = CreateObject(LGRU, -95 + GetGerustWidth() / 2 + i * GetGerustWidth(), +35, GetOwner()); //Start -95, +35
+    aGerust[i] = CreateObject(LGRU, -95 + GetGerustWidth() / 2 + i * GetGerustWidth(), +37, GetOwner()); //Start -95, +35
 	aGerust[i]->~Init(this);
 	i++;
   }
   // Konstruktion erstellen
-  pConstruction = CreateObject(idConstruct, -95 + GetDefWidth(idConstruct) / 2, +37, GetOwner());
+  pConstruction = CreateObject(idConstruct, -95 + GetDefWidth(idConstruct) / 2, +35, GetOwner());
   pConstruction->SetCon(3);
   // Kategorie ändern (damit nicht anfassbar/unbenutzbar etc.)
   iOldCat = GetCategory(pConstruction);
