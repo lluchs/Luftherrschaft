@@ -9,6 +9,7 @@ protected func Construction() {
 	}
 	aFillLevel = CreateArray();
 	UpdatePicture();
+	return _inherited(...);
 }
 
 // Füllstand
