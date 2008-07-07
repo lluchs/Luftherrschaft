@@ -4,8 +4,7 @@ Aktuell zu tun (nicht zugeordnet)
 ·	Ballon - Flagge muss tiefer sitzen
 ·	Mond - Komplett
 ·	DaVinci Maschine - komplett
-·	Gilde - komplett
-·	Barometer (+ Altimeter killen, ersetzen, was auch immer)
+·	Gilde - komplett	
 
 
 Ideen
@@ -21,6 +20,6 @@ Wer tut was?
 ·	Letto -> Pilot, Dünneluftsystem, Mühlebasement, Höhlen, Kuhlen Fallschaden und nicht so 	einen Mist wie im EkE-Pack,
 ·	Nachtfalter: C4D Dateien zerschrotten, neue Gebäude!, alle Gebäude/Fahrzeuge Burned 	Grafiken, Türen für Gebäude, Baugerüste für Schiffswerft, 
 ·	butterbrot: Seilpack, Bauschiff ActMap, Geschützturm, Schiffsschmiede, Gerüste allgemein
-[·	Randrian: Armbrust Aktion für Luftfahrer, Luftfahrergrafik updaten, Portraits, Title]
-·	Konsti: irgendwas
+[·	Randrian: Armbrust Aktion für Luftfahrer, Luftfahrergrafik updaten]
+·	Konsti: irgendwas, Barometer (+ Altimeter killen, ersetzen, was auch immer)
 
