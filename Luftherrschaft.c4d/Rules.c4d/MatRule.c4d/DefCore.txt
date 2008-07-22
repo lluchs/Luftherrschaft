@@ -1,0 +1,13 @@
+[DefCore]
+id=LHMT
+Name=Materialregel
+Version=4,9,5
+Category=C4D_Rule|C4D_StaticBack
+MaxUserSelect=1
+Width=1
+Height=1
+Offset=-1,-1
+Value=0
+Picture=0,0,64,64
+Timer=300
+TimerCall=Timer

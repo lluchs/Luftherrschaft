@@ -1,0 +1,1 @@
+Jeder Spieler verfügt über ein Holz-, Werkzeug- und Ziegelkonto.

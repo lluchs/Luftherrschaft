@@ -100,6 +100,7 @@ public func FxIntScaffoldingStart(pTarget, iEffectNumber, bTemp, iStartOverlay) 
 
 public func FxIntScaffoldingTimer(pTarget, iEffectNumber, iTime) {
   var i;
+  // Auf Vollständigkeit prüfen
   for(var pScaffold in EffectVar(1, pTarget, iEffectNumber)) {
     if(!pScaffold->~Complete())
      continue;
@@ -134,7 +135,3 @@ public func FxIntScaffoldingTimer(pTarget, iEffectNumber, iTime) {
     }
   }
 }
-
-//public func FxIntScaffoldingScaffoldComplete(pTarget, iEffectNumber, pScaffold) {
-//  
-//}
