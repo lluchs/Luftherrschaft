@@ -7,72 +7,79 @@ protected func Construction() {
 		DebugLog("ERROR: Dieses Objekt darf nicht erstellt werden");
 		RemoveObject();
 	}
-	aFillLevel = CreateArray();
+	hFillLevel = CreateHash();
 	UpdatePicture();
 	return _inherited(...);
 }
 
 // Füllstand
-local aFillLevel;
+local hFillLevel; // h wie Hash :x
 
 private func TypeCheck() {
-	if(GetType(aFillLevel) != C4V_Array)
-		aFillLevel = CreateArray();
+	if(GetType(hFillLevel) != C4V_Array)
+		hFillLevel = CreateHash();
 }
 /* Füllung */
 
 // Aktuelle Füllung
-public func & GetAmount(int iCount) { TypeCheck(); return aFillLevel[iCount]; }
+public func & GetAmount(Key) { TypeCheck(); return HashGet(hFillLevel, Key); }
 
 // Maximale Füllung
-public func MaxFill(int iCount) {
-	var szVar = Format("%i_MaxFill", GetID());;
-	if(iCount)
-		szVar = Format("%s%d", szVar, iCount);
+public func MaxFill(Key) {
+	var szVar = Format("%i_MaxFill", GetID());
+	if(Key) {
+		if(GetType(Key) == C4V_String)
+			szVar = Format("%s_%s", szVar, Key);
+		else
+			szVar = Format("%s_%v", szVar, Key);
+	}
 	return eval(szVar);
 }
 
 // Füllung erhöhen/verringern
-public func DoFill(int iChange, int iCount, bool fNoSound)
+public func DoFill(int iChange, Key, bool fNoSound)
 {
-  var iNewFill = BoundBy(GetAmount(iCount) + iChange, 0, MaxFill());
-  if (iNewFill == GetAmount(iCount)) return;
+  var iNewFill = BoundBy(GetAmount(Key) + iChange, 0, MaxFill(Key));
+  if (iNewFill == GetAmount(Key)) return;
   if(!fNoSound)
-  	this -> ~FillSound(iCount);
-  iNewFill -= GetAmount(iCount); GetAmount(iCount) += iNewFill;
+  	FillSound(Key, iChange);
+  iNewFill -= GetAmount(Key);
+  if(!GetAmount(Key))
+  	HashPut(hFillLevel, Key, iNewFill);
+  else
+  	GetAmount(Key) += iNewFill;
   UpdatePicture();
   // Tatsächliche Änderung des Füllstandes zurückgeben
   return iNewFill;
 }
 
 // Voll?
-public func IsFull(int iCount) 
+public func IsFull(Key) 
 { 
-  return GetAmount(iCount) == MaxFill();
+  return GetAmount(Key) == MaxFill(Key);
 }
 
 /* Grafik anpassen */
 public func UpdatePicture()
 {
-	var iCount = this -> ~FillPicture();
-	if(!iCount)
+	var Key = FillPicture();
+	if(Key == -1)
 		return;
-	iCount--;
-	if(GetAmount(iCount)>99)
+	if(GetAmount(Key)>99)
   {
-    SetGraphics(0,0,GetNumberID(GetAmount(iCount) / 100),1,GFXOV_MODE_Picture);    
+    SetGraphics(0,0,GetNumberID(GetAmount(Key) / 100),1,GFXOV_MODE_Picture);    
     SetObjDrawTransform(400,0,-14000,0,400,+10000, this, 1);
   }
   else SetGraphics(0,0,0,1,0);
   
-  if(GetAmount(iCount)>9)
+  if(GetAmount(Key)>9)
   {
-    SetGraphics(0,0,GetNumberID(GetAmount(iCount) / 10 - GetAmount(iCount) / 100 * 10),2,GFXOV_MODE_Picture);    
+    SetGraphics(0,0,GetNumberID(GetAmount(Key) / 10 - GetAmount(Key) / 100 * 10),2,GFXOV_MODE_Picture);    
     SetObjDrawTransform(400,0,-7000,0,400,+10000, this, 2);
   }
   else SetGraphics(0,0,0,2,0);  
 
-  SetGraphics(0,0,GetNumberID(GetAmount(iCount) % 10),3,GFXOV_MODE_Picture);   
+  SetGraphics(0,0,GetNumberID(GetAmount(Key) % 10),3,GFXOV_MODE_Picture);   
   SetObjDrawTransform(400,0,0,0,400,+10000, this, 3);
   return 1;
 }
@@ -82,3 +89,11 @@ private func GetNumberID(i)
 {
   return(C4Id(Format("SNB%d", i)));
 }
+
+/* Bei Bedarf überladen */
+
+// Füllstand als Menügrafik? Wenn ja, Key des gewünschten Füllstandes zurückgeben
+private func FillPicture() { return -1; }
+
+// Sound beim Verändern des Füllstandes? (Wenn ja: komplettes Sound() muss in der Funktion stattfinden)
+private func FillSound(Key, int iChange) { return; }

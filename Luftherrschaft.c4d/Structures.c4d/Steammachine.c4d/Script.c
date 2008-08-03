@@ -4,9 +4,9 @@
 #include L103
 #include SAVS
 
-static const LSMS_MaxFill = 2000;
-static const LSMS_MaxFill1 = 600;
-static const LSMS_MaxFill2 = 6;
+static const LSMS_MaxFill_Pressure = 2000;
+static const LSMS_MaxFill_Water = 600;
+static const LSMS_MaxFill_Coal = 6;
 
 local fWait, fOff;
 
@@ -31,19 +31,20 @@ private func ProduceEnergy()
 		fOff = 0;
 		return;
 	}
-	if(!IsFull() && GetAmount(1) >= 200 && GetAmount(2) >= 2) { // Neuer Druck erstellen
+	if(!IsFull("Pressure") && GetAmount("Water") >= 200 && GetAmount("Coal") >= 2) { // Neuer Druck erstellen
   	// Rauch ANPASSEN!!
   	CreateParticle("Smoke", -10, -10, 0, -10, RandomX(5, 10), RGBa(0, 0, 0, RandomX(100, 255)));
-  	DoFill(-200, 1); DoFill(-2, 2);
-  	if(DoFill(400) < 400)
-  		Sound("pfft");
+  	DoFill(-200, "Water"); DoFill(-2, "Coal");
+  	DoFill(400, "Pressure");
+  	//if(DoFill(400, "Pressure") < 400)
+  		//Sound("pfft");
   }
   var iChange;
-  if(iChange = DoFill(-25) == -25)
+  if(iChange = DoFill(-25, "Pressure") == -25)
   	// Energieerzeugung
   	DoEnergy(+25);
   else {
-  	DoFill(Abs(iChange));
+  	DoFill(Abs(iChange), "Pressure");
   	//Log("Kein Druck mehr");
   	Message("Druckvorrat aufgebraucht!", this);
   	// Fertig
@@ -93,20 +94,33 @@ protected func ContextOff() {
 protected func RejectCollect(id idObj, object pObj) {
 	//Log("Aufgerufen, %i", idObj);
 	if(idObj == LCAB) {
-		DoFill(Abs(pObj -> DoFill(-pObj -> MaxFill())));
+		DoFill(Abs(pObj -> DoFill(-pObj -> MaxFill("Pressure"))), "Pressure");
 		return 1;
 	}
 	if(idObj == WBRL) {
-		DoFill(Abs(pObj -> BarrelDoFill(-pObj -> BarrelMaxFill())), 1);
-		Sound("Splash1");
+		var iOldFill = pObj -> GetAmount();
+		pObj -> BarrelDoFill(iOldFill - DoFill(Abs(pObj -> BarrelDoFill(-pObj -> BarrelMaxFill())), "Water"));
+		//Sound("Splash1");
 		return 1;
 	}
 	if(idObj == COAL) {
-		if(DoFill(1, 2)) {
+		if(DoFill(1, "Coal")) {
 			RemoveObject(pObj);
-			Sound("Clonk");
+			//Sound("Clonk");
 			return;
 		}
 	}
+	return 1;
+}
+
+private func FillSound(Key, int iChange) {
+	if(iChange <= 0)
+		return;
+	if(Key == "Water")
+		Sound("Splash1");
+	if(Key == "Coal")
+		Sound("Clonk");
+	if(Key == "Pressure")
+		Sound("pfft");
 	return 1;
 }
