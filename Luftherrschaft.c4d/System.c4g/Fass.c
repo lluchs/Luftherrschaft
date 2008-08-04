@@ -1,6 +1,6 @@
 /*-- Neues Script --*/
 
-#strict
+#strict 2
 #appendto BARL
 
 protected func Initialize() {
@@ -9,18 +9,38 @@ protected func Initialize() {
 }
 
 private func FillCheck() {
-  ScheduleCall(this, "UpdatePicture", 1);
-  return _inherited(...);
+	if(GetID() != BARL)
+		ScheduleCall(this, "FillCheck", 35);
+  // Material an aktueller Position überprüfen
+  var iMaterial;
+  if (((iMaterial = GetMaterial()) == -1) || (iMaterial == iBackMaterial)) return;
+  // Fass für dieses Material suchen
+  var idBarrel;
+  if(!(idBarrel = GetBarrelType(iMaterial))) return iBackMaterial = iMaterial;
+  // Fass füllen
+  iFillLevel += ExtractMaterialAmount(0, 0, iMaterial, BarrelMaxFill() - iFillLevel);
+  iFillMaterial = iMaterial + 1;
+  if(GetID() == BARL)
+		ScheduleCall(this, "FillCheck", 35);
+  ChangeDef(idBarrel);
+  UpdatePicture();
+  return 1;
 }
 
 public func BarrelDoFill() {
   ScheduleCall(this, "UpdatePicture", 1);
+  ScheduleCall(this, "EmptyCheck", 1);
   return _inherited(...);
 }
 
 private func BarrelEject() {
   ScheduleCall(this, "UpdatePicture", 1);
   return _inherited(...);
+}
+
+public func EmptyCheck() {
+	if(!iFillLevel) 
+		ChangeDef(EmptyBarrelID());
 }
 
 /* Grafik anpassen */
