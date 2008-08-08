@@ -41,16 +41,13 @@ public func DoFill(int iChange, Key, bool fNoSound)
 {
   var iNewFill = BoundBy(GetAmount(Key) + iChange, 0, MaxFill(Key));
   if (iNewFill == GetAmount(Key)) return;
+  iChange = iNewFill - GetAmount(Key);
   if(!fNoSound)
   	FillSound(Key, iChange);
-  iNewFill -= GetAmount(Key);
-  if(!GetAmount(Key))
-  	HashPut(hFillLevel, Key, iNewFill);
-  else
-  	GetAmount(Key) += iNewFill;
+  HashPut(hFillLevel, Key, iNewFill);
   UpdatePicture();
   // Tatsächliche Änderung des Füllstandes zurückgeben
-  return iNewFill;
+  return iChange;
 }
 
 // Voll?
