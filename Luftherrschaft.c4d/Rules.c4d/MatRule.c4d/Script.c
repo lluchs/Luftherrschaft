@@ -2,7 +2,7 @@
 
 #strict 2
 
-func Initialize() {
+/*func Initialize() {
   var plr, rest_plrs = GetPlayerCount();
   for(plr; rest_plrs > 0; plr++) {
     // hat einen Spielernamen und ist kein Skriptspieler?
@@ -25,12 +25,14 @@ public func Timer() {
       rest_plrs--;
     }
   }
+}*/
+
+protected func InitializePlayer(int iPlr) {
+	if(GetPlayerType(iPlr) != C4PT_Script)
+		CreateObject(PLMT, 0, 0, iPlr);
 }
 
-// manuelles Hinzufügen
 public func Activate(int iByPlr) {
-  if(!FindObject2(Find_ID(PLMT), Find_Owner(iByPlr)))
-    CreateObject(PLMT,,,iByPlr);
   // Bla... Beschreibung ...Bla
   MessageWindow(GetDesc(), iByPlr);
 }

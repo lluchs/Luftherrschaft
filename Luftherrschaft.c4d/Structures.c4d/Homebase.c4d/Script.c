@@ -266,3 +266,8 @@ public func ContainedDown(object pClonk)
   }
   return;
 }
+
+/* Materialsystem - Callbacks */
+public func GetNeededWood() 	{ return 0; }
+public func GetNeededBrick() 	{ return 10; }
+public func GetNeededTool() 	{ return 5; }

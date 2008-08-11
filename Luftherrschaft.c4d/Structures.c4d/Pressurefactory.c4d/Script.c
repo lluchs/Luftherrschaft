@@ -12,7 +12,7 @@ static const LSMN_MaxFill1 = 600;
 
 protected func Initialize(){
 	SetEntrance(1); // aktiver Eingang
-	inherited();
+	_inherited();
 	return 1;
 }
 

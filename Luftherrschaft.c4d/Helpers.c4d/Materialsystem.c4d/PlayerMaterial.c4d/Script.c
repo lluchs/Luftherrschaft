@@ -2,22 +2,28 @@
 
 #strict 2
 
-local wood, ziegel, werkzeug;
-local shower_wood, shower_brick, shower_tool;
+#include SAVS
+
+// evtl. variabel als local?
+static const PLMT_MaxFill_WOOD = 1000;
+static const PLMT_MaxFill_BRIK = 1000;
+static const PLMT_MaxFill_TOOL = 1000;
+//local wood, ziegel, werkzeug;
+local pWoodIcon, pBrickIcon, pToolIcon;
 
 public func Initialize() {
-  shower_wood = CreateObject(LHII,,,GetOwner());
-  shower_wood->SetPosition(-246, +5);
-  SetObjDrawTransform(566,,,,566,,shower_wood);
-  shower_wood->Set("WOOD");
-  shower_brick = CreateObject(LHII,,,GetOwner());
-  shower_brick->SetPosition(-206, +5);
-  SetObjDrawTransform(566,,,,566,,shower_brick);
-  shower_brick->Set("BRIK");
-  shower_tool = CreateObject(LHII,,,GetOwner());
-  shower_tool->SetPosition(-166, +5);
-  SetObjDrawTransform(566,,,,566,,shower_tool);
-  shower_tool->Set("TOOL");
+  pWoodIcon = CreateObject(LHII, 0, 0, GetOwner());
+  pWoodIcon -> SetPosition(-246, +0);
+  SetObjDrawTransform(566, 0, 0, 0, 566, 0, pWoodIcon);
+  pWoodIcon -> Set("WOOD");
+  pBrickIcon = CreateObject(LHII, 0, 0, GetOwner());
+  pBrickIcon -> SetPosition(-206, +0);
+  SetObjDrawTransform(566, 0, 0, 0, 566, 0, pBrickIcon);
+  pBrickIcon -> Set("BRIK");
+  pToolIcon = CreateObject(LHII, 0, 0, GetOwner());
+  pToolIcon->SetPosition(-166, +0);
+  SetObjDrawTransform(566, 0, 0, 0, 566, 0, pToolIcon);
+  pToolIcon -> Set("TOOL");
   /*
   Kurzinfo
   Endgröße 34 x 17 
@@ -32,34 +38,18 @@ public func Initialize() {
   */
 }
 
-public func WoodSell(object pWood) {
-  if(GetID(pWood) != WOOD)
-    return;
-  wood++;
-  RemoveObject(pWood);
-}
-
-public func AddZiegel(object pZiegel) {
-  if(GetID(pZiegel) != ZIGL) // ID VOM ZIEGEL EINFÜGEN
-    return;
-  ziegel++;
-  RemoveObject(pZiegel);
-}
-
-public func AddWerkzeug(object pWood, object pMetl) {
-  if(GetID(pWood) != WOOD || GetID(pMetl) != METL)
-    return;
-  werkzeug++;
-  RemoveObject(pWood);
-  RemoveObject(pMetl);
-}
-
+local fNoStatusMessage;
 public func Timer() {
-  shower_wood->SetStatusMessage(Format("@%d", wood));
-  shower_brick->SetStatusMessage(Format("@%d", ziegel));
-  shower_tool->SetStatusMessage(Format("@%d", werkzeug));
+	if(fNoStatusMessage)
+		return;
+  pWoodIcon->SetStatusMessage(Format("@%d", GetAmount(WOOD)));
+  pBrickIcon->SetStatusMessage(Format("@%d", GetAmount(BRIK)));
+  pToolIcon->SetStatusMessage(Format("@%d", GetAmount(TOOL)));
 }
 
-public func GetWood() { return wood; }
-public func GetZiegel() { return ziegel; }
-public func GetWerkzeug() { return werkzeug; }
+public func MaterialCheck(id idType) {
+	fNoStatusMessage = 1;
+	pWoodIcon -> BuildMessage(idType -> ~GetNeededWood(), GetAmount(WOOD));
+	pBrickIcon -> BuildMessage(idType -> ~GetNeededBrick(), GetAmount(BRIK));
+	pToolIcon -> BuildMessage(idType -> ~GetNeededTool(), GetAmount(TOOL));
+}
