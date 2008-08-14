@@ -54,8 +54,8 @@ public func CreateConstruction(id idConstruct) {
 public func ConstructionCompleted() {
   for(var gerust in aGerust) {
     if(!gerust)
-	  continue;
-	gerust->ConstructionCompleted();
+      continue;
+    gerust->ConstructionCompleted();
   }
   pConstruction->~SetCategory(iOldCat);
   // nochmal initialisieren (bei Fehlern Spezialbehandlung mit if())

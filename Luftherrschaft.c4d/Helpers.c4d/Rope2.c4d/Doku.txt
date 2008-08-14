@@ -1,0 +1,12 @@
+Hier drin sind die ganzen Rechenfunktionen, die für das Seil benötigt werden. (Wann wird ein neuer Vertex erzeugt, sind irgendwo zuviele etc.)
+
+Funktionen:
+
+void Activate(object pObj1, object pObj2)
+Verbindet pObj1 mit pObj2 durch ein Seil
+
+void SetObject(object pObj, int iNum)
+Setzt ein ActionTarget neu und rechnet den mittleren Vertex aus. iNum ist die Nummer des ActionTargets (0 / 1)
+
+int GetLength()
+Gibt die ungefähre Länge des Seils in Pixeln an.

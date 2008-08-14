@@ -1,0 +1,27 @@
+Mit diesem Seil kann man Objekte miteinander verbinden. Ist sozusagen das eigentliche benutzbare Objekt.
+auf <DoppelGraben> wird das Menü aufgerufen
+
+Funktionen:
+
+void ConnectWith(object pObj)
+Verbindet das Seil mit einem Objekt
+
+void Disconnect()
+Löst das Seil von allen verbundenen Objekten
+
+object GetRope()
+Liefert das Seil. Also die Verbindung zwischen dem Objekt in der Hand des Clonks und des verbundenen (Baum etc.).
+
+bool CanAttach(object pObj)
+Überprüft, ob das Seil mit pObj verbunden werden kann
+
+bool IsRope()
+Ist ein Seil
+
+void SetPushOrPull(int iMode)
+Setzt den Modus, wie mit dem Seil verfahren wird (Rope_Push / Rope_Hold / Rope_Pull)
+
+Nur für Enterhaken (und Lasso):
+void SetRope(object pRope, object pHook)
+Der Enterhaken erstellt das Seil und, da dieses Objekt immer noch das verbundene Seil braucht wird es hier gesetzt. Der Enterhaken selbst wird benötigt,
+damit man ihn einfach auf <DoppelGraben> einsammeln kann.
