@@ -32,17 +32,13 @@ protected func CheckMenu() {
 	var idType = aMenuItems[GetMenuSelection(Contained())];
 	if(!idType)
 		return;
-	GetMatSys() -> MaterialCheck(idType);
+	GetMatSys(GetOwner(Contained())) -> MaterialCheck(idType);
 	ScheduleCall(this, "CheckMenu", 5);
 }
 
 protected func MenuQueryCancel() {
-	GetMatSys() -> LocalN("fNoStatusMessage") = 0;
+	GetMatSys(GetOwner(Contained())) -> LocalN("fNoStatusMessage") = 0;
 	ClearScheduleCall(this, "CheckMenu");
-}
-
-private func GetMatSys() {
-	return FindObject2(Find_ID(PLMT), Find_Owner(GetOwner(Contained())));
 }
 
 protected func CreateConstructionSite(id idType)
@@ -53,17 +49,46 @@ protected func CreateConstructionSite(id idType)
   if (Contained(Contained())) return;
   // Pruefen, ob das Gebaeude hier gebaut werden kann
   if (idType->~RejectConstruction(0, 10, Contained()) ) return;
-  // Hat das Materialsystem genügen Material?
-  var	iNeededWood = idType -> ~GetNeededWood(),
-  		iNeededBrick = idType -> ~GetNeededBrick(),
-  		iNeededTool = idType -> ~GetNeededTool();
+  var hNeeded = CreateHash(), iNeeded, ID;
+  for(ID in GetMatSysIDs()) {
+  	if(iNeeded = idType -> GetDefCoreComponent(ID)) {
+  		if(FindObject(CNMT) && MatSysGetAmount(GetOwner(Contained()), ID) < iNeeded) {
+  			PlayerMessage(GetOwner(Contained()), "<c ff0000>Nicht genügend Baumaterial vorhanden!</c>", this);
+  			return;
+  		}
+  		else
+  			HashPut(hNeeded, ID, iNeeded);
+  	}
+  }
+  /*// Hat das Materialsystem genügen Material?
+  var	iNeededWood = idType -> GetDefCoreComponent(WOOD),
+  		iNeededBrick = idType -> GetDefCoreComponent(BRIK),
+  		iNeededTool = idType -> GetDefCoreComponent(TOOL);
   if(FindObject(CNMT) && (
-  	GetMatSys() -> GetAmount(WOOD) < iNeededWood  ||
-  	GetMatSys() -> GetAmount(BRIK) < iNeededBrick ||
-  	GetMatSys() -> GetAmount(TOOL) < iNeededTool
-  )) return;
-  GetMatSys() -> DoFill(-iNeededWood, WOOD);
-  GetMatSys() -> DoFill(-iNeededBrick, BRIK);
-  GetMatSys() -> DoFill(-iNeededTool, TOOL);
-  return inherited(idType, ...);
+  	MatSysGetAmount(GetOwner(Contained()), WOOD) < iNeededWood  ||
+  	MatSysGetAmount(GetOwner(Contained()), BRIK) < iNeededBrick ||
+  	MatSysGetAmount(GetOwner(Contained()), TOOL) < iNeededTool
+  )) return;*/
+  // Besitzer setzen für CreateConstruction
+  SetOwner(GetOwner(Contained()));
+  // Baustelle erschaffen
+  var pSite;
+  if (!(pSite = CreateConstruction(idType, 0, 10, GetOwner(Contained()), 1, 1,1))) return;
+  
+  var iter = HashIter(hNeeded), node;
+  while(node = HashIterNext(iter)) {
+  	MatSysDoFill(-node[1], GetOwner(), node[0]);
+  	pSite -> SetComponent(node[0], node[1]);
+  }
+  /*MatSysDoFill(-iNeededWood, GetOwner(), WOOD);
+  MatSysDoFill(-iNeededBrick, GetOwner(), BRIK);
+  MatSysDoFill(-iNeededTool, GetOwner(), TOOL);
+  pSite -> SetComponent(WOOD, iNeededWood);
+  pSite -> SetComponent(BRIK, iNeededBrick);
+  pSite -> SetComponent(TOOL, iNeededTool);*/
+  // Meldung
+  Message("$TxtConstructions$", Contained(), GetName(pSite));
+  // Bausatz verbrauchen
+  RemoveObject();
+  return 1;
 }

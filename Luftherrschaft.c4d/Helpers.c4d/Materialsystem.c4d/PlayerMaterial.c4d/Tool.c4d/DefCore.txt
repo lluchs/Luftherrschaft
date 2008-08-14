@@ -1,0 +1,10 @@
+[DefCore]
+id=TOOL
+Name=Tool
+Version=4,9,5
+Category=C4D_StaticBack
+Width=60
+Height=30
+Offset=-1,-1
+Value=0
+Mass=1

@@ -7,8 +7,8 @@ func Initialize() {
   return 1;
 }
 
-public func Set(string graphics) {
-  SetGraphics(graphics, this, GetID(this), 0, 1);
+public func Set(id idObj) {
+  SetGraphics(0, this, idObj, GFX_Overlay, GFXOV_MODE_IngamePicture);
 }
 
 public func SetStatusMessage(string msg, int iLines) {
