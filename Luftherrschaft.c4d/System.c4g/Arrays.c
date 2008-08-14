@@ -1,6 +1,6 @@
 /*-- Arrays --*/
 
-#strict
+#strict 2
 
 //Löscht ein Item aus einem Array
 global func DeleteArrayItem(iNumber, &aArray)
@@ -109,9 +109,11 @@ global func Test()
 }*/
 
 
-
-
-
-
-
-
+//Fügt ein Array zu einem bestehendem am Ende hinzu.
+global func FusionArrays(array &aOldArray, array a2ndArray) {
+	if(GetType(aOldArray) != C4V_Array || GetType(a2ndArray) != C4V_Array)
+		return;
+  for(var i; i < GetLength(a2ndArray); i++)
+    aOldArray[GetLength(aOldArray) + 1] = a2ndArray[i];
+  return aOldArray;
+}
