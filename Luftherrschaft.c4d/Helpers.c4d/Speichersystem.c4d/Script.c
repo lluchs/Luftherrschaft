@@ -26,14 +26,17 @@ public func & GetAmount(Key) { TypeCheck(); return HashGet(hFillLevel, Key); }
 
 // Maximale Füllung
 public func MaxFill(Key) {
-	var szVar = Format("%i_MaxFill", GetID());
+	var szFunc = "MaxFill", szFunc2, iFill;
 	if(Key) {
 		if(GetType(Key) == C4V_String)
-			szVar = Format("%s_%s", szVar, Key);
+			szFunc2 = Format("%s_%s", szFunc, Key);
 		else
-			szVar = Format("%s_%v", szVar, Key);
+			szFunc2 = Format("%s_%v", szFunc, Key);
 	}
-	return eval(szVar);
+	if(!(szFunc2 && iFill = eval(Format("%s%s", szFunc2, "()"))))
+		iFill = eval(Format("%s%s", szFunc, "()"));
+	
+	return iFill;
 }
 
 // Füllung erhöhen/verringern

@@ -4,9 +4,13 @@
 #include L103
 #include SAVS
 
-static const LSMS_MaxFill_Pressure = 2000;
-static const LSMS_MaxFill_Water = 600;
-static const LSMS_MaxFill_Coal = 6;
+//static const LSMS_MaxFill_Pressure = 2000;
+//static const LSMS_MaxFill_Water = 600;
+//static const LSMS_MaxFill_Coal = 6;
+
+private func MaxFill_Pressure() { return 2000; }
+private func MaxFill_Water() { return 600; }
+private func MaxFill_Coal() { return 6; }
 
 local fWait, fOff;
 

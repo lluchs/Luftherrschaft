@@ -4,7 +4,8 @@
 
 #include SAVS
 
-static const LCAB_MaxFill = 400;
+//static const LCAB_MaxFill = 400;
+private func MaxFill() { return 400; }
 
 protected func Initialize() {
 	DoFill(200);

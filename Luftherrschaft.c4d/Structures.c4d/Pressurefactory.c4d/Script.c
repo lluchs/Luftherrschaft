@@ -7,8 +7,11 @@
 #include DOOR
 #include SAVS
 
-static const LSMN_MaxFill = 2000;
-static const LSMN_MaxFill1 = 600;
+//static const LSMN_MaxFill = 2000;
+//static const LSMN_MaxFill1 = 600;
+
+private func MaxFill_Pressure() { return 2000; }
+private func MaxFill_Water() { return 600; }
 
 protected func Initialize(){
 	SetEntrance(1); // aktiver Eingang

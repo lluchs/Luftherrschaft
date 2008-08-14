@@ -5,7 +5,8 @@
 #include SAVS
 
 // Anzahl Materialpixel, die in einen Fänger passen
-static const LRCR_MaxFill = 1000;
+//static const LRCR_MaxFill = 1000;
+private func MaxFill() { return 1000; }
 
 protected func LiquidCheck() {
 	if(GetAmount() == MaxFill())
