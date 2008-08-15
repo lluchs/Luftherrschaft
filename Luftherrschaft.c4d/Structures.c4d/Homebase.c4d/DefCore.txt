@@ -13,7 +13,7 @@ VertexY=-37,38,-11,38
 VertexFriction=50,50,100,100
 Value=45
 Mass=1350
-Components=WOOD=3;ROCK=4;CRYS=1;
+Components=WOOD=3;BRIK=5;TOOL=2;
 Picture=0,0,103,77
 Entrance=11,15,20,24
 Exclusive=1
