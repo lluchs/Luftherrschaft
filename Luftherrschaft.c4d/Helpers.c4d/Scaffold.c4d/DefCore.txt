@@ -3,12 +3,12 @@ id=LGRU
 Name=Geruest
 Version=4,9,5
 Category=C4D_StaticBack|C4D_Foreground
-Width=227
-Height=94
-Offset=-113,-47
+Width=134
+Height=93
+Offset=-67,-47
 Value=0
 Components=WOOD=5;
-Picture=987,0,228,95
+Picture=0,0,134,93
 Vertices=4
 VertexX=-113,+113,-113,+113
 VertexY=+47 ,+ 47,- 47,- 47

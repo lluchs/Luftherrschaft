@@ -24,15 +24,22 @@ private func Building() {
   build += builddir * 10;
   if(NextBuildStep(build))
     SetCon(build / 10);
-  if(GetCon() == 100 && builddir == 1) {
+  if(GetCon() == 100 && builddir >= 1) {
     // nur wenn kein Effekt da ist, ans Bauobjekt senden (ausgebaut, da der Effekt die Werte abfrägt)
     //if(!EffectCall(construct, effectnum, "ScaffoldComplete", this))
     construct->~GerustComplete();
     BuildStop();
   }
   else
-    if(!Random(6))
+  {
+    if(!Random(6) && builddir != 0)
       Sound("Build*");
+    var construction = construct;
+    if(GetID(construction) == LSSH && construct->GetConstruction())
+      construction = construct->GetConstruction();
+    if(GetCon(construction) >= 100)
+      BuildDown(3);
+  }
 }
 
 public func NextBuildStep(int iMille) {
@@ -45,16 +52,18 @@ public func NextBuildStep(int iMille) {
   return false;
 }
 
-public func BuildDown() {
-  builddir = -1;
+public func BuildDown(int speed) {
+  if(!speed) speed = 1;
+  builddir = -1 * speed;
 }
 
 public func BuildStop() {
   builddir = 0;
 }
 
-public func BuildUp() {
-  builddir = 1;
+public func BuildUp(int speed) {
+  if(!speed) speed = 1;
+  builddir = 1 * speed;
 }
 
 public func Complete() {

@@ -4,7 +4,11 @@
 
 /* Gerüstbau */
 
+static LGRU_Wdt,LGRU_Hgt;
+
 global func AddScaffold(object pStructure) {
+  LGRU_Wdt = GetDefWidth(LGRU);
+  LGRU_Hgt = GetDefHeight(LGRU);
   if(!pStructure)
     pStructure = this;
   // ist schon fertig?
@@ -14,31 +18,40 @@ global func AddScaffold(object pStructure) {
 }
 
 global func FxIntScaffoldingStart(object pTarget, int iEffectNumber, bool bTemp) {
-  EffectVar(0, pTarget, iEffectNumber) = CreateArray();
-  EffectVar(1, pTarget, iEffectNumber) = 0;
+  EffectVar(0, pTarget, iEffectNumber) = CreateArray();        // Alle Gerüste
+  EffectVar(1, pTarget, iEffectNumber) = Max(GetDefHeight(GetID(pTarget)) / LGRU_Hgt, 1); // Restreihen (senkrecht)
+  EffectVar(2, pTarget, iEffectNumber) = Max(GetDefWidth(GetID(pTarget)) / LGRU_Wdt, 1) * Max(GetDefHeight(GetID(pTarget)) / LGRU_Hgt, 1);
 }
 
 global func FxIntScaffoldingTimer(pTarget, iEffectNumber, iTime) {
   var j;
   // Reihe komplett?
   for(var obj in EffectVar(0, pTarget, iEffectNumber)) {
-    if(!obj)
+    if(!obj) // zerstört worden.
       continue;
     if(obj->~Complete())
       j++;
   }
+  
+  // Reihe fertig?
   if(GetLength(EffectVar(0, pTarget, iEffectNumber)) == j) {
-    var num, x, y, scaffold;
-    y = GetDefHeight(GetID(pTarget)) / 2 - EffectVar(1, pTarget, iEffectNumber) * 92;
-    if(y < -GetDefHeight(GetID(pTarget)) / 2)
-    x = -GetDefWidth( GetID(pTarget)) / 2;
-    num = Max(GetDefWidth(GetID(pTarget)) / 227, 1);
-    while(num) {
-      x += 227;
-      scaffold = CreateObject(LGRU, x + 113, y - 46, GetOwner(pTarget));
+    var num = Max(GetDefWidth(GetID(pTarget)) / LGRU_Wdt,1);
+    var max_y = Max(GetDefHeight(GetID(pTarget)) / LGRU_Hgt, 1);
+    var y = -(max_y - EffectVar(1, pTarget, iEffectNumber)) * LGRU_Hgt + GetObjHeight(pTarget) / 2;
+    if(y <= -GetDefHeight(GetID(pTarget)) / 2)
+      return -1;
+    while(num--) {
+      var x = -GetObjWidth(pTarget) / 2 + (num) * LGRU_Wdt;
+      var scaffold = pTarget->~CreateObject(LGRU, x, y, GetOwner(pTarget));
       scaffold->Init(pTarget, iEffectNumber);
-      num--;
     }
-    EffectVar(1, pTarget, iEffectNumber)--;
+    EffectVar(1, pTarget, iEffectNumber) = EffectVar(1, pTarget, iEffectNumber) - 1;
   }
+}
+
+// Kleiner Zusatz, damit die Gerüste gebaut werden.
+global func CreateConstruction() {
+  var obj = _inherited(...);
+  obj->AddScaffold();
+  return obj;
 }

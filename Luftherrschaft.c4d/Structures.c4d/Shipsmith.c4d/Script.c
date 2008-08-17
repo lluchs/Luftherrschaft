@@ -155,3 +155,5 @@ local bGerust;
 
 public func GerustComplete() { bGerust = true; }
 public func GerustCompleted() { return bGerust; }
+
+public func GetConstruction() { return pConstruction; }
