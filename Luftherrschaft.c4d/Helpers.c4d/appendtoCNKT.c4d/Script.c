@@ -37,6 +37,8 @@ protected func CheckMenu() {
 }
 
 protected func MenuQueryCancel() {
+	if(!FindObject(CNMT))
+		return;
 	GetMatSys(GetOwner(Contained())) -> LocalN("fNoStatusMessage") = 0;
 	ClearScheduleCall(this, "CheckMenu");
 }
@@ -49,17 +51,20 @@ protected func CreateConstructionSite(id idType)
   if (Contained(Contained())) return;
   // Pruefen, ob das Gebaeude hier gebaut werden kann
   if (idType->~RejectConstruction(0, 10, Contained()) ) return;
-  var hNeeded = CreateHash(), iNeeded, ID;
-  for(ID in GetMatSysIDs()) {
-  	if(iNeeded = idType -> GetDefCoreComponent(ID)) {
-  		if(FindObject(CNMT) && MatSysGetAmount(GetOwner(Contained()), ID) < iNeeded) {
-  			PlayerMessage(GetOwner(Contained()), "<c ff0000>Nicht genügend Baumaterial vorhanden!</c>", this);
-  			return;
-  		}
-  		else
-  			HashPut(hNeeded, ID, iNeeded);
-  	}
-  }
+  var fNeedMaterial;
+  if(fNeedMaterial = FindObject(CNMT)) {
+  	var hNeeded = CreateHash(), iNeeded, ID;
+  	for(ID in GetMatSysIDs()) {
+	  	if(iNeeded = idType -> GetDefCoreComponent(ID)) {
+	  		if(FindObject(CNMT) && MatSysGetAmount(GetOwner(Contained()), ID) < iNeeded) {
+	  			PlayerMessage(GetOwner(Contained()), "<c ff0000>Nicht genügend Baumaterial vorhanden!</c>", this);
+	  			return;
+	  		}
+	  		else
+	  			HashPut(hNeeded, ID, iNeeded);
+	  	}
+	  }
+	}
   /*// Hat das Materialsystem genügen Material?
   var	iNeededWood = idType -> GetDefCoreComponent(WOOD),
   		iNeededBrick = idType -> GetDefCoreComponent(BRIK),
@@ -75,11 +80,13 @@ protected func CreateConstructionSite(id idType)
   var pSite;
   if (!(pSite = CreateConstruction(idType, 0, 10, GetOwner(Contained()), 1, 1,1))) return;
   
-  var iter = HashIter(hNeeded), node;
-  while(node = HashIterNext(iter)) {
-  	MatSysDoFill(-node[1], GetOwner(), node[0]);
-  	pSite -> SetComponent(node[0], node[1]);
-  }
+  if(fNeedMaterial) {
+  	var iter = HashIter(hNeeded), node;
+	  while(node = HashIterNext(iter)) {
+	  	MatSysDoFill(-node[1], GetOwner(), node[0]);
+  		pSite -> SetComponent(node[0], node[1]);
+ 		}
+ 	}
   /*MatSysDoFill(-iNeededWood, GetOwner(), WOOD);
   MatSysDoFill(-iNeededBrick, GetOwner(), BRIK);
   MatSysDoFill(-iNeededTool, GetOwner(), TOOL);

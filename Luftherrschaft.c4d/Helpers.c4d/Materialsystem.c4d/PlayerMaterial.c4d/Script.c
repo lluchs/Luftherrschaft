@@ -87,14 +87,16 @@ public func MaterialCheck(id idType) {
 }
 
 global func GetMatSys(int iPlr) {
+	if(GetType(aMaterialSystem) != C4V_Array)	
+		return;
 	return aMaterialSystem[iPlr];
 }
 global func MatSysGetAmount(int iPlr, id Key) {
-	return aMaterialSystem[iPlr] -> GetAmount(Key);
+	return GetMatSys(iPlr) -> GetAmount(Key);
 }
 
 global func MatSysDoFill(int iChange, int iPlr, id Key) {
-	return aMaterialSystem[iPlr] -> DoFill(iChange, Key);
+	return GetMatSys(iPlr) -> DoFill(iChange, Key);
 }
 
 global func GetMatSysIDs() {
