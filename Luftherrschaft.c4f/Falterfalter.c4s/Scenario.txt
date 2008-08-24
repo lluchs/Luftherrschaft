@@ -4,7 +4,7 @@ Title=FalterFalter!
 
 [Definitions]
 Definition1=Objects.c4d
-Definition2=Luftherrschaft2\Luftherrschaft.c4d
+Definition2=Luftherrschaft\Luftherrschaft.c4d
 
 [Game]
 StructNeedEnergy=0
