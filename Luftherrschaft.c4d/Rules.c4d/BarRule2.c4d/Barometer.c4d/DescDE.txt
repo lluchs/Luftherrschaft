@@ -1,0 +1,1 @@
+Misst den Luftdruck und gibt einen Überblick über die Wetterverhältnisse.
