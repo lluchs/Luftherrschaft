@@ -3,6 +3,7 @@
 #strict 2
 
 local construct, effectnum, builddir, build;
+local lower, bg, onlybg;
 
 protected func Initialize() {
   SetVisibility(VIS_All);
@@ -13,14 +14,27 @@ protected func Initialize() {
   BuildUp();
 }
 
-public func Init(object pConstruct, int iEffectNum) {
+public func Init(object pConstruct, int iEffectNum, object pLower, bool bOnlyBg) {
+	// Background hat keine Funktion -> wird von Vorergrundgesteuert.
+	if(bOnlyBg)
+		return onlybg = bOnlyBg;
   construct = pConstruct;
   effectnum = iEffectNum;
+  lower = pLower;
+  bg = CreateObject(LGRU, 0, 0, GetOwner());
+  SetGraphics("Bg", bg, LGRU, 0, GFXOV_MODE_Base);
+  SetGraphics("Fg", this, LGRU, 0, GFXOV_MODE_Base);
+  bg->~SetCon(GetCon());
+  bg->~BuildUp();
+  // in den Hintergrund
+  bg->~SetCategory(C4D_StaticBack | C4D_Background);
+  bg->BuildUp();
+  bg->Init( , , , true);
 }
 
 private func Building() {
-  if(!construct)
-    RemoveObject();
+  if(!construct && !onlybg)
+    BuildDown(3);
   build += builddir * 10;
   if(NextBuildStep(build))
     SetCon(build / 10);
@@ -34,11 +48,17 @@ private func Building() {
   {
     if(!Random(6) && builddir != 0)
       Sound("Build*");
-    var construction = construct;
-    if(GetID(construction) == LSSH && construct->GetConstruction())
-      construction = construct->GetConstruction();
-    if(GetCon(construction) >= 100)
-      BuildDown(3);
+    if(!onlybg) {
+    	var construction = construct;
+    	if(GetID(construction) == LSSH)
+    		if(construct->GetConstruction())
+    	  	construction = construct->GetConstruction();
+    	if(GetCon(construction) >= 100)
+    	  BuildDown(3);
+    	if(GetCon() < 5)
+    		if(lower)
+    			lower->BuildDown(3);
+    }
   }
 }
 
@@ -55,20 +75,25 @@ public func NextBuildStep(int iMille) {
 public func BuildDown(int speed) {
   if(!speed) speed = 1;
   builddir = -1 * speed;
+  if(bg)
+  	bg->~BuildDown(speed);
 }
 
 public func BuildStop() {
   builddir = 0;
+  if(bg)
+  	bg->~BuildStop();
 }
 
 public func BuildUp(int speed) {
   if(!speed) speed = 1;
   builddir = 1 * speed;
+  if(bg)
+  	bg->~BuildUp(speed);
 }
 
 public func Complete() {
-  if(GetCon() == 100) return true;
-  return false;
+ 	return GetCon() >= 100;
 }
 
 public func ConstructionCompleted() { BuildDown(); }

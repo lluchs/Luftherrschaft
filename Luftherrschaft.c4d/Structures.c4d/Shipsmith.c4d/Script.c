@@ -3,6 +3,11 @@
 #strict 2
 #include L450
 
+// Info:
+// Inkludiert nicht die Werkstatt, weil das zu
+// bauende Objekt auﬂerhalb der Schmiede ist
+// und so immer nur eines gebaut werden kann.
+
 local aGerust, pConstruction, aComponents, iCompCnt, iOldCat, iBuild, iBuildedComp;
 
 public func Initialize() {
@@ -10,7 +15,7 @@ public func Initialize() {
   SetEntrance(true);
 }
 
-public func ContainedDig(object pCaller) {
+public func ContainedUp(object pCaller) {
   [$TxtConstruct$]
   // schon eine Baustelle?
   if(pConstruction)
@@ -28,35 +33,23 @@ public func ContainedDig(object pCaller) {
 }
 
 public func CreateConstruction(id idConstruct) {
-  var iWdt = GetDefWidth(idConstruct);
-  var iNum = iWdt / GetGerustWidth();
-  if(iNum <= 0)
-    iNum = 1;
-  var i;
-  while(iNum--) {
-    aGerust[i] = CreateObject(LGRU, -95 + GetGerustWidth() / 2 + i * GetGerustWidth(), +37, GetOwner()); //Start -95, +35
-	aGerust[i]->~Init(this);
-	i++;
-  }
   // Konstruktion erstellen
   pConstruction = CreateObject(idConstruct, -95 + GetDefWidth(idConstruct) / 2, +35, GetOwner());
   pConstruction->SetCon(3);
+  // Ger¸ste f¸r den Bau erstellen.
+  pConstruction->AddScaffold();
   // Kategorie ‰ndern (damit nicht anfassbar/unbenutzbar etc.)
   iOldCat = GetCategory(pConstruction);
   pConstruction->SetCategory(C4D_StaticBack);
   // Eingang ausschalten und SolidMask entfernen
   pConstruction->SetEntrance(0);
   pConstruction->SetSolidMask();
+  // Komponenten auslesen
   aComponents = GetComponents(idConstruct, false);
   iCompCnt = GetComponents(idConstruct, true);
 }
 
-public func ConstructionCompleted() {
-  for(var gerust in aGerust) {
-    if(!gerust)
-      continue;
-    gerust->ConstructionCompleted();
-  }
+public func ConstructionCompleted() {  
   pConstruction->~SetCategory(iOldCat);
   // nochmal initialisieren (bei Fehlern Spezialbehandlung mit if())
   pConstruction->~Initialize();
@@ -116,8 +109,6 @@ protected func CheckContent() {
     ConstructionCompleted();
   }
 }
-
-private func GetGerustWidth() { return 243; }
 
 // Liefert die Komponenten als brauchbaren Array bzw. die Anzahl aller Komponenten
 public func GetComponents(id idFrom, bool bGetCount) {

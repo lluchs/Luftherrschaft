@@ -5,7 +5,7 @@ Version=4,9,5
 Category=C4D_StaticBack|C4D_Foreground
 Width=134
 Height=93
-Offset=-67,-47
+Offset=-51,-47
 Value=0
 Components=WOOD=5;
 Picture=0,0,134,93
