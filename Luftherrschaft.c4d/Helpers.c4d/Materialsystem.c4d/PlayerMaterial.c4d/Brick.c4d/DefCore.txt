@@ -8,3 +8,4 @@ Height=30
 Offset=-1,-1
 Value=0
 Mass=1
+Components=LOAM=1;
