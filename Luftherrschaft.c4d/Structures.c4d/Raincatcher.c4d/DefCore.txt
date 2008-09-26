@@ -14,7 +14,7 @@ VertexX=-15,-15,15,15
 VertexY=-25,23,-25,23
 VertexFriction=50,50,100,100
 Value=100
-Mass=3000
+Mass=300
 Components=WOOD=2;ROCK=1
 Picture=0,0,34,50
 Exclusive=1
