@@ -64,6 +64,11 @@ public func Initialize() {
   */
 }
 
+private func OnFillChange(Key, int iChange) {
+	DoScore(GetOwner(), iChange * GetValue(0, Key));
+	return 1;
+}
+
 local fNoStatusMessage;
 public func Timer() {
 	if(fNoStatusMessage)
