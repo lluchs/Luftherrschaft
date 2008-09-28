@@ -45,6 +45,7 @@ public func DoFill(int iChange, Key, bool fNoSound)
   var iNewFill = BoundBy(GetAmount(Key) + iChange, 0, MaxFill(Key));
   if (iNewFill == GetAmount(Key)) return;
   iChange = iNewFill - GetAmount(Key);
+  OnFillChange(Key, iChange);
   if(!fNoSound)
   	FillSound(Key, iChange);
   HashPut(hFillLevel, Key, iNewFill);
@@ -97,3 +98,6 @@ private func FillPicture() { return -1; }
 
 // Sound beim Verändern des Füllstandes? (Wenn ja: komplettes Sound() muss in der Funktion stattfinden)
 private func FillSound(Key, int iChange) { return; }
+
+// Wird bei Füllstandsveränderung aufgerufen
+private func OnFillChange(Key, int iChange) { return; }
