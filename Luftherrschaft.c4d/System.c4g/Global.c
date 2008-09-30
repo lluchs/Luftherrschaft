@@ -66,6 +66,7 @@ global func FxIntScaffoldingTimer(object pTarget,int iEffectNumber,int iTime) {
 // CreateConstruction() überladen, damit die Gerüste auch gebaut werden.
 global func CreateConstruction() {
   var obj = _inherited(...);
+  if(obj)
   obj->AddScaffold();
   return obj;
 }

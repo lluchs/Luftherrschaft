@@ -15,6 +15,7 @@ protected func Initialize() {
 
 public func Init(object pConstruct, object pLower, bool bOnlyBg) {
 	// Background hat keine Funktion -> wird von Vordergrundgesteuert.
+	Log("%v%v%v%v%v", Par(0), Par(1), Par(2), Par(3), Par(4));
 	if(bOnlyBg)
 		return onlybg = bOnlyBg;
   construct = pConstruct;
