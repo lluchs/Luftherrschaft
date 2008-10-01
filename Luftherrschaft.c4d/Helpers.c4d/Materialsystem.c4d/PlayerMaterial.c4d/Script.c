@@ -4,15 +4,10 @@
 
 #include SAVS
 
-// evtl. variabel als local?
-//static const PLMT_MaxFill = 1000;
 private func MaxFill() { return 1000; }
-/*static const PLMT_MaxFill_WOOD = 1000;
-static const PLMT_MaxFill_BRIK = 1000;
-static const PLMT_MaxFill_TOOL = 1000;*/
 
 static aMaterialSystem;
-//local wood, ziegel, werkzeug;
+
 local hIcons; // HashGet(GetMatSys()->LocalN("hIcons"), WOOD)
 
 public func Initialize() {
@@ -38,30 +33,6 @@ public func Initialize() {
 		HashPut(hIcons, idObj, pIcon);
 		iX -= 40;
 	}
-  /*pWoodIcon = CreateObject(LHII, 0, 0, GetOwner());
-  pWoodIcon -> SetPosition(-246, +0);
-  SetObjDrawTransform(566, 0, 0, 0, 566, 0, pWoodIcon);
-  pWoodIcon -> Set("WOOD");
-  pBrickIcon = CreateObject(LHII, 0, 0, GetOwner());
-  pBrickIcon -> SetPosition(-206, +0);
-  SetObjDrawTransform(566, 0, 0, 0, 566, 0, pBrickIcon);
-  pBrickIcon -> Set("BRIK");
-  pToolIcon = CreateObject(LHII, 0, 0, GetOwner());
-  pToolIcon->SetPosition(-166, +0);
-  SetObjDrawTransform(566, 0, 0, 0, 566, 0, pToolIcon);
-  pToolIcon -> Set("TOOL");*/
-  /*
-  Kurzinfo
-  Endgröße 34 x 17 
-  Position -6 x 5 gold
-  pos      -46 x 5 score
-  pos      -86 x 5 crew
-  -->
-  pos      -126 x 5 tool
-  pos      -166 x 5 brick
-  pos      -206 x 5 wood
-  und 60 mehr, weil Offset bei -1 x -1 ist.
-  */
 }
 
 private func OnFillChange(Key, int iChange) {
@@ -76,9 +47,6 @@ public func Timer() {
 	var iter = HashIter(hIcons), node;
 	while(node = HashIterNext(iter))
 		node[1] -> SetStatusMessage(Format("@%d", GetAmount(node[0])));
-  /*pWoodIcon->SetStatusMessage(Format("@%d", GetAmount(WOOD)));
-  pBrickIcon->SetStatusMessage(Format("@%d", GetAmount(BRIK)));
-  pToolIcon->SetStatusMessage(Format("@%d", GetAmount(TOOL)));*/
 }
 
 public func MaterialCheck(id idType) {
@@ -86,26 +54,4 @@ public func MaterialCheck(id idType) {
 	var iter = HashIter(hIcons), node;
 	while(node = HashIterNext(iter))
 		node[1] -> BuildMessage(idType -> GetDefCoreComponent(node[0]), GetAmount(node[0]));
-	/*pWoodIcon -> BuildMessage(idType -> GetDefCoreComponent(WOOD), GetAmount(WOOD));
-	pBrickIcon -> BuildMessage(idType -> GetDefCoreComponent(BRIK), GetAmount(BRIK));
-	pToolIcon -> BuildMessage(idType -> GetDefCoreComponent(TOOL), GetAmount(TOOL));*/
-}
-
-global func GetMatSys(int iPlr) {
-	if(GetType(aMaterialSystem) != C4V_Array)	
-		return;
-	return aMaterialSystem[iPlr];
-}
-global func MatSysGetAmount(int iPlr, id Key) {
-	return GetMatSys(iPlr) -> GetAmount(Key);
-}
-
-global func MatSysDoFill(int iChange, int iPlr, id Key) {
-	return GetMatSys(iPlr) -> DoFill(iChange, Key);
-}
-
-global func GetMatSysIDs() {
-	var aIDs = [TOOL, BRIK, WOOD];
-	FusionArrays(aIDs, GameCall("SpecialMatSysIDs")); // vertauschte Reihenfolge, da von rechts nach links
-	return aIDs;
 }
