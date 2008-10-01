@@ -1,5 +1,5 @@
 [DefCore]
-id=BRIK
+id=LHBK
 Name=Brick
 Version=4,9,5
 Category=C4D_StaticBack

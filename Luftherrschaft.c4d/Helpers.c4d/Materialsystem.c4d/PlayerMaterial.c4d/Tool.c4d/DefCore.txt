@@ -1,5 +1,5 @@
 [DefCore]
-id=TOOL
+id=LHTL
 Name=Tool
 Version=4,9,5
 Category=C4D_StaticBack

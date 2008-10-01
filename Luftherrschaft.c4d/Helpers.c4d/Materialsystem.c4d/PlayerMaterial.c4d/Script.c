@@ -18,11 +18,11 @@ public func Initialize() {
 	var iX = -166, pIcon;
 	hIcons = CreateHash();
 	for(var idObj in aIDs) {
-		pIcon = CreateObject(LHII, 0, 0, GetOwner());
+		pIcon = CreateObject(LPMI, 0, 0, GetOwner());
 		pIcon -> SetPosition(iX);
 		pIcon -> Set(idObj);
 		var iWidth = 566, iHeight = 566, iXAdjust = 28000, iYAdjust = 13000;
-		if(idObj != BRIK && idObj != TOOL) {
+		if(idObj != LHBK && idObj != LHTL) {
 			iXAdjust *= 2;
 			iXAdjust += 3000;
 			iYAdjust *= 2;
