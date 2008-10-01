@@ -1,0 +1,10 @@
+[DefCore]
+id=BRMT
+Name=Barometer
+Version=4,9,5
+Category=10485761
+Width=250
+Height=200
+Offset=-125,-100
+Components=BRMT=1;
+Picture=0,0,250,200

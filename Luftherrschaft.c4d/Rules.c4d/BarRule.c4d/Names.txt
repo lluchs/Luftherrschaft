@@ -1,0 +1,2 @@
+DE:Barometerregel
+US:Barometerrule
