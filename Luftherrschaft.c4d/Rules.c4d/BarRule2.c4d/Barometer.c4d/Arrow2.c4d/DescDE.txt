@@ -1,1 +1,0 @@
-Zeigt das Wetter an.
