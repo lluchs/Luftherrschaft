@@ -5,7 +5,7 @@
 global func GetMatSys(int iPlr, bool bDoNotCreateMatSys) {
 	if(GetType(aMaterialSystem) != C4V_Array)	{
 		if(!bDoNotCreateMatSys)
-			CreateObject(LHMT, 0, 0, NO_OWNER);
+			CreateObject(LRMS, 0, 0, NO_OWNER);
 		else
 			return;
 	}

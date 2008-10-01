@@ -1,5 +1,5 @@
 [DefCore]
-id=BRMT
+id=LPBM
 Name=Barometer
 Version=4,9,5
 Category=10485761

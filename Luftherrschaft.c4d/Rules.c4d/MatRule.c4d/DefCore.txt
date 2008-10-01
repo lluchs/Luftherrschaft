@@ -1,5 +1,5 @@
 [DefCore]
-id=LHMT
+id=LRMS
 Name=Materialregel
 Version=4,9,5
 Category=C4D_Rule|C4D_StaticBack

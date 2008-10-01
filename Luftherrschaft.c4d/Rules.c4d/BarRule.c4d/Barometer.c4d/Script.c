@@ -12,7 +12,7 @@ protected func Initialize()
 {
   SetVisibility(VIS_Owner);
   SetPosition(125,100);
-  pArrow1 = CreateObject(BRW1,27,24,GetOwner());
-  pArrow2 = CreateObject(BRW2,5,29,GetOwner());
+  pArrow1 = CreateObject(LPB1,27,24,GetOwner());
+  pArrow2 = CreateObject(LPB2,5,29,GetOwner());
   return 1;
 }
