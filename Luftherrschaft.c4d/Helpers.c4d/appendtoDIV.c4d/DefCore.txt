@@ -1,5 +1,5 @@
 [DefCore]
-id=1J1E
+id=LAVX
 Version=4,9,1,4
 Name=#appendtoDIV
 Category=1
