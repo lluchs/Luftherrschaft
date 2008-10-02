@@ -20,7 +20,7 @@ global func MatSysDoFill(int iChange, int iPlr, id Key) {
 }
 
 global func GetMatSysIDs() {
-	var aIDs = [TOOL, BRIK, WOOD, CRYS];
+	var aIDs = [LHTL, LHBK, WOOD, CRYS];
 	FusionArrays(aIDs, GameCall("SpecialMatSysIDs")); // vertauschte Reihenfolge, da von rechts nach links
 	return aIDs;
 }
