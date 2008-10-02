@@ -53,5 +53,5 @@ public func MaterialCheck(id idType) {
 	fNoStatusMessage = 1;
 	var iter = HashIter(hIcons), node;
 	while(node = HashIterNext(iter))
-		node[1] -> BuildMessage(idType -> GetDefCoreComponent(node[0]), GetAmount(node[0]));
+		node[1] -> BuildMessage(GetComponent(node[0], 0, 0, idType), GetAmount(node[0]));
 }

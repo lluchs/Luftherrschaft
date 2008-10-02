@@ -27,18 +27,17 @@ public func Activate(pClonk)
 }
 
 protected func CheckMenu() {
-	if(GetMenu(Contained()) != CXCN || !FindObject(CNMT))
+	var pMatSys = GetMatSys(GetOwner(Contained()));
+	if(GetMenu(Contained()) != CXCN || !pMatSys)
 		return;
 	var idType = aMenuItems[GetMenuSelection(Contained())];
 	if(!idType)
 		return;
-	GetMatSys(GetOwner(Contained())) -> MaterialCheck(idType);
+	pMatSys -> MaterialCheck(idType);
 	ScheduleCall(this, "CheckMenu", 5);
 }
 
 protected func MenuQueryCancel() {
-	if(!FindObject(CNMT))
-		return;
 	GetMatSys(GetOwner(Contained())) -> LocalN("fNoStatusMessage") = 0;
 	ClearScheduleCall(this, "CheckMenu");
 }
@@ -55,7 +54,7 @@ protected func CreateConstructionSite(id idType)
   if(fNeedMaterial = FindObject(CNMT)) {
   	var hNeeded = CreateHash(), iNeeded, ID;
   	for(ID in GetMatSysIDs()) {
-	  	if(iNeeded = idType -> GetDefCoreComponent(ID)) {
+	  	if(iNeeded = GetComponent(ID, 0, 0, idType)) {
 	  		if(FindObject(CNMT) && MatSysGetAmount(GetOwner(Contained()), ID) < iNeeded) {
 	  			PlayerMessage(GetOwner(Contained()), "<c ff0000>Nicht genügend Baumaterial vorhanden!</c>", this);
 	  			return;
