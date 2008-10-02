@@ -9,7 +9,7 @@ protected func Initialize() {
   for(iPlr; iRest > 0; iPlr++) {
     // hat einen Spielernamen und ist kein Skriptspieler?
     if(GetPlayerName(iPlr) && GetPlayerType(iPlr) != C4PT_Script) {
-      CreateObject(PLMT, 0, 0, iPlr);
+      CreateObject(LHMS, 0, 0, iPlr);
       iRest--;
     }
   }
@@ -31,7 +31,7 @@ public func Timer() {
 
 protected func InitializePlayer(int iPlr) {
 	if(GetPlayerType(iPlr) != C4PT_Script)
-		CreateObject(PLMT, 0, 0, iPlr);
+		CreateObject(LHMS, 0, 0, iPlr);
 }
 
 public func Activate(int iByPlr) {

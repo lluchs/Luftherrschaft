@@ -2,7 +2,7 @@
 
 #strict 2
 #include L035
-#include SAVS
+#include LHSS
 
 // Anzahl Materialpixel, die in einen Fänger passen
 //static const LRCR_MaxFill = 1000;
