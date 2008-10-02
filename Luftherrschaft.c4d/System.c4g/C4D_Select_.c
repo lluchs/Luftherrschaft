@@ -1,0 +1,1 @@
+#strict 2static const C4D_SelectMaterial = 512;static const C4D_SelectKnowledge = 1024;static const C4D_SelectHomebase = 2048;
