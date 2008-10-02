@@ -13,9 +13,9 @@ protected func Initialize() {
   BuildUp();
 }
 
-public func Init(object pConstruct, object pLower, bool bOnlyBg) {
+public func Init(object pConstruct, object pLower, int iEffectNum, bool bOnlyBg) {
 	// Background hat keine Funktion -> wird von Vordergrundgesteuert.
-	Log("%v%v%v%v%v", Par(0), Par(1), Par(2), Par(3), Par(4));
+	//Log("%v%v%v%v%v", Par(0), Par(1), Par(2), Par(3), Par(4));
 	if(bOnlyBg)
 		return onlybg = bOnlyBg;
   construct = pConstruct;
@@ -23,13 +23,13 @@ public func Init(object pConstruct, object pLower, bool bOnlyBg) {
   lower = pLower;
   
   // ein Teil in Hintergrund setzen
-  bg = CreateObject(LGRU, 0, 0, GetOwner());
-  SetGraphics("Bg", bg, LGRU, 0, GFXOV_MODE_Base);
-  SetGraphics("Fg", this, LGRU, 0, GFXOV_MODE_Base);
+  bg = CreateObject(GetID(), 0, 0, GetOwner());
+  SetGraphics("Bg", bg, GetID(), 0, GFXOV_MODE_Base);
+  SetGraphics("Fg", this, GetID(), 0, GFXOV_MODE_Base);
   // in den Hintergrund
   bg->SetCategory(C4D_StaticBack | C4D_Background);
   bg->BuildUp();
-  bg->Init( , , , true);
+  bg->Init(0, 0, 0, true);
 }
 
 private func Building() {

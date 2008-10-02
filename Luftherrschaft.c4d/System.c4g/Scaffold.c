@@ -49,9 +49,9 @@ global func FxIntScaffoldingTimer(object pTarget,int iEffectNumber,int iTime) {
     // X-Position ermitteln
     var x = -GetObjWidth(pTarget) / 2 + (num - 1) * LGRU_Wdt + LGRU_Wdt / 2;
     // Gerüste erstellen (Position relativ zur Baustelle)
-    var scaffold = pTarget->~CreateObject(LGRU, x, y, GetOwner(pTarget));
+    var scaffold = pTarget->~CreateObject(LHSF, x, y, GetOwner(pTarget));
     // Startparameter übergeben (Baustelle, Gerüst darunter)
-    scaffold->Init(pTarget, EffectVar(0, pTarget, iEffectNumber)[num]);
+    scaffold->Init(pTarget, EffectVar(0, pTarget, iEffectNumber)[num], iEffectNumber);
     // Speichern.
     EffectVar(0, pTarget, iEffectNumber)[num] = scaffold;
   }
