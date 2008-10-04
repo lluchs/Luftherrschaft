@@ -1,5 +1,5 @@
 [DefCore]
-id=LCAB
+id=LICB
 Name=Druckluftflasche
 Version=4,9,5
 Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase|C4D_SelectInEarth

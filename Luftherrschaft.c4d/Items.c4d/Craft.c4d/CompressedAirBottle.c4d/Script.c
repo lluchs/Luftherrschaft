@@ -25,7 +25,7 @@ protected func Hit3() {
   if (!GetAmount())
    return;
   else {
-    CastObjects(LHSP, 4, 20);
+    CastObjects(LOSP, 4, 20);
 		if (GetAmount() >= 40) {
 	  	ExplodeSize = GetAmount() * GetAmount() / (40 - GetAmount()) + 15;
 	  	Schedule(Format("Explode(%d)", ExplodeSize), 108, 1, 0);

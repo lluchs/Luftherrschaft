@@ -1,5 +1,5 @@
 [DefCore]
-id=LHSP
+id=LOSP
 Version=4,9,8
 Name=Splinter
 Category=C4D_Object
