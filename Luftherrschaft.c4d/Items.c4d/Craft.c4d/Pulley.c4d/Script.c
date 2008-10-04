@@ -63,7 +63,7 @@ public func ControlDigDouble(object pClonk) {
     if(PushPull != -1) AddMenuItem("$PullRope$","SetPushOrPull(-1)", GetID(this), pClonk);
     if(PushPull != 1) AddMenuItem("$ExtendRope$","SetPushOrPull(1)", GetID(this), pClonk);
     if(PushPull != 0) AddMenuItem("$HoldRope$","SetPushOrPull(0)", GetID(this), pClonk);
-    if(ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) AddMenuItem("$Disconnect$", "Disconnect", 171E, pClonk);
+    if(ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) AddMenuItem("$Disconnect$", "Disconnect", LHRP, pClonk);
   }        
   var obj, OCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
   for(obj in FindObjects(Find_Distance(15),Find_OCF(OCF),Find_NoContainer()))
@@ -209,7 +209,7 @@ protected func Connect(object pConnectWith) {
   if(!Rope) {
     if(!pConnectWith) return 0;
     Mode=0;
-    Rope = CreateObject(1E1E,0,0,GetOwner());
+    Rope = CreateObject(LHR2,0,0,GetOwner());
     Rope->Activate(this, pConnectWith);    
     return 1;
   }

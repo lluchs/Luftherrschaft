@@ -1,5 +1,5 @@
 [DefCore]
-id=171E
+id=LHRP
 Name=Rope
 Category=1
 Width=1

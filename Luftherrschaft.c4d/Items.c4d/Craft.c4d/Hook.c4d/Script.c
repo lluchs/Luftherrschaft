@@ -8,9 +8,9 @@ public func Departure(object pContainer,int iAlternateXDir,int iAlternateYDir) {
   SetAction("Idle");
   if(!GetXDir()) return 0;
   if(Rope) return 0;
-  RopeEnd = CreateObject(LRPE, 0, 0, GetOwner());
+  RopeEnd = CreateObject(LIRP, 0, 0, GetOwner());
   Enter(pContainer, RopeEnd);
-  Rope = CreateObject(171E, 0, 0, GetOwner());
+  Rope = CreateObject(LHRP, 0, 0, GetOwner());
   Rope->Activate(RopeEnd, this);
   RopeEnd->~SetRope(Rope, this);
   var iXDir,iYDir;
@@ -30,7 +30,7 @@ public func Departure(object pContainer,int iAlternateXDir,int iAlternateYDir) {
 }
 
 public func Entrance(object pContainer) {
-  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(LRPE))) {
+  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(LIRP))) {
     if(obj == RopeEnd) {
       if(Rope) RemoveObject(Rope);
       if(RopeEnd) RemoveObject(RopeEnd);

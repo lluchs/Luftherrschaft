@@ -1,5 +1,5 @@
 [DefCore]
-id=LRPE
+id=LIRP
 Name=Seil
 Version=4,9,1,3
 Category=3600

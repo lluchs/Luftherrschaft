@@ -1,5 +1,5 @@
 [DefCore]
-id=LANH
+id=LIAR
 Name=Anchor
 Category=3588
 MaxUserSelect=6

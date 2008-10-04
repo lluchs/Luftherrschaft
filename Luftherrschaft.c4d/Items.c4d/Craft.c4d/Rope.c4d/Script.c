@@ -2,7 +2,7 @@
 
 #strict 2
 
-#include 1E1E
+#include LHR2
 
 func DingD() {
   var Target1 = GetRealContainer(GetActionTarget(0));
