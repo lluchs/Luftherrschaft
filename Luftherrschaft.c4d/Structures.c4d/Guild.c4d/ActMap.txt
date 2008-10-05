@@ -1,18 +1,9 @@
 [Action]
-Name=Research
-Procedure=NONE
-Facet=0,0,103,77
-Delay=2
-NextAction=Research
-EndCall=Researching
-Sound=Research
-
-[Action]
 Name=OpenDoor
 Procedure=NONE
 Length=5
 Delay=2
-Facet=0,79,18,23,63,23
+Facet=0,90,16,22,20,67
 FacetBase=1
 NextAction=DoorOpen
 StartCall=SoundOpenDoor
@@ -22,7 +13,7 @@ Name=DoorOpen
 Procedure=NONE
 Delay=20
 Length=1
-Facet=90,79,18,23,63,23
+Facet=80,90,16,22,20,67
 FacetBase=1
 NextAction=CloseDoor
 StartCall=OpenEntrance
@@ -33,7 +24,7 @@ Name=CloseDoor
 Procedure=NONE
 Length=5
 Delay=2
-Facet=0,79,18,23,63,23
+Facet=0,90,16,22,20,67
 FacetBase=1
 NextAction=Idle
 StartCall=SoundCloseDoor

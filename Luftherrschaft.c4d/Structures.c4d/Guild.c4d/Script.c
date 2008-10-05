@@ -5,7 +5,6 @@
 #include DOOR
 
 protected func Initialize() {
-	SetEntrance(1);
 	hOldContents = CreateHash();
 }
 protected func ContainedUp(object pClonk) {
