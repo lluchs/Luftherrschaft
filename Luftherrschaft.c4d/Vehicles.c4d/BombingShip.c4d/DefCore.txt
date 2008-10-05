@@ -1,5 +1,5 @@
 [DefCore]
-id=LBOS
+id=LVBS
 Name=Bombing Ship
 Version=4,9,5
 Category=C4D_Vehicle|C4D_SelectVehicle|C4D_SelectKnowledge|C4D_SelectHomebase

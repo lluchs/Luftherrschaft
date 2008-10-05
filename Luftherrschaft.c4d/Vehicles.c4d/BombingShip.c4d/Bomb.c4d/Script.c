@@ -3,6 +3,8 @@
 #strict
 
 protected func Departure(object pContainer) {
+	if(GetID(pContainer) != LVBS)
+		return;
   SetAction("Fall");
   if(GetXDir() > 0)
     SetR(90);
@@ -18,7 +20,13 @@ protected func ChangeRotation() {
   SetR(iR);
 }
 
+protected func Hit3() {
+  Explode(200); // *husthust*
+  CastObjects(LOSP, 20, 20);
+  return 1;
+}
+
 protected func Hit() {
-  Explode(200);
-  return(1);
+	if(GetAction() == "Fall")
+		SetAction("Idle");
 }
