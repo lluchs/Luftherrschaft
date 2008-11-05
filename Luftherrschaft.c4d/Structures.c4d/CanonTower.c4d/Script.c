@@ -91,6 +91,7 @@ protected func AttachCannon(id idCannon) {
 }
 
 protected func UnattachCannon() {
+  LocalN("pCursor", pCannon)->RemoveObject();
   RemoveObject(pCannon);
 }
 

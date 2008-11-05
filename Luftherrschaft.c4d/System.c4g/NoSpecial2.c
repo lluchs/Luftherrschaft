@@ -5,7 +5,7 @@
 
 protected func ControlSpecial2()
 {
-  [$CtrlMenuDesc$|Image=CXTX]
+  [""|Image=CXTX]
   // In einem Gebäude oder Fahrzeug: das Kontextmenü des Gebäudes öffnen
   if (Contained())
     if ((Contained()->GetCategory() & C4D_Structure) || (Contained()->GetCategory() & C4D_Vehicle))
