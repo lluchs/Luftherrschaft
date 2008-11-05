@@ -70,7 +70,7 @@ protected func ContainedDigDouble() {
 		Sound("Error");
 		return;
 	}
-	//pBombe -> Attach(this);
+	pBombe -> Attach2(this);
 	pBomb = pBombe;
 	return 1;
 }
