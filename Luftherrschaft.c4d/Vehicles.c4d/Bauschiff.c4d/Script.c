@@ -288,7 +288,7 @@ protected func Initialize()
 {
   turn_end_dir = -1;
   // SolidMask neu setzen (wegen Shipsmith)
-  SetSolidMask(25,67,46,3,25,55);
+  SetSolidMask(GetDefCoreVal("SolidMask", "DefCore", GetID(), 0),GetDefCoreVal("SolidMask", "DefCore", GetID(), 1),GetDefCoreVal("SolidMask", "DefCore", GetID(), 2),GetDefCoreVal("SolidMask", "DefCore", GetID(), 3),GetDefCoreVal("SolidMask", "DefCore", GetID(), 4),GetDefCoreVal("SolidMask", "DefCore", GetID(), 5));
   FloatIdleDown();
 }
 
