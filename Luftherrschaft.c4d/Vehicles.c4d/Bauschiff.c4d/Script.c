@@ -1,6 +1,6 @@
 /*-- Luftschiff --*/
 
-#strict
+#strict 2
 
 local turn_end_dir;
 
@@ -9,8 +9,8 @@ local turn_end_dir;
 private func TurnStart()
 {
   // Alle Clonks die das Luftschiff anfassen registrieren
-  var controllers = FindObjects(Find_Action("Push"), Find_ActionTarget(this()));
-  AddEffect("IntTurn", this(), 1, 1, this(), 0, controllers);
+  var controllers = FindObjects(Find_Action("Push"), Find_ActionTarget(this));
+  AddEffect("IntTurn", this, 1, 1, this, 0, controllers);
 }
 
 protected func FxIntTurnStart(object target, int number, int temp, array controllers)
@@ -47,7 +47,7 @@ protected func FxIntTurnTimer(object target, int number, int time)
     // Koennte sein, dass ein Controller verloren geht
     if(!controller) continue;
     // Koennte auch sein, dass er kein Controller mehr ist
-    if(controller->GetAction() ne "Push" || controller->GetActionTarget() != this())
+    if(controller->GetAction() != "Push" || controller->GetActionTarget() != this)
     {
       // Dann nichts mehr mit ihm anstellen, selbst wenn er das Luftschiff
       // wieder anfaesst - er koennte es an einer anderen Position tun und
@@ -79,7 +79,7 @@ protected func FxIntTurnStop(object target, int number, bool temp)
 
     // Und an fertige Position tun, zur Sicherheit, wenn es noch Controller sind
     if(!object) continue;
-    if(object->GetAction() S= "Push" && object->GetActionTarget() == this())
+    if(object->GetAction() == "Push" && object->GetActionTarget() == this)
       object->SetPosition(GetX() - pos, object->GetY());
   }
 }
@@ -98,7 +98,7 @@ private func TurnEnd()
 private func DoDirection(int comdir)
 {
   var cur_comdir = GetComDir();
-  if(GetAction() S= "FloatIdle") cur_comdir = COMD_Stop;
+  if(GetAction() == "FloatIdle") cur_comdir = COMD_Stop;
 
   cur_comdir = ComDirTransform(cur_comdir, comdir);
   //while(cur_comdir == COMD_Stop)
@@ -126,7 +126,7 @@ private func SetDirection(int comdir)
   // Richtungsaenderung nach oben/unten geht auch mit "Turn", aber eine
   // ComDir-Aenderung, die wieder eine Turn-Action erfordern wuerde muss
   // warten, bis die jetzige Turn-Action fertig ist.
-  if(GetAction() S= "Turn")
+  if(GetAction() == "Turn")
   {
     turn_end_dir = comdir;
     if(comdir == COMD_Stop || (ComDirLike(comdir, COMD_Right) && GetDir() == DIR_Left) || (ComDirLike(comdir, COMD_Left) && GetDir() == DIR_Right))
@@ -139,32 +139,32 @@ private func SetDirection(int comdir)
   SetComDir(comdir);
 
   // Angebrachte Action setzen
-  if(GetAction() ne "Turn" && GetAction() ne "WaterLaunch")
+  if(GetAction() != "Turn" && GetAction() != "WaterLaunch")
   {
-    if(comdir != COMD_Stop && GetAction() ne "FloatPropel")
+    if(comdir != COMD_Stop && GetAction() != "FloatPropel")
       SetAction("FloatPropel");
-    if(comdir == COMD_Stop && GetAction() ne "FloatIdle")
+    if(comdir == COMD_Stop && GetAction() != "FloatIdle")
       SetAction("FloatIdle");
   }
 
   // Vorherige ClearDirs wegtun
-  ClearScheduleCall(this(), "ClearDir");
+  ClearScheduleCall(this, "ClearDir");
   // Wenn Bewegung in nur eine Richtung, dann Bewegung in die andere
   // Richtung aufgeben (macht FLOAT-Prozedur nicht automagisch)
   if(comdir == COMD_Down || comdir == COMD_Up)
-    ScheduleCall(this(), "ClearDir", 1, Abs(GetXDir()), true);
+    ScheduleCall(this, "ClearDir", 1, Abs(GetXDir()), true);
   if(comdir == COMD_Left || comdir == COMD_Right || comdir == COMD_Stop)
   {
-    ScheduleCall(this(), "ClearDir", 1, Abs(GetYDir()), false);
+    ScheduleCall(this, "ClearDir", 1, Abs(GetYDir()), false);
 
     // Bei Bewegung nur in X-Richtung ein wenig schaukeln
-    if(!GetEffect("IntWindYDir", this()))
-      AddEffect("IntWindYDir", this(), 1, 10, this());
+    if(!GetEffect("IntWindYDir", this))
+      AddEffect("IntWindYDir", this, 1, 10, this);
   }
   else
   {
-    if(GetEffect("IntWindYDir", this()))
-      RemoveEffect("IntWindYDir", this());
+    if(GetEffect("IntWindYDir", this))
+      RemoveEffect("IntWindYDir", this);
   }
 
   if(ComDirLike(comdir, COMD_Right) && GetDir() == DIR_Left)
@@ -194,8 +194,8 @@ protected func ControlUp(object controller)      // hoch
 {
   [$TxtAscend$]
   ClearCommand();
-  if (GetAction()S="DropOff") return(0);
-  if (GetAction()S="WaterLand") SetAction("WaterLaunch");
+  if (GetAction()=="DropOff") return(0);
+  if (GetAction()=="WaterLand") SetAction("WaterLaunch");
 
   if(!GetPlrCoreJumpAndRunControl(controller->GetController()))
     DoDirection(COMD_Up);
@@ -204,7 +204,7 @@ protected func ControlUp(object controller)      // hoch
 protected func ControlDownSingle(object controller)  // runter
 {
   [$TxtDescend$|Method=Classic]
-  if (GetAction()S="DropOff") return(0);
+  if (GetAction()=="DropOff") return(0);
   if(!GetPlrCoreJumpAndRunControl(controller->GetController()))
   {
     ClearCommand();
@@ -225,8 +225,8 @@ protected func ControlRight(object controller)       // rechts
 
   if(!GetPlrCoreJumpAndRunControl(controller->GetController()))
   {
-    if (GetAction()S="DropOff") return(0);
-    if (GetAction()S="Turn") return(0);
+    if (GetAction()=="DropOff") return(0);
+    if (GetAction()=="Turn") return(0);
     SetAction("FloatPropel");
     DoDirection(COMD_Right);
   }
@@ -239,8 +239,8 @@ protected func ControlLeft(object controller)        // links
 
   if(!GetPlrCoreJumpAndRunControl(controller->GetController()))
   {
-    if (GetAction()S="DropOff") return(0);
-    if (GetAction()S="Turn") return(0);
+    if (GetAction()=="DropOff") return(0);
+    if (GetAction()=="Turn") return(0);
     SetAction("FloatPropel");
     DoDirection(COMD_Left);
   }
@@ -270,15 +270,17 @@ protected func ControlDigDouble(object controller)	// doppelgraben
 protected func ControlCommand(string szCommand,object pTarget,int iX,int iY)
 {
   // Pilot läßt los
-  if (szCommand S= "UnGrab")
-    return(0,ClearCommand(),NoPilotCheck());
+  if (szCommand == "UnGrab") {
+  	ClearCommand();NoPilotCheck();
+    return;
+  }
   // Bewegungskommando vom Piloten
-  if (szCommand S= "MoveTo")
-    return(SetCommand(this(),szCommand,pTarget,iX,iY));
-  return(0);
+  if (szCommand == "MoveTo")
+    return SetCommand(this,szCommand,pTarget,iX,iY);
+  return;
 }
 
-private func ClearCommand() { SetCommand(this(),"None"); }
+private func ClearCommand() { SetCommand(this,"None"); }
 
 /* Initialisierung */
 
@@ -294,7 +296,7 @@ protected func Initialize()
 
 protected func FxIntWindXDirTimer()
 {
-  if(GetAction() ne "FloatIdle" && GetAction() ne "WaterLand") return(-1);
+  if(GetAction() != "FloatIdle" && GetAction() != "WaterLand") return(-1);
   SetXDir(BoundBy(GetWind()/4, Max(GetXDir() - 2, -10), Min(GetXDir() + 2, 10)));
 }
 
@@ -306,12 +308,12 @@ protected func FxIntWindYDirTimer()
 
 private func FloatProcess()
 {
-  if(!GetEffect("IntWindXDir", this()))
-    AddEffect("IntWindXDir", this(), 1, 5, this());
+  if(!GetEffect("IntWindXDir", this))
+    AddEffect("IntWindXDir", this, 1, 5, this);
 
-  if(!GetEffect("IntWindYDir", this()) && !GBackSolid(0, GetObjHeight()/2+2))
+  if(!GetEffect("IntWindYDir", this) && !GBackSolid(0, GetObjHeight()/2+2))
   {
-    AddEffect("IntWindYDir", this(), 1, 10, this());
+    AddEffect("IntWindYDir", this, 1, 10, this);
   }
 
 //  if(GetComDir() == COMD_Stop && GBackSolid(0, GetObjHeight()/2+2))
@@ -333,15 +335,15 @@ private func CheckCommandAction()
 {
   // Propeller an für Kommando
   if (GetCommand()) 
-    if (GetAction()S="FloatIdle") 
+    if (GetAction()=="FloatIdle") 
       SetAction("FloatPropel");
   // Wenden nach rechts
-  if (GetAction() eq "FloatPropel")
+  if (GetAction() == "FloatPropel")
     if (Inside(GetComDir(),COMD_UpRight,COMD_DownRight)) 
       if (GetDir()==DIR_Left)
         { SetAction("Turn"); SetDir(DIR_Right); return(true); }
   // Wenden nach links
-  if (GetAction() eq "FloatPropel")
+  if (GetAction() == "FloatPropel")
     if (Inside(GetComDir(),COMD_DownLeft,COMD_UpLeft)) 
       if (GetDir()==DIR_Right)
         { SetAction("Turn"); SetDir(DIR_Left); return(true); }
@@ -353,16 +355,16 @@ private func CheckCommandAction()
 
 private func NoPilotCheck()
 {
-  if (!FindObject(0,0,0,0,0,0,"Push",this())) 
+  if (!FindObject(0,0,0,0,0,0,"Push",this)) 
     return(FloatIdleDown());
   return(0);
 }
 
 private func FloatIdleDown()
 {
-  if (GetAction()ne"FloatIdle")
+  if (GetAction()!="FloatIdle")
     SetAction("FloatIdle");
-  SetComDir(COMD_Down());
+  SetComDir(COMD_Down);
   ClearCommand();
   return(1);
 }
