@@ -7,11 +7,11 @@ MaxUserSelect=2
 Width=90
 Height=70
 Offset=-45,-35
-Vertices=4
-VertexX=-32,32,-15,15
-VertexY=-39,-39,39,39
-VertexCNAT=5,6,9,10
-VertexFriction=80,80,80,80
+Vertices=10
+VertexX=10,-28,-35,-12,33,51,54,52,32,-11
+VertexY=-9,9,29,51,51,50,24,10,-7,-7
+VertexFriction=80,80,80,80,80,80,80,80,80,80
+VertexCNAT=4,1,1,9,8,10,2,2,6,5
 Value=100
 Mass=80
 Components=WOOD=8;METL=6
