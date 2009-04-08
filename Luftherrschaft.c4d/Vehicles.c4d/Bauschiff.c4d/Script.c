@@ -290,6 +290,7 @@ protected func Initialize()
   // SolidMask neu setzen (wegen Shipsmith)
   SetSolidMask(GetDefCoreVal("SolidMask", "DefCore", GetID(), 0),GetDefCoreVal("SolidMask", "DefCore", GetID(), 1),GetDefCoreVal("SolidMask", "DefCore", GetID(), 2),GetDefCoreVal("SolidMask", "DefCore", GetID(), 3),GetDefCoreVal("SolidMask", "DefCore", GetID(), 4),GetDefCoreVal("SolidMask", "DefCore", GetID(), 5));
   FloatIdleDown();
+  SetVerticesDir(); // Vertices bei Richtungsänderung spiegeln
 }
 
 /* Aktivität */
