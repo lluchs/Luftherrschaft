@@ -18,7 +18,7 @@ Components=WOOD=8;METL=6
 SolidMask=25,67,46,3,25,55
 TopFace=25,59,46,5,25,59
 Picture=0,0,90,70
-Collection=-26,-30,50,30
+Collection=-30,-30,65,37
 ContactIncinerate=5
 BlastIncinerate=35
 BurnTo=BLMB
