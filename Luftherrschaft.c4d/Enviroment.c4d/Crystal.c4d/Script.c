@@ -31,5 +31,5 @@ private func GetHorizonHeight(x)
     
 private func CreateCrystal(x, y)
 {
-  return CreateObject(CRY2, x, y, -1) -> Construction();
+  return CreateObject(LMCY, x, y, -1) -> Construction();
 }

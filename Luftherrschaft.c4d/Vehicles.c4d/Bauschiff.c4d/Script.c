@@ -16,7 +16,7 @@ protected func Initialize() {
 protected func ControlDigDouble(object controller)	// doppelgraben
 {
 	[$TxtSplit$]
-	if(GetID(Contents(0, controller)) == CRY2) {
+	if(GetID(Contents(0, controller)) == LMCY) {
 		var iX, iY;
 		for(var i; i < 360; i += RandomX(1, 10))
 		{

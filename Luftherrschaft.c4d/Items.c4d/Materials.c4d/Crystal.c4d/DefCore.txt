@@ -1,5 +1,5 @@
 [DefCore]
-id=CRY2
+id=LMCY
 Version=4,9,8
 Name=Crystal
 Category=C4D_Object|C4D_SelectVegetation
