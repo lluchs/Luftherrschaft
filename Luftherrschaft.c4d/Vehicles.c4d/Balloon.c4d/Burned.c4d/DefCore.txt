@@ -1,5 +1,5 @@
 [DefCore]
-id=BALB
+id=LBBN
 Version=4,9,8
 Name=BurnedBaloon
 Category=C4D_Vehicle
