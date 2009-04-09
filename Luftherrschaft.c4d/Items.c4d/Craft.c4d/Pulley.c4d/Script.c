@@ -15,7 +15,7 @@ func RopeAskChangeLength(int iLength, object pObj) {
     return 0;
   }
   // Bei zu starkem Zug nachgeben  
-  if (PushPull <= 0) /*if(iLength >= 25)*/ return 1;
+  if (PushPull <= 0) if(iLength >= 25) return 1;
   // Am Seil ziehen
   if (PushPull == -1) if(iLength <= 20) return -1;
   if (PushPull == -2) if(iLength <= 20) return -2;
