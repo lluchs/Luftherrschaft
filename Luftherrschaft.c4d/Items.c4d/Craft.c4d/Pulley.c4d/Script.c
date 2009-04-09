@@ -65,12 +65,7 @@ public func ControlDigDouble(object pClonk) {
     if(PushPull != 0) AddMenuItem("$HoldRope$","SetPushOrPull(0)", GetID(this), pClonk);
     if(ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) AddMenuItem("$Disconnect$", "Disconnect", LHRP, pClonk);
   }        
-  var obj, OCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
-  for(obj in FindObjects(Find_Distance(15),Find_OCF(OCF),Find_NoContainer()))
-    // hängt schon dran?
-    if((GetActionTarget(0,Rope) != obj) && (GetActionTarget(1,Rope) != obj))
-    AddMenuItem(Format("$ConnectWith$", GetName(obj)), Format("Connect(Object(%d))",ObjectNumber(obj)), GetID(obj), pClonk);
-  
+  AddConnectMenuItems(pClonk);
   return(1);
 }
 
@@ -84,6 +79,15 @@ func Attach2Rope(crope) {
 func SetPushOrPull(int iMode) {
   PushPull = iMode;
   return 1;
+}
+
+public func AddConnectMenuItems(object pClonk)
+{
+  var obj, OCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
+  for(obj in FindObjects(Find_Exclude(),Find_Distance(15),Find_OCF(OCF),Find_Or(Find_NoContainer(),Find_Container(pClonk))))
+    // hängt schon dran?
+    if((GetActionTarget(0,Rope) != obj) && (GetActionTarget(1,Rope) != obj))
+    AddMenuItem(Format("$ConnectWith$", GetName(obj)), Format("Connect(Object(%d))",ObjectNumber(obj)), GetID(obj), pClonk);
 }
 
 /* Enterhaken spezial Behandlung */
@@ -188,28 +192,25 @@ public func ContextPushRope() {
   SetPushOrPull(1);
 }
 
-public func ContextConnectRope() {
+public func ContextConnectRope(object pCaller) {
   [$ConnectRope$|Image=LIRP|Condition=RopeCanAttach]
-  CreateMenu(LRPE,Contained(),this);
-  for(var obj in FindObjects(Find_NoContainer(),Find_AtPoint(),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible))) {
-    AddMenuItem(Format("$ConnectWith$",GetName(obj)),Format("Connect(Object(%d))",ObjectNumber(obj)),GetID(obj),Contained());
-  }
+  CreateMenu(LRPE,pCaller,this);
+	AddConnectMenuItems(pCaller);
 }
 
 public func ContextCollectHook() {
-	[$CollectHook$|Image=LIRP|Condition=HasHook]
-    if(GetProcedure(Contained()) == "WALK")
-      CollectHook();
-    return 1;
+	[$CollectHook$|Image=LIRP|Condition=CanCollectHook]
+    return CollectHook();
 }
 /* Bedingungen */
 
-public func RopeCanAttach() {
-  if(FindObject2(Find_NoContainer(),Find_AtPoint(),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible))) return 1;
+public func RopeCanAttach(object pCaller) {
+	var OCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
+  if(FindObject2(Find_Exclude(),Find_Distance(15),Find_OCF(OCF),Find_Or(Find_NoContainer(),Find_Container(pCaller)))) return 1;
   return 0;
 }
 
-public func HasHook() { return !!pHook; }
+public func CanCollectHook(object pCaller) { return !!pHook && (GetProcedure(pCaller) == "WALK"); }
 
 /* Enginecalls */
 
