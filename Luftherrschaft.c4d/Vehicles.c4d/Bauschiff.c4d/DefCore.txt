@@ -1,5 +1,5 @@
 [DefCore]
-id=LBSP
+id=LVBU
 Version=4,9,8
 Name=Bauschiff
 Category=C4D_Vehicle|C4D_SelectVehicle|C4D_SelectKnowledge|C4D_SelectHomebase
