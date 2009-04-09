@@ -200,7 +200,12 @@ public func ContextConnectRope(object pCaller) {
 
 public func ContextCollectHook() {
 	[$CollectHook$|Image=LIRP|Condition=CanCollectHook]
-    return CollectHook();
+  return CollectHook();
+}
+
+public func ContextDisconnect() {
+	[$Disconnect$|Image=LIRP|Condition=CanDisconnect]
+	return Disconnect();
 }
 /* Bedingungen */
 
@@ -211,6 +216,8 @@ public func RopeCanAttach(object pCaller) {
 }
 
 public func CanCollectHook(object pCaller) { return !!pHook && (GetProcedure(pCaller) == "WALK"); }
+
+public func CanDisconnect() { return Rope && (ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30); }
 
 /* Enginecalls */
 
