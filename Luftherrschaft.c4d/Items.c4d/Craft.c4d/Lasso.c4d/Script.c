@@ -1,7 +1,7 @@
 /*-- Lasso --*/
 
 #strict 2
-#include LHOK // basiert auf dem Enterhaken
+#include LIHK // basiert auf dem Enterhaken
 
 local strength; // Stärke mit der geworfen wird
 

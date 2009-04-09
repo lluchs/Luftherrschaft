@@ -1,5 +1,5 @@
 [DefCore]
-id=LHOK
+id=LIHK
 Name=Enterhaken
 Category=3600
 ContactCalls=1
