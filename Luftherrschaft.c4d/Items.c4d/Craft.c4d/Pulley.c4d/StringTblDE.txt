@@ -2,7 +2,9 @@ OpenMenu=Menü öffnen
 NotAvailable=Zurzeit nicht möglich. Wenden sie sich an den Administrator.
 
 PullRope=Am Seil ziehen
-ExtendRope=Seil geben
+PushRope=Seil geben
 HoldRope=Seil festhalten
 Disconnect=Seil losmachen
-Connect=Seil mit %s verbinden
+ConnectRope=Seil verbinden...
+ConnectWith=Mit %s verbinden
+CollectHook=Enterhaken/Lasso einsammeln

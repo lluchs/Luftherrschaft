@@ -61,7 +61,7 @@ public func ControlDigDouble(object pClonk) {
   CreateMenu(GetID(this), pClonk, 0, 0, "$NotAvailable$");
   if(Rope) {
     if(PushPull != -1) AddMenuItem("$PullRope$","SetPushOrPull(-1)", GetID(this), pClonk);
-    if(PushPull != 1) AddMenuItem("$ExtendRope$","SetPushOrPull(1)", GetID(this), pClonk);
+    if(PushPull != 1) AddMenuItem("$PullRope$","SetPushOrPull(1)", GetID(this), pClonk);
     if(PushPull != 0) AddMenuItem("$HoldRope$","SetPushOrPull(0)", GetID(this), pClonk);
     if(ObjectDistance(GetActionTarget(!Mode,Rope),this) < 30) AddMenuItem("$Disconnect$", "Disconnect", LHRP, pClonk);
   }        
@@ -69,7 +69,7 @@ public func ControlDigDouble(object pClonk) {
   for(obj in FindObjects(Find_Distance(15),Find_OCF(OCF),Find_NoContainer()))
     // hängt schon dran?
     if((GetActionTarget(0,Rope) != obj) && (GetActionTarget(1,Rope) != obj))
-    AddMenuItem(Format("$Connect$", GetName(obj)), Format("Connect(Object(%d))",ObjectNumber(obj)), GetID(obj), pClonk);
+    AddMenuItem(Format("$ConnectWith$", GetName(obj)), Format("Connect(Object(%d))",ObjectNumber(obj)), GetID(obj), pClonk);
   
   return(1);
 }
@@ -175,6 +175,41 @@ public func SwingAcceleration(int iMoveAngle) {
     return (360-(iMoveAngle+45))*10/45;
   }
 }
+
+/* Kontext Menü Einträge Für Seil */
+
+public func ContextPullRope() {
+  [$PullRope$|Image=LIRP|Condition=RopeAttached]
+  SetPushOrPull(-1);
+}
+
+public func ContextPushRope() {
+  [$PushRope$|Image=LIRP|Condition=RopeAttached]
+  SetPushOrPull(1);
+}
+
+public func ContextConnectRope() {
+  [$ConnectRope$|Image=LIRP|Condition=RopeCanAttach]
+  CreateMenu(LRPE,Contained(),this);
+  for(var obj in FindObjects(Find_NoContainer(),Find_AtPoint(),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible))) {
+    AddMenuItem(Format("$ConnectWith$",GetName(obj)),Format("Connect(Object(%d))",ObjectNumber(obj)),GetID(obj),Contained());
+  }
+}
+
+public func ContextCollectHook() {
+	[$CollectHook$|Image=LIRP|Condition=HasHook]
+    if(GetProcedure(Contained()) == "WALK")
+      CollectHook();
+    return 1;
+}
+/* Bedingungen */
+
+public func RopeCanAttach() {
+  if(FindObject2(Find_NoContainer(),Find_AtPoint(),Find_OCF(OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible))) return 1;
+  return 0;
+}
+
+public func HasHook() { return !!pHook; }
 
 /* Enginecalls */
 

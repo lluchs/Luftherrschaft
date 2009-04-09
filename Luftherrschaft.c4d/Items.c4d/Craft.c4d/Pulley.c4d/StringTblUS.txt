@@ -2,7 +2,9 @@ OpenMenu=Open Menu
 NotAvailable=Currently not available. Ask an administrator for help.
 
 PullRope=Pull rope
-ExtendRope=Extend rope
+PushRope=Extend rope
 HoldRope=Hold rope
 Disconnect=Disconnect rope
-Connect=Connect rope with %s
+ConnectRope=Connect rope...
+ConnectWith=Connect with %s
+CollectHook=Collect Hook/Lasso
