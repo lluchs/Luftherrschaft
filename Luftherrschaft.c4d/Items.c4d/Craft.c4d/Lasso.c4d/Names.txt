@@ -1,2 +1,2 @@
 DE:Lasso
-US:A new object
+US:Lasso
