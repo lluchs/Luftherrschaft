@@ -44,17 +44,6 @@ private func SetAction(szAction) { // Tür als Overlay
 	return inherited(szAction, ...);
 }
 
-private func SetOverlayAction(string szAction, int iOverlay, string szEndCall) {
-	if(!szAction)
-		return;
-	if(!iOverlay)
-		iOverlay = GFX_Overlay;
-	SetGraphics(0, 0, 0, iOverlay, GFXOV_MODE_Action, szAction);
-	if(szEndCall)
-		ScheduleCall(this, szEndCall, GetActMapVal("Length", szAction) * GetActMapVal("Delay", szAction));
-	return 1;
-}
-
 public func OpenBombing(string szEndCall) {
 	if(BombingIsOpen())
 		return;
