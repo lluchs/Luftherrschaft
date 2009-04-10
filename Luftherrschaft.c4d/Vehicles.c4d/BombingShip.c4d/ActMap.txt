@@ -27,6 +27,7 @@ Name=Turn
 Procedure=FLOAT
 Directions=2
 FlipDir=1
+Reverse=1
 Length=41
 Delay=2
 Facet=0,176,260,93
