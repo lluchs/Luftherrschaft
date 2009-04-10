@@ -26,14 +26,14 @@ global func OverlayActionInit(string szAction, id ID) {
 	return iLength;
 }
 
-global func SetOverlayAction(string szAction, int iOverlay, bool fNoCalls) {
+global func SetOverlayAction(string szAction, int iOverlay, bool fNoCalls, string szPhaseCall, string szEndCall) {
 	if(!iOverlay)
 		iOverlay = GetUnusedOverlayID(1);
-	AddEffect("IntOverlayAction", this, 100, GetActMapVal("Delay", szAction, GetID()), this, 0, szAction, iOverlay, fNoCalls);
+	AddEffect("IntOverlayAction", this, 100, GetActMapVal("Delay", szAction, GetID()), this, 0, szAction, iOverlay, fNoCalls, [szPhaseCall, szEndCall]);
 	return iOverlay;
 }
 
-global func FxIntOverlayActionStart(object pTarget, int iEffectNumber, int iTemp, string szAction, int iOverlay, bool fNoCalls) {
+global func FxIntOverlayActionStart(object pTarget, int iEffectNumber, int iTemp, string szAction, int iOverlay, bool fNoCalls, array aCalls) {
 	if(iTemp)
 		return;
 	var iLength = GetActMapVal("Length", szAction, GetID());
@@ -49,6 +49,10 @@ global func FxIntOverlayActionStart(object pTarget, int iEffectNumber, int iTemp
 			Call(szStartCall);
 		EffectVar(4, pTarget, iEffectNumber) = szPhaseCall;
 		EffectVar(5, pTarget, iEffectNumber) = szEndCall;
+	}
+	else {
+		EffectVar(4, pTarget, iEffectNumber) = aCalls[0];
+		EffectVar(5, pTarget, iEffectNumber) = aCalls[1];
 	}
 }
 
