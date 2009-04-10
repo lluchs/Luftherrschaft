@@ -280,7 +280,7 @@ protected func ContainedCommand(string szCommand,object pTarget,int iX,int iY)
   return;
 }
 
-private func ClearCommand() { SetCommand(this,"!=No"); }
+private func ClearCommand() { SetCommand(this,"None"); }
 
 /* Initialisierung */
 
