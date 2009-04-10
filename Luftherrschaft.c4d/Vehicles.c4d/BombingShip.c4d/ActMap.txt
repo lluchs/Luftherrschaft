@@ -4,7 +4,7 @@ Procedure=FLOAT
 Directions=2
 FlipDir=1
 Delay=3
-Facet=0,93,260,93
+Facet=0,26,260,93
 NextAction=FloatIdle
 StartCall=FloatProcess
 InLiquidAction=WaterLand
@@ -16,7 +16,7 @@ Directions=2
 FlipDir=1
 Length=10
 Delay=3
-Facet=0,93,260,93
+Facet=0,26,260,93
 NextAction=FloatPropel
 StartCall=FlightProcess
 Sound=Propel
@@ -27,9 +27,9 @@ Name=Turn
 Procedure=FLOAT
 Directions=2
 FlipDir=1
-Length=21
-Delay=3
-Facet=0,0,260,93
+Length=41
+Delay=2
+Facet=0,176,260,93
 NextAction=FloatPropel
 EndCall=TurnEnd
 Sound=Propel
@@ -41,7 +41,7 @@ Directions=2
 FlipDir=1
 Length=10
 Delay=3
-Facet=80,147,25,21
+Facet=0,300,25,21
 NextAction=CloseDoor
 
 [Action]
@@ -52,7 +52,7 @@ FlipDir=1
 Reverse=1
 Length=10
 Delay=3
-Facet=80,147,25,21
+Facet=0,300,25,21
 
 [Action]
 Name=OpenBombing
@@ -61,7 +61,7 @@ Directions=2
 FlipDir=1
 Length=10
 Delay=2
-Facet=89,117,20,9
+Facet=0,321,20,9
 NextAction=Hold
 
 [Action]
@@ -71,7 +71,7 @@ Directions=2
 FlipDir=1
 Length=10
 Delay=2
-Facet=89,117,20,9
+Facet=0,321,20,9
 Reverse=1
 NextAction=Hold
 
