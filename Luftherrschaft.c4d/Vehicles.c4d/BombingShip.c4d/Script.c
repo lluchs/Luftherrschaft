@@ -2,7 +2,52 @@
 
 #strict 2
 
-#include DOOR
+/* Türsteuerung */
+
+local fDoorOpen;
+
+protected func ActivateEntrance(object pObj) {
+	if(fDoorOpen)
+		return 1;
+	SetOverlayAction("Door", 2, false, true, 0, "DoorOpened");
+	Sound("DoorOpen");
+	fDoorOpen = 1;
+	return 1;
+}
+
+public func DoorOpened(string szAction, int iOverlay) {
+	SetEntrance(1);
+	AddEffect("IntCloseDoor", this, 100, 15, this, GetID(), szAction, iOverlay);
+}
+
+public func FxIntCloseDoorStart(object pTarget, int iEffectNumber, int iTemp, string szAction, int iOverlay) {
+	if(iTemp)
+		return;
+	EffectVar(0, pTarget, iEffectNumber) = szAction;
+	EffectVar(1, pTarget, iEffectNumber) = iOverlay;
+}
+
+public func FxIntCloseDoorStop(object pTarget, int iEffectNumber, int iReason) {
+	if(!iReason) {
+		SetEntrance(0);
+		SetOverlayAction(EffectVar(0, pTarget, iEffectNumber), EffectVar(1, pTarget, iEffectNumber), true, true, 0, "DoorClosed");
+		Sound("DoorClose");
+	}
+}
+
+public func DoorClosed(string szAction, int iOverlay) {
+	fDoorOpen = 0;
+	SetGraphics(0, this, 0, iOverlay);
+}
+
+protected func Ejection() {
+	if(GetEffect("IntCloseDoor", this))
+		ChangeEffect("IntCloseDoor", this, 0, 0, 15);
+}
+
+protected func Collection2() {
+	Ejection();
+}
 
 local pController, bBombingOpened;
 
@@ -39,9 +84,13 @@ protected func ContainedThrow(object pClonk) {
 }
 
 private func SetAction(szAction) { // Tür als Overlay
-	if(WildcardMatch(szAction, "*Door*"))
-		return SetOverlayAction(szAction, 2);
+	if(szAction == "OpenDoor")
+		return SetOverlayAction(szAction, 2, false, true, 0, "CloseDoor");
 	return inherited(szAction, ...);
+}
+
+public func CloseDoor(string szAction, int iOverlay) {
+	return SetOverlayAction(szAction, iOverlay, true, true);
 }
 
 public func OpenBombing(string szEndCall) {
