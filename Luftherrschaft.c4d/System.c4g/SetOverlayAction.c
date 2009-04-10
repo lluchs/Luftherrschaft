@@ -74,7 +74,6 @@ global func FxIntOverlayActionTimer(object pTarget, int iEffectNumber) {
 global func FxIntOverlayActionEnd(object pTarget, int iEffectNumber) {
 	var iOverlay = EffectVar(1, pTarget, iEffectNumber),
 	    szEndCall = EffectVar(5, pTarget, iEffectNumber);
-	SetGraphics(0, this, 0, iOverlay);
 	if(szEndCall)
 		Call(szEndCall);
 }
