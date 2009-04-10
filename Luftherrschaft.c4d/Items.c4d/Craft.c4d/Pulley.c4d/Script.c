@@ -253,7 +253,8 @@ protected func Connect(object pConnectWith) {
     if(!pConnectWith) return 0;
     Mode=0;
     Rope = CreateObject(LHR2,0,0,GetOwner());
-    Rope->Activate(this, pConnectWith);    
+    Rope->Activate(this, pConnectWith);
+    OverlayUpdate(GetID(pConnectWith));
     return 1;
   }
   return 1;
@@ -306,6 +307,27 @@ func Departure() {
   PushPull=0;
 }
 
+public func RopeBreak() {
+	OverlayUpdate(0);
+	return 1;
+}
+
+
+public func OverlayUpdate(id idSrcDef)
+{
+	if(idSrcDef)
+	{
+		//Minigrafik!   
+		SetGraphics(0, this(), idSrcDef, GFX_Overlay, GFXOV_MODE_Picture);
+		SetObjDrawTransform(500,0,8000, 0,500,8000, this(), GFX_Overlay); 
+	}
+	else
+	{
+		//Keine Minigrafik :(
+		SetGraphics(0, this(), 0, GFX_Overlay);
+	}
+	return 1;
+}
 /* Eigenschaften */
 
 public func IsRope() { return 1; }

@@ -13,6 +13,7 @@ public func Departure(object pContainer,int iAlternateXDir,int iAlternateYDir) {
   Rope = CreateObject(LHRP, 0, 0, GetOwner());
   Rope->Activate(RopeEnd, this);
   RopeEnd->~SetRope(Rope, this);
+  RopeEnd->OverlayUpdate(GetID());
   var iXDir,iYDir;
   iXDir = GetXDir() * 2;
   iYDir = GetYDir() * 3;
