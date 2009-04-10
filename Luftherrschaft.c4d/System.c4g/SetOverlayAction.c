@@ -26,14 +26,14 @@ global func OverlayActionInit(string szAction, id ID) {
 	return iLength;
 }
 
-global func SetOverlayAction(string szAction, int iOverlay, bool fNoCalls, string szPhaseCall, string szEndCall) {
+global func SetOverlayAction(string szAction, int iOverlay, bool fReverse, bool fNoCalls, string szPhaseCall, string szEndCall) {
 	if(!iOverlay)
 		iOverlay = GetUnusedOverlayID(1);
-	AddEffect("IntOverlayAction", this, 100, GetActMapVal("Delay", szAction, GetID()), this, 0, szAction, iOverlay, fNoCalls, [szPhaseCall, szEndCall]);
+	AddEffect("IntOverlayAction", this, 100, GetActMapVal("Delay", szAction, GetID()), this, 0, szAction, iOverlay, fReverse, [fNoCalls, szPhaseCall, szEndCall]);
 	return iOverlay;
 }
 
-global func FxIntOverlayActionStart(object pTarget, int iEffectNumber, int iTemp, string szAction, int iOverlay, bool fNoCalls, array aCalls) {
+global func FxIntOverlayActionStart(object pTarget, int iEffectNumber, int iTemp, string szAction, int iOverlay, bool fReverse, array aCalls) {
 	if(iTemp)
 		return;
 	var iLength = GetActMapVal("Length", szAction, GetID());
@@ -41,18 +41,22 @@ global func FxIntOverlayActionStart(object pTarget, int iEffectNumber, int iTemp
 	EffectVar(1, pTarget, iEffectNumber) = iOverlay;
 	EffectVar(2, pTarget, iEffectNumber) = iLength;
 	// 3: i
-	if(!fNoCalls) {
+	if(fReverse) {
+		EffectVar(3, pTarget, iEffectNumber) = iLength - 1;
+		EffectVar(4, pTarget, iEffectNumber) = true;
+	}
+	if(!aCalls[0]) {
 		var szStartCall = GetActMapVal("StartCall", szAction, GetID()),
 			  szPhaseCall = GetActMapVal("PhaseCall", szAction, GetID()),
 			  szEndCall = GetActMapVal("EndCall", szAction, GetID());
 		if(szStartCall)
 			Call(szStartCall);
-		EffectVar(4, pTarget, iEffectNumber) = szPhaseCall;
-		EffectVar(5, pTarget, iEffectNumber) = szEndCall;
+		EffectVar(5, pTarget, iEffectNumber) = szPhaseCall;
+		EffectVar(6, pTarget, iEffectNumber) = szEndCall;
 	}
 	else {
-		EffectVar(4, pTarget, iEffectNumber) = aCalls[0];
 		EffectVar(5, pTarget, iEffectNumber) = aCalls[1];
+		EffectVar(6, pTarget, iEffectNumber) = aCalls[2];
 	}
 }
 
@@ -60,20 +64,28 @@ global func FxIntOverlayActionTimer(object pTarget, int iEffectNumber) {
 	var szAction = EffectVar(0, pTarget, iEffectNumber),
 	    iLength = EffectVar(2, pTarget, iEffectNumber),
 	    i = EffectVar(3, pTarget, iEffectNumber),
+	    fReverse = EffectVar(4, pTarget, iEffectNumber),
 	    iOverlay = EffectVar(1, pTarget, iEffectNumber),
-	    szPhaseCall = EffectVar(4, pTarget, iEffectNumber);
+	    szPhaseCall = EffectVar(5, pTarget, iEffectNumber);
 	SetGraphics(0, this, GetID(), iOverlay, GFXOV_MODE_Action, Format("%s%d", szAction, i));
 	if(szPhaseCall)
 		Call(szPhaseCall);
-	i++;
-	if(iLength == i)
-		return -1;
+	if(fReverse) {
+		i--;
+		if(i < 0)
+			return -1;
+	}
+	else {
+		i++;
+		if(iLength == i)
+			return -1;
+	}
 	EffectVar(3, pTarget, iEffectNumber) = i;
 }
 
 global func FxIntOverlayActionEnd(object pTarget, int iEffectNumber) {
 	var iOverlay = EffectVar(1, pTarget, iEffectNumber),
-	    szEndCall = EffectVar(5, pTarget, iEffectNumber);
+	    szEndCall = EffectVar(6, pTarget, iEffectNumber);
 	if(szEndCall)
 		Call(szEndCall);
 }
