@@ -268,8 +268,8 @@ protected func ContainedLeft(object controller)        // links
 
 protected func ContainedCommand(string szCommand,object pTarget,int iX,int iY)
 {
-  // Pilot l‰ﬂt los
-  if (szCommand == "UnGrab") {
+  // Pilot verl‰sst das Schiff
+  if (szCommand == "Exit") {
   	ClearCommand();
   	NoPilotCheck();
     return;
