@@ -68,7 +68,7 @@ global func FxIntOverlayActionTimer(object pTarget, int iEffectNumber) {
 	    szPhaseCall = EffectVar(5, pTarget, iEffectNumber);
 	SetGraphics(0, this, GetID(), iOverlay, GFXOV_MODE_Action, Format("%s%d", szAction, i));
 	if(szPhaseCall)
-		Call(szPhaseCall);
+		Call(szPhaseCall, szAction, iOverlay, iLength, i, fReverse);
 	if(fReverse) {
 		i--;
 		if(i < 0)
@@ -86,5 +86,5 @@ global func FxIntOverlayActionStop(object pTarget, int iEffectNumber) {
 	var iOverlay = EffectVar(1, pTarget, iEffectNumber),
 	    szEndCall = EffectVar(6, pTarget, iEffectNumber);
 	if(szEndCall)
-		Call(szEndCall);
+		Call(szEndCall, EffectVar(0, pTarget, iEffectNumber), EffectVar(1, pTarget, iEffectNumber));
 }
