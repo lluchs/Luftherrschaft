@@ -67,7 +67,11 @@ global func FxIntOverlayActionTimer(object pTarget, int iEffectNumber) {
 	    iOverlay = EffectVar(1, pTarget, iEffectNumber),
 	    szPhaseCall = EffectVar(5, pTarget, iEffectNumber);
 	SetGraphics(0, this, GetID(), iOverlay, GFXOV_MODE_Action, Format("%s%d", szAction, i));
-	SetObjDrawTransform(1000, 0, 1000*(-GetDefWidth(GetID())/2 + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 2)/2 + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 4)), 0, 1000, 1000*(-GetDefHeight(GetID())/2 + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 3) + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 5)), this, iOverlay);
+	if(GetDir() == DIR_Left)
+		SetObjDrawTransform(1000, 0, 1000*(-GetDefWidth(GetID())/2 + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 2)/2 + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 4)), 0, 1000, 1000*(-GetDefHeight(GetID())/2 + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 3) + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 5)), this, iOverlay);
+	else if(GetDir() == DIR_Right) {
+		SetObjDrawTransform(-1000, 0, 1000*(GetDefWidth(GetID())/2 - GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 2)/2 - GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 4)), 0, 1000, 1000*(-GetDefHeight(GetID())/2 + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 3) + GetActMapVal("Facet", Format("%s%d", szAction, i), GetID(), 5)), this, iOverlay);
+	}
 	if(szPhaseCall)
 		Call(szPhaseCall, szAction, iOverlay, iLength, i, fReverse);
 	if(fReverse) {
