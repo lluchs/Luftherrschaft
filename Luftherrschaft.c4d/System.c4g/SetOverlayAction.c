@@ -21,7 +21,6 @@ global func OverlayActionInit(string szAction, id ID) {
 		Log("Name=%s%d", szAction, i);
 		Log("Length=1");
 		Log("Facet=%d,%d,%d,%d,%d,%d", iFacetX + iFacetWidth * i, iFacetY, iFacetWidth, iFacetHeight, iFacetPX, iFacetPY);
-		Log("");
 	}
 	return iLength;
 }
